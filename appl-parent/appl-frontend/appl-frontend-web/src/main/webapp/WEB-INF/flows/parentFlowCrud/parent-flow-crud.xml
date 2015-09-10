@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	abstract="true"
+	start-state="initialState">
+	
+	<!-- FlowScope variables -->
+	<var name="transactionResult" class="org.ambar.core.dto.results.ResultVoidDTO" />
+	<var name="estadoEdicion" class="java.lang.String"/>
+	
+	<on-start>
+		<set name="flowScope.edicionEnabled"  value="true" />
+		<set name="flowScope.nuevoEnabled"    value="true" />
+		<set name="flowScope.eliminarEnabled" value="true" />
+	</on-start>
+	
+	<!-- Estado inicial para todos los flows CRUD -->
+	<decision-state id="initialState">
+		<if test="rToState == null" then="listadoState" else="#{rToState}"/>
+	</decision-state>
+ 
+	<!-- Consulta -->    
+    <view-state id="consultaView">
+		<transition on="eliminar" to="eliminarAction"/>
+					
+		<transition on="nuevo" to="nuevoState">
+			<set name="fromState" value="'consultaState'" />
+		</transition>
+
+		<transition on="editar" to="edicionState">
+			<set name="fromState" value="'consultaState'" />
+		</transition>
+		
+		<transition on="volver" to="listadoState"/>			    
+    </view-state>
+    
+    <!-- Nuevo -->    
+    <view-state id="nuevoView">
+    	<transition on="cancelar" to="cancelarNuevoDecision"/>
+    	
+    	<transition on="grabar" to="guardarNuevoAction"/>
+    </view-state>
+    
+    <decision-state id="cancelarNuevoDecision">
+		<if test="flowScope.fromState.equals('consultaState')" then="reloadSelectedAndPerformConsultaAction" else="#{flowScope.fromState}" />
+	</decision-state>
+    
+    <!-- Edición -->
+	<view-state id="edicionView">
+		<transition on="cancelar" to="cancelarEdicionDecision"/>
+		
+		<transition on="grabar" to="guardarEdicionAction"/>
+	</view-state>
+	
+	<decision-state id="cancelarEdicionDecision">
+		<if test="flowScope.fromState.equals('consultaState')" then="reloadSelectedAndPerformConsultaAction" else="#{flowScope.fromState}" />
+	</decision-state>
+	
+	<!-- Manejo de mensajes -->
+	<decision-state id="transactionHasErrors">
+		<if test="transactionResult.hasErrors()" then="transactionInfo" else="transactionInfoListado" />
+	</decision-state>
+	
+	<action-state id="transactionInfo">
+		<evaluate expression="messagesHelper.addErrorMessages(transactionResult.messages)" />
+		<transition to="redirectDesicion" >
+			<render fragments="messagesError" />
+		</transition>
+	</action-state>
+	
+	<decision-state id="redirectDesicion">
+		<if test="flowScope.estadoEdicion == 'EDICION'" then="edicionView" else="nuevoView"/>
+	</decision-state>
+	
+	<action-state id="transactionInfoListado">
+		<evaluate expression="messagesHelper.addErrorMessages(transactionResult.messages)" />
+		<transition to="listadoState" >
+			<render fragments="messagesError" />
+		</transition>
+	</action-state>
+
+</flow>

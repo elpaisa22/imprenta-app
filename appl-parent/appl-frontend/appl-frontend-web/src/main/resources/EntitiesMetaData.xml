@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<entities xmlns="http://www.ambar.org/entities" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.ambar.org/entities EntitiesMetaData.xsd">
+
+	<entity id="cliente">
+		<attribute id="id" visibleName="Nro. Cliente" order="1" fieldType="primary-key" width="85" mask="" dataType="Number" />
+		<attribute id="razonSocial" visibleName="Razón Social" order="2" fieldType="field" dataType="String" width="150" />
+		<attribute id="nombreFantasia" visibleName="Nom. Fantasía" gridVisible="false" order="2" fieldType="field" dataType="String" width="150" />
+		<attribute id="tipoDocumento" visibleName="Tipo Doc." order="3" dataType="Enum" width="75" fieldType="field"/>
+		<attribute id="numeroDocumento" visibleName="Nro. Doc." order="4" dataType="String" width="80" fieldType="field"/>
+		<attribute id="condicionIVA" visibleName="Cond. IVA" gridVisible="false"  order="3" dataType="Enum" width="75" fieldType="field"/>
+		<attribute id="telefono" visibleName="Telefono" order="5" dataType="String" width="110" fieldType="field" gridVisible="false"/>
+		<attribute id="direccion" visibleName="Direccion" order="6" dataType="String" width="130" fieldType="field" gridVisible="false"/>
+		<attribute id="ciudad" visibleName="Ciudad" order="7" dataType="String" width="130" fieldType="field"/>
+		<attribute id="idProvincia" visibleName="Provincia" order="8" dataType="String" width="100" fieldType="field" gridVisible="false"/>
+		<attribute id="idPais" visibleName="Pais" order="9" dataType="String" width="80" fieldType="field" gridVisible="false"/>
+		<attribute id="email" visibleName="E-Mail" order="10" dataType="String" width="200" fieldType="field"/>
+	</entity>
+
+	<entity id="proveedor">
+		<attribute id="id" visibleName="Nro. Proveedor" order="1" fieldType="primary-key" width="85" mask="" dataType="Number" />
+		<attribute id="razonSocial" visibleName="Nombre Cliente" order="2" fieldType="field" dataType="String" width="150" />
+		<attribute id="contacto" visibleName="Contacto" gridVisible="false" order="2" fieldType="field" dataType="String" width="150" />
+		<attribute id="condicionIVA" visibleName="Cond. IVA" gridVisible="false"  order="3" dataType="Enum" width="75" fieldType="field"/>
+		<attribute id="direccion" visibleName="Direccion" order="6" dataType="String" width="130" fieldType="field" gridVisible="false"/>
+		<attribute id="ciudad" visibleName="Ciudad" order="7" dataType="String" width="130" fieldType="field"/>
+		<attribute id="idProvincia" visibleName="Provincia" order="8" dataType="String" width="100" fieldType="field" gridVisible="false"/>
+		<attribute id="idPais" visibleName="Pais" order="9" dataType="String" width="80" fieldType="field" gridVisible="false"/>
+		<attribute id="email" visibleName="E-Mail" order="10" dataType="String" width="200" fieldType="field"/>
+	</entity>
+
+	<entity id="cuentaCorriente">
+		<attribute id="id" visibleName="Nro. Cuenta Corriente" order="1" fieldType="primary-key" width="100" mask="" dataType="Number" gridVisible="false"/>
+		<attribute id="razonSocialCliente" visibleName="Cliente" order="6" fieldType="field" dataType="String" width="150" />
+		<attribute id="nombreFantasiaCliente" visibleName="Nom. Fantasía" order="2" fieldType="field" dataType="String" width="150" />
+		<attribute id="tipoDocumentoCliente" visibleName="Tipo Doc." order="3" dataType="String" width="75" fieldType="field"/>
+		<attribute id="numeroDocumentoCliente" visibleName="Nro. Doc." order="4" dataType="String" width="80" fieldType="field"/>
+		<attribute id="descripcionCondicionIVACliente" visibleName="Cond. IVA" order="3" dataType="String" width="75" fieldType="field"/>
+		<attribute id="saldo" visibleName="Saldo" order="3" fieldType="field" dataType="Money" width="100" />
+	</entity>
+
+	<entity id="cuentaCorrienteProveedor">
+		<attribute id="id" visibleName="Nro. Cuenta " order="1" fieldType="primary-key" width="100" mask="" dataType="Number" gridVisible="false"/>
+		<attribute id="razonSocialProveedor" visibleName="Proveedor" order="6" fieldType="field" dataType="String" width="150" />
+		<attribute id="cuitProveedor" visibleName="CUIT" order="4" dataType="String" width="80" fieldType="field"/>
+		<attribute id="saldo" visibleName="Saldo" order="3" fieldType="field" dataType="Money" width="100" />
+	</entity>
+
+	<entity id="cuentaBancaria">
+		<attribute id="id" visibleName="Nro. Cuenta" order="1" fieldType="primary-key" width="100" mask="" dataType="Number" gridVisible="false"/>
+		<attribute id="saldo" visibleName="Saldo" order="3" fieldType="field" dataType="Money" width="100" />
+		<attribute id="idBanco" visibleName="ID Banco" order="2" fieldType="field" dataType="String" width="100" gridVisible="false"/>
+		<attribute id="descripcionBanco" visibleName="Banco" order="2" fieldType="field" dataType="String" width="100" />
+		<attribute id="sucursal" visibleName="Sucursal" order="2" fieldType="field" dataType="String" width="100" />
+	</entity>
+
+	<entity id="ordenTrabajo">
+		<attribute id="id" visibleName="Nro. Orden" order="1" fieldType="primary-key" width="100" mask="" dataType="Number" gridVisible="false"/>
+		<attribute id="descripcion" visibleName="Descripción" order="2" fieldType="field" dataType="String" width="100" />
+		<attribute id="razonSocialCliente" visibleName="Nombre Cliente" order="7" fieldType="field" dataType="String" width="200" />
+		<attribute id="fechaInicio" visibleName="Ingreso" order="3" fieldType="field" dataType="DateTime" width="100" />
+		<attribute id="estadoOrden" visibleName="Estado" order="4" fieldType="field" dataType="Enum" width="100" />
+		<attribute id="fechaPautada" visibleName="Pautada" order="5" fieldType="field" dataType="DateTime" width="100" />
+		<attribute id="importeTotal" visibleName="Importe Total" order="6" fieldType="field" dataType="Money" width="100" />
+		<attribute id="idFactura" visibleName="Nro. de Factura" order="7" fieldType="field" dataType="Number" width="100" />
+		<attribute id="idRemito" visibleName="Nro. de Remito" order="8" fieldType="field" dataType="Number" width="100" />
+	</entity>
+
+	<entity id="factura">
+		<attribute id="id" visibleName="Nro. Factura" order="1" fieldType="primary-key" width="100" dataType="Number" converter="idFacturaConverter"/>
+		<attribute id="fechaEmision" visibleName="Emisión" order="2" fieldType="field" dataType="DateTime" width="100"/>
+		<attribute id="condicionVenta" visibleName="Condición" order="4" fieldType="field" dataType="Enum" width="100" gridVisible="false"/>
+		<attribute id="descripcionCondicionVenta" visibleName="Condición" order="4" fieldType="field" dataType="String" width="100" searchEnabled="false"/>
+		<attribute id="razonSocialCliente" visibleName="Cliente" order="5" fieldType="field" dataType="String" width="150" />
+		<attribute id="importeTotal" visibleName="Importe Total" order="6" fieldType="field" dataType="Money" width="100" />
+		<attribute id="descripcionEstadoPago" visibleName="Estado del Pago" order="8" fieldType="field" dataType="String" width="100" searchEnabled="false"/>
+	</entity>
+
+	<entity id="remito">
+		<attribute id="id" visibleName="Nro. Remito" order="1" fieldType="primary-key" width="100" mask="" dataType="Number" />
+		<attribute id="fechaEmision" visibleName="Emisión" order="2" fieldType="field" dataType="DateTime" width="100" />
+		<attribute id="razonSocialCliente" visibleName="Cliente" order="3" fieldType="field" dataType="String" width="150" />
+	</entity>
+
+	<entity id="movimientoCuentaCorriente">
+		<attribute id="id" visibleName="Nro. Movimiento" order="1" fieldType="primary-key" width="100" mask="" dataType="Number" />
+		<attribute id="fecha" visibleName="Fecha" order="5" fieldType="field" dataType="DateTime" width="100" />
+		<attribute id="descripcion" visibleName="Descripción" order="2" fieldType="field" dataType="String" width="150" />
+		<attribute id="importeMovimiento" visibleName="Monto" order="3" fieldType="field" dataType="Money" width="100" />
+		<attribute id="saldo" visibleName="Saldo" order="4" fieldType="field" dataType="Money" width="100" />
+	</entity>
+
+	<entity id="movimientoCuentaCorrienteProveedor">
+		<attribute id="id" visibleName="Nro. Movimiento" order="1" fieldType="primary-key" width="100" mask="" dataType="Number" />
+		<attribute id="fecha" visibleName="Fecha" order="5" fieldType="field" dataType="DateTime" width="100" />
+		<attribute id="descripcion" visibleName="Descripción" order="2" fieldType="field" dataType="String" width="150" />
+		<attribute id="importeMovimiento" visibleName="Monto" order="3" fieldType="field" dataType="Money" width="100" />
+		<attribute id="saldo" visibleName="Saldo" order="4" fieldType="field" dataType="Money" width="100" />
+	</entity>
+
+	<entity id="movimientoCuentaBancaria">
+		<attribute id="id" visibleName="Nro. Movimiento" order="1" fieldType="primary-key" width="100" mask="" dataType="Number" />
+		<attribute id="fecha" visibleName="Fecha" order="5" fieldType="field" dataType="DateTime" width="100" />
+		<attribute id="descripcion" visibleName="Descripción" order="2" fieldType="field" dataType="String" width="150" />
+		<attribute id="importe" visibleName="Monto" order="3" fieldType="field" dataType="Money" width="100" />
+		<attribute id="saldo" visibleName="Saldo" order="4" fieldType="field" dataType="Money" width="100" />
+	</entity>
+
+	<entity id="cheque">
+		<attribute id="id" visibleName="Nro. Cheque" order="1" fieldType="primary-key" width="100" mask="" dataType="Number" />
+		<attribute id="fecha" visibleName="Fecha" order="2" fieldType="field" dataType="DateTime" width="100" />
+		<attribute id="fechaVencimiento" visibleName="Vencimiento" order="2" fieldType="field" dataType="DateTime" width="100" />
+		<attribute id="monto" visibleName="Monto" order="2" fieldType="field" dataType="Money" width="100" />
+		<attribute id="razonSocialCliente" visibleName="Recibido de" order="2" fieldType="field" dataType="String" width="100" />
+		<attribute id="cuenta" visibleName="Cuenta" order="2" fieldType="field" dataType="String" width="100" />
+		<attribute id="idBanco" visibleName="ID Banco" order="2" fieldType="field" dataType="String" width="100" gridVisible="false"/>
+		<attribute id="descripcionBanco" visibleName="Banco" order="2" fieldType="field" dataType="String" width="100" />
+		<attribute id="idCobranza" visibleName="ID Cobranza" order="2" fieldType="field" dataType="String" width="100" />
+		<attribute id="idPago" visibleName="ID Pago" order="2" fieldType="field" dataType="String" width="100" />
+		<attribute id="sucursal" visibleName="Sucursal" order="2" fieldType="field" dataType="String" width="100" />
+	</entity>
+
+	<entity id="chequeRecibido">
+		<attribute id="id" visibleName="Nro. Cheque" order="1" fieldType="primary-key" width="100" mask="" dataType="Number" />
+		<attribute id="fecha" visibleName="Fecha" order="2" fieldType="field" dataType="DateTime" width="100" />
+		<attribute id="fechaVencimiento" visibleName="Vencimiento" order="2" fieldType="field" dataType="DateTime" width="100" />
+		<attribute id="monto" visibleName="Monto" order="2" fieldType="field" dataType="Money" width="100" />
+		<attribute id="razonSocialCliente" visibleName="Recibido de" order="2" fieldType="field" dataType="String" width="100" />
+		<attribute id="cuenta" visibleName="Cuenta" order="2" fieldType="field" dataType="String" width="100" />
+		<attribute id="idBanco" visibleName="ID Banco" order="2" fieldType="field" dataType="String" width="100" gridVisible="false"/>
+		<attribute id="descripcionBanco" visibleName="Banco" order="2" fieldType="field" dataType="String" width="100" />
+		<attribute id="idCobranza" visibleName="ID Cobranza" order="2" fieldType="field" dataType="String" width="100"/>
+		<attribute id="sucursal" visibleName="Sucursal" order="2" fieldType="field" dataType="String" width="100" />
+	</entity>
+
+	<entity id="chequePropio">
+		<attribute id="id" visibleName="Nro. Cheque" order="1" fieldType="primary-key" width="100" mask="" dataType="Number" />
+		<attribute id="fecha" visibleName="Fecha" order="2" fieldType="field" dataType="DateTime" width="100" />
+		<attribute id="fechaVencimiento" visibleName="Vencimiento" order="2" fieldType="field" dataType="DateTime" width="100" />
+		<attribute id="monto" visibleName="Monto" order="2" fieldType="field" dataType="Money" width="100" />
+		<attribute id="razonSocialCliente" visibleName="Recibido de" order="2" fieldType="field" dataType="String" width="100" />
+		<attribute id="cuenta" visibleName="Cuenta" order="2" fieldType="field" dataType="String" width="100" />
+		<attribute id="idBanco" visibleName="ID Banco" order="2" fieldType="field" dataType="String" width="100" gridVisible="false"/>
+		<attribute id="descripcionBanco" visibleName="Banco" order="2" fieldType="field" dataType="String" width="100" />
+		<attribute id="idPago" visibleName="ID Pago" order="2" fieldType="field" dataType="String" width="100"/>
+		<attribute id="sucursal" visibleName="Sucursal" order="2" fieldType="field" dataType="String" width="100" />
+	</entity>
+
+	<entity id="chequeEntregado">
+		<attribute id="id" visibleName="Nro. Cheque" order="1" fieldType="primary-key" width="100" mask="" dataType="Number" />
+		<attribute id="fecha" visibleName="Fecha" order="2" fieldType="field" dataType="DateTime" width="100" />
+		<attribute id="fechaVencimiento" visibleName="Vencimiento" order="2" fieldType="field" dataType="DateTime" width="100" />
+		<attribute id="monto" visibleName="Monto" order="2" fieldType="field" dataType="Money" width="100" />
+		<attribute id="razonSocialCliente" visibleName="Recibido de" order="2" fieldType="field" dataType="String" width="100" />
+		<attribute id="cuenta" visibleName="Cuenta" order="2" fieldType="field" dataType="String" width="100" />
+		<attribute id="idBanco" visibleName="ID Banco" order="2" fieldType="field" dataType="String" width="100" gridVisible="false"/>
+		<attribute id="descripcionBanco" visibleName="Banco" order="2" fieldType="field" dataType="String" width="100" />
+		<attribute id="idCobranza" visibleName="ID Cobranza" order="2" fieldType="field" dataType="String" width="100" />
+		<attribute id="idPago" visibleName="ID Pago" order="2" fieldType="field" dataType="String" width="100" />
+		<attribute id="sucursal" visibleName="Sucursal" order="2" fieldType="field" dataType="String" width="100" />
+	</entity>
+
+	<entity id="articulo">
+		<attribute id="id" visibleName="Código de Artículo" order="1" fieldType="primary-key" width="100" mask="" dataType="String" />
+		<attribute id="descripcion" visibleName="Descripción" order="2" fieldType="field" dataType="String" width="150" />
+		<attribute id="descripcionMarca" visibleName="Marca" order="3" fieldType="field" dataType="String" width="150" />
+		<attribute id="descripcionRubro" visibleName="Rubro" order="4" fieldType="field" dataType="String" width="150" />
+		<attribute id="precioBruto" visibleName="Precio Bruto (con IVA)" order="6" fieldType="field" dataType="Money" width="100" searchEnabled="false"/>
+		<attribute id="precioNeto"  visibleName="Precio Neto (sin IVA)"  order="6" fieldType="field" dataType="Money" width="100" searchEnabled="false"/>
+		<attribute id="stock" visibleName="Stock" order="5" fieldType="field" dataType="Integer" width="100" />
+		<attribute id="stockMinimo" visibleName="Stock Minimo" order="6" fieldType="field" dataType="Integer" width="100" />
+	</entity>
+
+	<entity id="cobranza">
+		<attribute id="id" visibleName="Nro. Cobranza" order="1" fieldType="primary-key" width="100" mask="" dataType="Number" />
+		<attribute id="razonSocialCliente" visibleName="Cliente" order="6" fieldType="field" dataType="String" width="150" />
+		<attribute id="fecha" visibleName="Fecha" order="7" fieldType="field" dataType="DateTime" width="100" />
+		<attribute id="importeTotal" visibleName="Importe Total" order="6" fieldType="field" dataType="Money" width="100" />
+	</entity>
+
+	<entity id="pago">
+		<attribute id="id" visibleName="Nro. Pago" order="1" fieldType="primary-key" width="100" mask="" dataType="Number" />
+		<attribute id="razonSocialProveedor" visibleName="Proveedor" order="6" fieldType="field" dataType="String" width="150" />
+		<attribute id="fecha" visibleName="Fecha" order="7" fieldType="field" dataType="DateTime" width="100" />
+	</entity>
+
+	<entity id="compra">
+		<attribute id="id" visibleName="Nro. Compra" order="1" fieldType="primary-key" width="100" dataType="Number" />
+		<attribute id="fecha" visibleName="Fecha" order="2" fieldType="field" dataType="DateTime" width="100" />
+		<attribute id="condicionVenta" visibleName="Condición" order="4" fieldType="field" dataType="Enum" width="100" gridVisible="false"/>
+		<attribute id="descripcionCondicionVenta" visibleName="Condición" order="4" fieldType="field" dataType="String" width="100" searchEnabled="false"/>
+		<attribute id="razonSocialProveedor" visibleName="Proveedor" order="5" fieldType="field" dataType="String" width="150" />
+		<attribute id="descripcionEstadoPago" visibleName="Estado del Pago" order="8" fieldType="field" dataType="String" width="100" searchEnabled="false"/>
+	</entity>
+
+	<entity id="gasto">
+		<attribute id="id" visibleName="ID Gasto" order="1" fieldType="primary-key" width="100" mask="" dataType="String" />
+		<attribute id="nombre" visibleName="Nombre" order="4" fieldType="field" dataType="String" width="150" />
+		<attribute id="fecha" visibleName="Fecha" order="2" fieldType="field" dataType="DateTime" width="100" />
+		<attribute id="descripcionTipoGasto" visibleName="Tipo de Gasto" order="3" fieldType="field" dataType="String" width="150" />
+		<attribute id="importe" visibleName="Importe" order="6" fieldType="field" dataType="Money" width="100" />
+	</entity>
+
+	<entity id="ingreso">
+		<attribute id="id" visibleName="ID Ingreso" order="1" fieldType="primary-key" width="100" mask="" dataType="String" />
+		<attribute id="razonSocialCliente" visibleName="Recibido de" order="2" fieldType="field" dataType="String" width="100" />
+		<attribute id="fecha" visibleName="Fecha" order="2" fieldType="field" dataType="DateTime" width="100" />
+		<attribute id="descripcionTipoIngreso" visibleName="Tipo de Ingreso" order="3" fieldType="field" dataType="String" width="150" />
+		<attribute id="importe" visibleName="Importe" order="6" fieldType="field" dataType="Money" width="100" />
+	</entity>
+
+	<entity id="numeradorComprobante">
+		<attribute id="descripcionComprobante" visibleName="Nro. Comprobante" order="1" fieldType="field" width="100" mask="" dataType="String" searchEnabled="false"/>
+		<attribute id="id" visibleName="Nro. Comprobante" order="1" fieldType="primary-key" width="100" mask="" dataType="Number" gridVisible="false"/>
+		<attribute id="prefijo" visibleName="Prefijo" order="7" fieldType="field" dataType="Number" width="100" />
+		<attribute id="numero" visibleName="Número" order="7" fieldType="field" dataType="Number" width="100" />
+	</entity>
+
+	<entity id="rubro">
+		<attribute id="id" visibleName="Código" order="1" fieldType="primary-key" width="100" mask="" dataType="String" />
+		<attribute id="descripcion" visibleName="Descripción" order="2" fieldType="field" dataType="String" width="150" />
+	</entity>
+
+	<entity id="marca">
+		<attribute id="id" visibleName="Código" order="1" fieldType="primary-key" width="100" mask="" dataType="String" />
+		<attribute id="descripcion" visibleName="Descripción" order="2" fieldType="field" dataType="String" width="150" />
+	</entity>
+
+	<entity id="tipoGasto">
+		<attribute id="id" visibleName="Código" order="1" fieldType="primary-key" width="100" mask="" dataType="String" />
+		<attribute id="descripcion" visibleName="Descripción" order="2" fieldType="field" dataType="String" width="150" />
+	</entity>
+
+	<entity id="tipoIngreso">
+		<attribute id="id" visibleName="Código" order="1" fieldType="primary-key" width="100" mask="" dataType="String" />
+		<attribute id="descripcion" visibleName="Descripción" order="2" fieldType="field" dataType="String" width="150" />
+	</entity>
+
+	<entity id="banco">
+		<attribute id="id" visibleName="Código" order="1" fieldType="primary-key" width="100" mask="" dataType="String" />
+		<attribute id="descripcion" visibleName="Descripción" order="2" fieldType="field" dataType="String" width="150" />
+	</entity>
+
+	<entity id="pais">
+		<attribute id="id" visibleName="Código" order="1" fieldType="primary-key" width="100" mask="" dataType="String" />
+		<attribute id="descripcion" visibleName="Descripción" order="2" fieldType="field" dataType="String" width="150" />
+	</entity>
+
+	<entity id="provincia">
+		<attribute id="idProvincia" visibleName="Código" order="1" fieldType="primary-key" width="100" mask="" dataType="String" />
+		<attribute id="descripcionPais" visibleName="Pais" order="2" fieldType="field" dataType="String" width="150" />
+		<attribute id="descripcion" visibleName="Descripción" order="2" fieldType="field" dataType="String" width="150" />
+	</entity>
+
+
+</entities>

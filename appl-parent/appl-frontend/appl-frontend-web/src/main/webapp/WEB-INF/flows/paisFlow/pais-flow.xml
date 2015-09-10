@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+      parent="parent-flow-listado, parent-flow, parent-flow-crud">
+      
+    <!-- FlowScope variables -->
+	<var name="selectedDTO" class="org.ambar.appl.dto.PaisDTO" />
+	<var name="nuevaEntidad" class="org.ambar.appl.dto.PaisDTO" />
+	
+
+    <action-state id="guardarEdicionAction">
+    	<evaluate expression="paisServices.update(selectedDTO, userContext)" result="transactionResult"/>
+    	<transition to="transactionHasErrors"/>
+    </action-state>
+     
+    <action-state id="guardarNuevoAction">
+    	<evaluate expression="paisServices.insert(nuevaEntidad, userContext)" result="transactionResult"/>
+    	<transition to="transactionHasErrors"/>
+    </action-state>
+    
+    <action-state id="nuevoState">    	
+    	<evaluate expression="new org.ambar.appl.dto.PaisDTO()" result="nuevaEntidad"/>
+    	<transition to="nuevoView">
+    		<set name="flowScope.estadoEdicion" value="'NUEVO'"/>    		
+    	</transition>
+    </action-state>
+    
+    <action-state id="edicionState"> 
+    	<evaluate expression="paisServices.getById(selected.id, userContext).getResult()" result="selectedDTO"/>   	
+    	<transition to="edicionView">    		
+    		<set name="flowScope.estadoEdicion" value="'EDICION'"/>
+    	</transition>
+    </action-state>
+    
+    <action-state id="consultaState">
+    	<evaluate expression="paisServices.getById(selected.id, userContext).getResult()" result="selectedDTO"/>   	
+    	<transition to="consultaView">    		
+    		<set name="flowScope.estadoEdicion" value="'CONSULTA'"/>
+    	</transition>
+    </action-state>
+    
+    <action-state id="eliminarAction">
+    	<evaluate expression="paisServices.remove(selected, userContext)" result="transactionResult"/>   	
+    	<transition to="transactionHasErrors"/>
+    </action-state>
+    
+    <!-- Recarga de objeto seleccionado para consulta y forward a consulta -->
+    <action-state id="reloadSelectedAndPerformConsultaAction">
+    	<evaluate expression="paisServices.getById(selected.id,userContext).getResult()" result="selected" />
+    	<transition to="consultaView" />
+    </action-state>
+</flow>

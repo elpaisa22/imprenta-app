@@ -1,0 +1,55 @@
+<navigationManager xmlns="http://www.ambar.org/navigation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.ambar.org/navigation NavigationManager.xsd">
+
+	<entitiesInformation>
+	    <entity id="articulo" name="Artículo" browse-title="Articulo (:id / :descripcion)" image-big="package.png" image-small="package_16.png" service="articuloServices" crud="articuloABM">
+		</entity>
+		<entity id="cliente" name="Clientes" browse-title="Clientes (:id, :razonSocial)" image-big="business_users.png" image-small="business_users_16.png" service="clienteServices" crud="clienteABM">
+			<subentity id="factura" text="Facturas" filterCondition="idCliente = :id" />
+		</entity>
+		<entity id="ordenTrabajo" name="Ordenes de Trabajo" browse-title="Ordenes de Trabajo (:id)" image-big="note.png" image-small="note_16.png" service="ordenTrabajoServices" crud="ordenTrabajoABM">
+			<subentity id="factura" text="Facturas" filterCondition="id = :idFactura" />
+			<subentity id="remito" text="Remitos" filterCondition="id = :idRemito" />
+		</entity>
+		<entity id="factura" name="Facturas" browse-title="Facturas (:id)" image-big="paper.png" image-small="paper_16.png" service="facturaServices" crud="facturaABM">
+		</entity>
+		<entity id="remito" name="Remitos" browse-title="Remitos (:id)" image-big="attachment.png" image-small="attachment_16.png" service="remitoServices" crud="remitoABM">
+			<subentity id="factura" text="Facturas" filterCondition="idRemito = :id" />
+		</entity>
+		<entity id="movimiento" name="Movimientos" browse-title="Movimientos (:id)" image-big="credit_cart.png" image-small="credit_cart_16.png" service="movimientoServices" crud="movimientoABM">
+			<subentity id="cheque" text="Cheques" filterCondition="id = :idCheque" />
+		</entity>
+		<entity id="cheque" name="Cheques" browse-title="Cheques (:id)" image-big="book.png" image-small="book_16.png" service="chequeServices" crud="chequeABM">
+		</entity>
+		<entity id="tipoCodigosVarios" name="Tipos de Codigos Varios" browse-title="Tipos de Codigos Varios (:id / :descripcion)" image-big="tablet.png" image-small="tablet_16.png" service="tipoCodigosVariosServices" crud="tipoCodigosVariosABM">
+			<subentity id="valorCodigosVarios" text="Valor de Codigos Varios" filterCondition="idTipoCodigo = :id" />
+		</entity>
+		<entity id="valorCodigosVarios" name="Valor de Codigos Varios" browse-title="Valor de Codigos Varios (:id)" image-big="chalk_board.png" image-small="chalk_board_16.png" service="valorCodigosVariosServices" crud="valorCodigosVariosABM">
+		</entity>
+	</entitiesInformation>
+
+	<navigation>
+		<module id="clientes" text="Clientes">
+			<item entity="cliente" text="Clientes" />
+		</module>
+
+		<module id="ventas" text="Ventas">
+			<item entity="articulo" text="Artículos" />
+		</module>
+
+		<module id="contabilidad" text="Contabilidad">
+			<item entity="factura" text="Facturas" />
+			<item entity="remito" text="Remitos" />
+			<item entity="movimiento" text="Movimientos" />
+			<item entity="cheque" text="Cheques" />
+		</module>
+
+		<module id="informes" text="Informes">
+		</module>
+
+		<module id="administracion" text="Administración">
+			<item entity="tipoCodigosVarios" text="Tipos de Codigos Varios" />
+		</module>
+	</navigation>
+</navigationManager>

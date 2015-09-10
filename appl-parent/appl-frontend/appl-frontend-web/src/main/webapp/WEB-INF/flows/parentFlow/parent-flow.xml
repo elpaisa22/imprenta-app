@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	abstract="true">
+
+	<var name="parentSelected" class="java.lang.Object" />
+
+	<var name="rTarget" class="java.lang.String" />
+	<var name="rEntityName" class="java.lang.String" />
+	<var name="rFrom" class="java.lang.String" />
+	<var name="rToState" class="java.lang.String" />
+	<var name="entitySelected" class="java.lang.String"/>
+	<var name="entityServices" class="java.lang.String"/>
+	<var name="columns" class="java.util.ArrayList"/>
+	
+	<on-start>
+		<set name="entitySelected" value="requestParameters.entity" type="string" />		
+		<evaluate expression="dataTableBean.getColumns(entitySelected)" result="columns"/>
+		
+		<set name="rEntityName" value="requestParameters.entity" type="string" />
+		<set name="rFrom" value="requestParameters.from" type="string" />		
+		<set name="rToState" value="requestParameters.toState" type="string" />
+
+		<set name="parentSelected" value="(rFrom == 'M') ? null : externalContext.sessionMap.parentSelected" />
+	</on-start>
+	
+	<view-state id="viewRedirect" view="flowRedirect:#{rTarget}?entity=#{rEntityName}&amp;from=#{rFrom}&amp;toState=#{rToState}" />
+	
+	<global-transitions>
+		<transition on="redirect" to="viewRedirect">			
+			<set name="rTarget" value="requestParameters.target" type="string" />
+			<set name="rEntityName" value="requestParameters.entityName" type="string" />
+			<set name="rFrom" value="requestParameters.from" type="string" />
+			<set name="rToState" value="requestParameters.toState" type="string" />
+
+			<set name="externalContext.sessionMap.lastSelected" value="null" />
+			<evaluate expression="breadcrumbBean.LoadFromParent(rEntityName)"/>
+			<evaluate expression="dataTableBean.initSession()"/>			
+		</transition>
+	</global-transitions>
+    
+</flow>

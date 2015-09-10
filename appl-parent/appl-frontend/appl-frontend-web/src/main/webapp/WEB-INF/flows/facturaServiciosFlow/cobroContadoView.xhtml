@@ -1,0 +1,292 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:security="http://www.springframework.org/security/tags"
+	xmlns:custom="http://ambar.org/facelets"
+	template="/WEB-INF/templates/template_crud_new.xhtml">
+	 
+	<ui:define name="toolbar_crud">
+		<p:toolbar>
+			<f:facet name="left">
+				<div class="entity-title">
+					<h:outputText value="Cobro al Contado" /> 
+				</div>  
+			</f:facet>		
+			<f:facet name="right">
+				<p:commandButton value="Continuar" title="Continuar" action="grabar" icon="fa fa-check" update="content_crud messagesError" process="@this content_crud"/>
+				<p:commandButton value="Cancelar"  title="Cancelar la operación"   action="cancelar"  icon="fa fa-times"  immediate="true"/>
+			</f:facet>
+		</p:toolbar>
+	</ui:define>
+	
+	<ui:define name="content_crud">	
+	
+		<p:panel id="content_crud" styleClass="data-form">
+
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Cliente:  " styleClass="label-form"/>
+				<h:outputText value="#{autoCompleteClienteBean.clienteSelected.razonSocial}"/>
+				<h:outputText value="Saldo adeudado total:" styleClass="label-form"/>
+				<h:outputText id="fld_saldoCuenta" value="#{autoCompleteClienteBean.clienteSelected.saldoCuentaCorriente}">
+					<f:convertNumber type="currency"/>
+				</h:outputText>
+
+				<h:outputText value="Saldo factura:" styleClass="label-form"/>
+				<h:outputText value="#{nuevaEntidad.importeTotal}">
+					<f:convertNumber type="currency"/>
+				</h:outputText>
+				<h:outputText/>
+				<h:outputText/>
+
+				<h:outputText value="Importe total:  " styleClass="label-form"/>
+				<h:outputText id="fld_importeTotal" value="#{nuevaEntidad.cobranza.importeTotal}">
+					<f:convertNumber type="currency"/>
+				</h:outputText>
+			</p:panelGrid>
+			
+			<p:tabView id="detalle_pagos">
+				<p:tab title="Efectivo">
+					<p:panelGrid columns="4" styleClass="tabla-form">				
+						<h:outputText value="Monto Efectivo: " styleClass="label-form"/>
+						<p:inputText id="fld_MontoEfectivo"
+						             value="#{nuevaEntidad.cobranza.montoEfectivo}" label="Monto Efectivo" onchange="recalcularMontoTotal()">
+							<f:convertNumber minFractionDigits="2"/>
+							<f:ajax render="@this"/>
+						</p:inputText>
+						<h:outputText/>
+						<h:outputText/> 	 
+					</p:panelGrid>
+				</p:tab>
+				<p:tab title="Tarjeta Crédito">
+					<p:panelGrid columns="4" styleClass="tabla-form">				
+						<h:outputText value="Nro. Tarjeta Crédito:  " styleClass="label-form"/>
+						<p:inputMask value="#{nuevaEntidad.cobranza.numeroTarjetaCredito}" mask="9999-9999-9999-9999"/>
+						<h:outputText/>
+						<h:outputText/> 	 
+					</p:panelGrid>
+					
+					<p:panelGrid columns="4" styleClass="tabla-form">				
+						<h:outputText value="Marca:  " styleClass="label-form"/>
+						<p:inputText value="#{nuevaEntidad.cobranza.marcaTarjetaCredito}"/>
+						<h:outputText/>
+						<h:outputText/> 	 
+					</p:panelGrid>
+					
+					<p:panelGrid columns="4" styleClass="tabla-form">				
+						<h:outputText value="Banco:  " styleClass="label-form"/>
+						<p:selectOneMenu id="bancoTarjetaCredito" value="#{nuevaEntidad.cobranza.idBancoTarjetaCredito}"
+			                             effect="fade" var="t"
+			                             label="Banco de la Tarjeta Credito">
+				            <f:selectItem itemLabel="Seleccione una opción" itemValue="#{null}" />
+				            <f:selectItems value="#{abmCobranzaBean.listaBancos}" var="banco" itemLabel="#{banco.descripcion}" itemValue="#{banco.id}" />
+				        </p:selectOneMenu>
+						<h:outputText/>
+						<h:outputText/> 	 
+					</p:panelGrid>	
+					
+					<p:panelGrid columns="4" styleClass="tabla-form">				
+						<h:outputText value="Monto Tarjeta Crédito: " styleClass="label-form"/>
+						<p:inputText id="fld_MontoTarjetaCredito"
+						             value="#{nuevaEntidad.cobranza.montoTarjetaCredito}" label="Monto Tarjeta Crédito" onchange="recalcularMontoTotal()">
+							<f:convertNumber minFractionDigits="2"/>
+							<f:ajax render="@this"/>
+						</p:inputText>
+						<h:outputText/>
+						<h:outputText/> 	 
+					</p:panelGrid>
+				</p:tab>
+				
+				<p:tab title="Tarjeta Débito">
+					<p:panelGrid columns="4" styleClass="tabla-form">				
+						<h:outputText value="Nro. Tarjeta Débito:  " styleClass="label-form"/>
+						<p:inputMask value="#{nuevaEntidad.cobranza.numeroTarjetaDebito}" mask="9999-9999-9999-9999"/>
+						<h:outputText/>
+						<h:outputText/> 	 
+					</p:panelGrid>
+					
+					<p:panelGrid columns="4" styleClass="tabla-form">				
+						<h:outputText value="Marca:  " styleClass="label-form"/>
+						<p:inputText value="#{nuevaEntidad.cobranza.marcaTarjetaDebito}"/>
+						<h:outputText/>
+						<h:outputText/> 	 
+					</p:panelGrid>
+					
+					<p:panelGrid columns="4" styleClass="tabla-form">				
+						<h:outputText value="Banco:  " styleClass="label-form"/>
+						<p:selectOneMenu id="bancoTarjetaDebito" value="#{nuevaEntidad.cobranza.idBancoTarjetaDebito}"
+			                             effect="fade" var="t"
+			                             label="Banco de la Tarjeta Debito">
+				            <f:selectItem itemLabel="Seleccione una opción" itemValue="#{null}" />
+				            <f:selectItems value="#{abmCobranzaBean.listaBancos}" var="banco" itemLabel="#{banco.descripcion}" itemValue="#{banco.id}" />
+				        </p:selectOneMenu>
+						<h:outputText/>
+						<h:outputText/> 	 
+					</p:panelGrid>	
+					
+					<p:panelGrid columns="4" styleClass="tabla-form">				
+						<h:outputText value="Monto Tarjeta Débito: " styleClass="label-form"/>
+						<p:inputText id="fld_MontoTarjetaDebito"
+						             value="#{nuevaEntidad.cobranza.montoTarjetaDebito}" label="Monto Tarjeta Débito" onchange="recalcularMontoTotal()">
+							<f:convertNumber minFractionDigits="2"/>
+							<f:ajax render="@this"/>
+						</p:inputText>
+						<h:outputText/>
+						<h:outputText/> 	 
+					</p:panelGrid>
+				</p:tab>
+				
+				<p:tab title="Cheque" id="tab_cheques">
+					<p:dataTable id="table_cheques" var="cheque" value="#{nuevaEntidad.cobranza.coleccionCheques}"
+					             emptyMessage="No existen cheques."
+					             paginator="true" rows="10" paginatorPosition="bottom"
+				                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+				                 currentPageReportTemplate="(Registros: {startRecord} - {endRecord} de {totalRecords}, Página {currentPage}/{totalPages})">
+					    <f:facet name="header">
+					    	Cheques
+					    </f:facet>
+					    <p:column headerText="Nro. Cheque">
+					        <h:outputText value="#{cheque.id}" />
+					    </p:column>
+					    <p:column headerText="Fecha">
+					        <h:outputText value="#{cheque.fecha}">
+								<f:convertDateTime pattern="dd/MM/yyyy"/> 
+							</h:outputText>
+					    </p:column>
+					    <p:column headerText="Vencimiento">
+					        <h:outputText value="#{cheque.fechaVencimiento}">
+								<f:convertDateTime pattern="dd/MM/yyyy"/> 
+							</h:outputText>
+					    </p:column>
+					    <p:column headerText="Monto">
+					        <h:outputText value="#{cheque.monto}" >
+								<f:convertNumber type="currency"/>
+							</h:outputText>
+					    </p:column>
+					    <p:column style="text-align: center; width: 50px;">
+							<f:facet name="header">
+								<h:outputText value="Editar" />
+							</f:facet>
+							<p:commandButton icon="ui-icon-pencil"
+											 title="Editar cheque"
+											 oncomplete="PF('window_cheque').show();"
+				                             process="@this table_cheques"
+				                             update=":form-main:detalle_cheque"
+				                             partialSubmit="true"
+				                             async="false">
+				            	<f:setPropertyActionListener value="#{cheque}" target="#{abmCobranzaBean.cheque}" />
+				            </p:commandButton>
+						</p:column>
+					    <p:column style="text-align: center; width: 50px;">
+							<f:facet name="header">
+								<h:outputText value="Eliminar" />
+							</f:facet>
+							<p:commandButton icon="ui-icon-trash"
+											 title="Eliminar cheque"
+				                             update="table_cheques"
+				                             process="@this table_cheques"
+				                             partialSubmit="true"
+				                             actionListener="#{nuevaEntidad.cobranza.removerCheque(cheque)}"
+				                             async="false"/>
+						</p:column>
+					</p:dataTable>
+					
+					<p:separator/>
+					
+					<p:commandButton id="btnAgregarCheque"
+									 value="Agregar cheque"
+					                 icon="ui-icon-circle-plus"
+					                 title="Agrega un cheque a la cobranza"
+					                 actionListener="#{abmCobranzaBean.crearCheque()}"
+					                 oncomplete="PF('window_cheque').show();"
+					                 async="false"
+					                 process="@this"
+					                 update=":form-main:detalle_cheque"
+					                 partialSubmit="true"/>
+				</p:tab>
+			
+			</p:tabView>
+			
+			<p:remoteCommand name="recalcularMontoTotal"
+			                 process="@this
+			                          form-main:detalle_pagos:fld_MontoTarjetaCredito
+			                          form-main:detalle_pagos:fld_MontoTarjetaDebito
+			                          form-main:detalle_pagos:fld_MontoEfectivo
+			                          form-main:detalle_pagos:table_cheques"
+			                 actionListener="#{abmCobranzaBean.recalcularTotal(nuevaEntidad.cobranza)}"
+			                 update="fld_importeTotal"/>
+		</p:panel>
+		
+		
+		<p:dialog widgetVar="window_cheque" modal="true" resizable="false" width="600" header="Cheque" hideEffect="fade" dynamic="true">
+			<p:outputPanel id="detalle_cheque">
+
+				<p:messages id="clientvalidations"/>
+	
+				<p:panelGrid columns="2" styleClass="tabla-form" columnClasses="label-popup, field-popup">
+					<h:outputText value="Banco:  " styleClass="label-form"/>
+		            <p:selectOneMenu id="banco" value="#{abmCobranzaBean.cheque.idBanco}"
+			                         effect="fade" var="t"
+			                         required="true" label="Banco">
+			            <f:selectItem itemLabel="Seleccione una opción" itemValue="#{null}" />
+			            <f:selectItems value="#{abmCobranzaBean.listaBancos}" var="banco" itemLabel="#{banco.descripcion}" itemValue="#{banco.id}" />
+			        </p:selectOneMenu>
+					<h:outputText value="Sucursal:  " styleClass="label-form"/>
+					<p:inputText value="#{abmCobranzaBean.cheque.sucursal}" />
+					<h:outputText value="Cuenta:  " styleClass="label-form"/>
+					<p:inputText value="#{abmCobranzaBean.cheque.cuenta}" />
+					<h:outputText value="Fecha:  " styleClass="label-form"/>
+					<p:calendar label="Fecha" value="#{abmCobranzaBean.cheque.fecha}" showOn="button" pattern="dd/MM/yyyy" locale="es" required="true"/>
+					<h:outputText value="Vencimiento:  " styleClass="label-form"/>
+					<p:calendar label="Vencimiento" value="#{abmCobranzaBean.cheque.fechaVencimiento}" showOn="button" pattern="dd/MM/yyyy" locale="es" required="true"/>
+					<h:outputText value="Nro del Cheque:  " styleClass="label-form"/>
+					<p:inputText label="Nro del Cheque" value="#{abmCobranzaBean.cheque.id}" required="true" />
+					<h:outputText value="Emisor:  " styleClass="label-form"/>
+					<p:inputText value="#{abmCobranzaBean.cheque.emisor}" />
+					<h:outputText value="CUIT:  " styleClass="label-form"/>
+					<p:inputMask value="#{abmCobranzaBean.cheque.cuit}" mask="99-99999999-9" label="CUIT"/>
+					<h:outputText value="Monto:  " styleClass="label-form"/>
+					<p:inputText id="fldCosto"
+					             value="#{abmCobranzaBean.cheque.monto}"
+					             required="true" label="Monto">
+						<f:convertNumber minFractionDigits="2"/>
+						<f:ajax render="@this"/>
+						<f:validateLongRange minimum="0"/>
+					</p:inputText>
+				</p:panelGrid>
+				
+			</p:outputPanel>
+			
+			<f:facet name="footer">
+				<p:commandButton value="Guardar" icon="fa fa-save"
+								 actionListener="#{nuevaEntidad.cobranza.agregarCheque(abmCobranzaBean.cheque)}"
+				                 process="@this detalle_cheque detalle_pagos"
+				                 update="clientvalidations form-main:detalle_pagos:table_cheques detalle_cheque"
+				                 oncomplete="if (args &amp;&amp; !args.validationFailed) {PF('window_cheque').hide(); recalcularMontoTotal();}"
+				                 partialSubmit="true"
+				                 validateClient="true"
+				                 async="false"/>
+				<p:commandButton type="button" ajax="false" value="Cancelar" onclick="PF('window_cheque').hide()" icon="fa fa-ban"/>
+			</f:facet>
+
+		</p:dialog>
+		
+		
+		
+<!-- 		<p:confirmDialog message="¿Está seguro que desea guardar los cambios?" width="400" showEffect="fade" hideEffect="fade" header="Grabar" severity="alert" widgetVar="confirmationEditar"> -->
+<!-- 			<p:commandButton value="Si, estoy seguro" action="grabar" process="@form" update="@form" oncomplete="PF('confirmationEditar').hide()"/> -->
+<!-- 			<p:commandButton value="No" onclick="PF('confirmationEditar').hide()" type="button" /> -->
+<!-- 		</p:confirmDialog> -->
+	
+<!-- 		<p:confirmDialog message="¿Está seguro que desea perder los cambios?" width="400" showEffect="fade" hideEffect="fade" header="Cancelar" severity="alert" widgetVar="confirmationCancelar"> -->
+<!-- 			<p:commandButton value="Si, estoy seguro" action="cancelar" immediate="true" oncomplete="PF('confirmationCancelar').hide()"/> -->
+<!-- 			<p:commandButton value="No" onclick="PF('confirmationCancelar').hide()" type="button" /> -->
+<!-- 		</p:confirmDialog> -->
+		 
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:custom="http://ambar.org/facelets">
+
+<f:view contentType="text/html">
+
+	<h:head>
+	
+		<f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />		
+ 
+            <title>Identificación de Usuarios</title>
+            
+            <link href='${request.contextPath}/spring/javax.faces.resource/images/favicon.ico' rel='shortcut icon' type='image/x-icon'/>
+        </f:facet>
+		
+		<f:facet name="middle">
+            <h:outputStylesheet name="bootstrap/css/bootstrap.css" />
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" />
+            <h:outputScript name="bootstrap/js/bootstrap.js" />
+            <h:outputStylesheet library="layout" name="core-layout.css" />
+            <h:outputStylesheet library="layout" name="spark-layout.css" />
+        </f:facet>
+		
+	</h:head>
+
+	<h:body>
+		
+		<form class="form-signin" action="${request.contextPath}/spring/loginProcess" method="post">
+
+			<div id="layout-portlets-cover">
+				<div
+					class="other-pages-box Container40 Responsive50 MarAuto Fnone TexAlCenter ShadowGray MarTop10"
+					style="margin-top: 5%; background-image: url(${request.contextPath}/spring/javax.faces.resource/primefaces-spark/images/loginpageillust.svg); background-repeat: no-repeat; background-position: center; background-size: cover;">
+					<div class="Container90 Fnone MarAuto TexAlCenter">
+						<div class="EmptyBox50"></div>
+						<img src="${request.contextPath}/spring/javax.faces.resource/primefaces-spark/images/LOGO.svg"
+							 class="MarAuto MarTop20 MarBot10"/>
+
+					    <div class="EmptyBox20"></div>
+
+						<p:inputText id="j_username" placeholder="Nombre de usuario" styleClass="Container80 Fnone MarAuto Fs18"/>
+
+						<div class="EmptyBox10"></div>
+
+						<p:password id="j_password" placeholder="Contraseña" styleClass="Container80 Fnone MarAuto Fs18"/>
+	                    
+						<div class="EmptyBox20"></div>
+	                    <div class="Container85 Fnone MarAuto softgray">
+	                        <div class="EmptyBox5"></div>
+	                        <!-- aca va el checkbox -->
+	                    </div>
+	                    <div class="EmptyBox30">
+	                    	<c:if test="${param.login_error  == '1'}">
+	                    		<span style="color: red">${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}</span>
+	                    	</c:if>
+	                    </div>
+						
+						<button id="btnLogin" name="btnLogin" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" type="submit">
+				        	<span class="ui-button-text ui-c">Iniciar Sesión</span>
+				        </button>
+				        <script type="text/javascript">
+				        	PrimeFaces.cw("CommandButton","widget_btnLogin",{id:"btnLogin",widgetVar:"widget_btnLogin"});
+						</script>
+						
+	                    <div class="EmptyBox10"></div>
+	                    <div class="Seperator"></div>
+	                    <div class="EmptyBox10"></div>
+
+						<p:commandButton type="button" value="Olvidó su contraseña?" styleClass="Fs16 RedButton"/>
+						
+						<p:commandButton type="button" value="Cantactar al administrador?" styleClass="Fs16 OrangeButton"/>
+						
+	                    <div class="EmptyBox50"></div>
+	                </div>
+	            </div>
+	        </div>
+	
+		</form>
+					
+	
+	</h:body>
+</f:view>
+</html>

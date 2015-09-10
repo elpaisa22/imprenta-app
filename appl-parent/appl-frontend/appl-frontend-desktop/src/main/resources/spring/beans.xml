@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+      xmlns:p="http://www.springframework.org/schema/p" xmlns:tx="http://www.springframework.org/schema/tx"
+      xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+	
+	<bean id="navigationBean" class="org.ambar.appl.components.navigation.impl.NavigationBeanImpl" init-method="initialize">
+		<property name="dictionaryServices" ref="dictionaryServices"/>
+		<property name="table" ref="ambarJTable"/>
+		<property name="tableModel" ref="ambarTableModel"/>
+		<property name="tableColumnModel" ref="ambarTableColumnModel"/>
+		<property name="requestContext" ref="requestContext"/>
+		<property name="ambarBreadCrumb" ref="ambarBreadCrumb"/>
+		<property name="txtBuscar" ref="textFieldForFiltering"/>
+	</bean>
+	
+	<bean id="textFieldForFiltering" class="javax.swing.JTextField">
+	</bean>
+
+	<bean id="ambarTableModel" class="org.ambar.appl.components.table.AmbarTableModel">
+	</bean>
+	
+	<bean id="ambarTableColumnModel" class="org.ambar.appl.components.table.AmbarTableColumnModel">
+	</bean>
+	
+	<bean id="ambarJTable" class="javax.swing.JTable">
+		<property name="Model" ref="ambarTableModel"/>
+		<property name="ColumnModel" ref="ambarTableColumnModel"/>		
+	</bean>
+	
+	<bean id="ambarTreeListener" class="org.ambar.appl.components.listeners.AmbarTreeListener">
+		<property name="navigationBean" ref="navigationBean"/>
+	</bean>
+	
+	<bean id="ambarCrudButtonsListener" class="org.ambar.appl.components.listeners.AmbarCrudButtonsListener">
+		<property name="navigationBean" ref="navigationBean"/>
+	</bean>
+	
+	<bean id="ambarTrableGridListener" class="org.ambar.appl.components.listeners.AmbarTableGridListener">
+		<property name="navigationBean" ref="navigationBean"/>
+	</bean>
+	
+	<bean id="ambarBreadCrumb" class="org.ambar.appl.components.breadcrumb.AmbarBreadCrumb">
+		<property name="dictionaryServices" ref="dictionaryServices"/>
+		<property name="navigationBean" ref="navigationBean"/>
+	</bean>
+	
+	<bean id="mainView" class="org.ambar.appl.main.MainView">
+		<constructor-arg name="pFilterField" ref="textFieldForFiltering"/>
+		<property name="tableGrid" ref="ambarJTable"/>
+		<property name="ambarTreeListener" ref="ambarTreeListener"/>
+		<property name="ambarCrudButtonsListener" ref="ambarCrudButtonsListener"/>
+		<property name="ambarTableGridListener" ref="ambarTrableGridListener"/>
+		<property name="dictionaryServices" ref="dictionaryServices"/>
+		<property name="ambarBreadCrumb" ref="ambarBreadCrumb"/>
+	</bean>
+	
+	<bean id="requestContext" class="org.ambar.core.commons.context.RequestContext">
+		<property name="user" value="diego"/>
+		<property name="locale" value="es_AR"/>
+	</bean>
+         
+    <bean id="parentABM" class="org.ambar.appl.components.abm.view.impl.AbstractABMImpl" abstract="true">
+    	<property name="requestContext" ref="requestContext"/>
+		<property name="navigationBean" ref="navigationBean"/>
+    </bean>  
+</beans>   	

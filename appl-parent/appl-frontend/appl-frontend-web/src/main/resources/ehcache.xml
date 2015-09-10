@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache>
+	<defaultCache maxElementsInMemory="0" eternal="true" />
+
+	<cache name="org.hibernate.cache.StandardQueryCache"
+		maxElementsInMemory="1000" eternal="false" timeToLiveSeconds="21600">
+	</cache>
+
+	<cache name="org.hibernate.cache.UpdateTimestampsCache"
+		maxElementsInMemory="100" eternal="true">
+	</cache>
+
+	<cache name="org.ambar.appl.be.TipoCodigosVarios"
+		maxElementsInMemory="100" eternal="true" />
+
+	<cache name="org.ambar.appl.be.ValorCodigosVarios"
+		maxElementsInMemory="100" eternal="true" />
+</ehcache>

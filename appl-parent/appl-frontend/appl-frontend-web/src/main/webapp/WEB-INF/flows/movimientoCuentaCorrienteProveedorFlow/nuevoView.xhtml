@@ -1,0 +1,162 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:security="http://www.springframework.org/security/tags"
+	xmlns:custom="http://ambar.org/facelets"
+	template="/WEB-INF/templates/template_crud_new.xhtml">
+	 
+	<ui:define name="title">
+		<h:outputText value="Nuevo Mvto de Cta Cte Proveedor" /> 
+	</ui:define>
+	
+	<ui:define name="toolbar_crud">
+		<ui:include src="/WEB-INF/templates/toolbars/toolbar_edicion.xhtml" />
+	</ui:define>
+	
+	<ui:define name="content_crud">	
+	
+		<p:panel id="content_crud" styleClass="data-form">
+
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Nro Movimiento:  " styleClass="label-form"/>
+				<h:outputText value="#{nuevaEntidad.id}" />
+				<h:outputText/>
+				<h:outputText/>					 
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Nro Factura:  " styleClass="label-form"/>
+				<p:autoComplete id="factura" value="#{autoCompleteFacturaBean.facturaSelected}" completeMethod="#{autoCompleteFacturaBean.completeFactura}"  
+	                        var="f" itemLabel="#{f.id}" itemValue="#{f}" forceSelection="true" converter="#{autoCompleteFacturaBean}"
+	                        required="true" label="Nro Factura">	                	  
+	                <p:column>
+	                	<f:facet name="header">
+								<h:outputText value="Numero de Factura" />
+						</f:facet>
+	                  	<h:outputText value="#{f.id}" converter="idFacturaConverter"/>
+	                </p:column>
+	                <p:column>
+	                	<f:facet name="header">
+								<h:outputText value="Cliente" />
+						</f:facet>
+						<h:outputText value="#{f.razonSocialCliente}"/>
+	                </p:column>
+	            </p:autoComplete>
+	            <p:watermark for="factura" value="Ingrese el número de la Factura" />
+				<h:outputText/>					 
+			</p:panelGrid>
+			
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">				
+				<h:outputText value="Fecha:  " styleClass="label-form"/>
+				<p:calendar value="#{nuevaEntidad.fecha}" showOn="button" pattern="dd/MM/yyyy" locale="es"/>
+				<h:outputText/>
+				<h:outputText/>
+			</p:panelGrid>
+			
+			<p:tabView id="detalle_pagos">
+				<p:tab title="Efectivo">
+					<p:panelGrid columns="4" styleClass="tabla-form">				
+						<h:outputText value="Monto Efectivo: " styleClass="label-form"/>
+						<p:inputText value="#{nuevaEntidad.montoEfectivo}" label="Monto Efectivo">
+							<f:convertNumber minFractionDigits="2"/>
+							<f:ajax render="@this"/>
+						</p:inputText>
+						<h:outputText/>
+						<h:outputText/> 	 
+					</p:panelGrid>
+				</p:tab>
+				<p:tab title="Tarjeta">
+					<p:panelGrid columns="4" styleClass="tabla-form">				
+						<h:outputText value="Nro. Tarjeta:  " styleClass="label-form"/>
+						<p:inputText value="#{nuevaEntidad.numeroTarjeta}"/>
+						<h:outputText/>
+						<h:outputText/> 	 
+					</p:panelGrid>
+					
+					<p:panelGrid columns="4" styleClass="tabla-form">				
+						<h:outputText value="Marca:  " styleClass="label-form"/>
+						<p:inputText value="#{nuevaEntidad.marcaTarjeta}"/>
+						<h:outputText/>
+						<h:outputText/> 	 
+					</p:panelGrid>	
+					
+					<p:panelGrid columns="4" styleClass="tabla-form">				
+						<h:outputText value="Monto Tarjeta: " styleClass="label-form"/>
+						<p:inputText value="#{nuevaEntidad.montoTarjeta}" label="Monto Tarjeta">
+							<f:convertNumber minFractionDigits="2"/>
+							<f:ajax render="@this"/>
+						</p:inputText>
+						<h:outputText/>
+						<h:outputText/> 	 
+					</p:panelGrid>
+				</p:tab>
+				
+				<p:tab title="Cheque">
+					<p:panelGrid columns="4" styleClass="tabla-form">				
+						<h:outputText value="Nro. Cheque:  " styleClass="label-form"/>
+						<p:autoComplete id="cheque" value="#{autoCompleteChequeBean.chequeSelected}" completeMethod="#{autoCompleteChequeBean.completeCheque}"  
+			                        var="ch" itemLabel="#{ch.id}" itemValue="#{ch}" forceSelection="true" converter="#{autoCompleteChequeBean}"
+			                        required="true" label="Nro. Cheque">	                	  
+			                <p:column>  
+			                    #{ch.id}  
+			                </p:column>
+			                <p:column>  
+			                    #{ch.razonSocialCliente}  
+			                </p:column>
+			                <p:column>  
+			                    #{ch.monto}  
+			                </p:column>
+			                <p:ajax event="itemSelect"
+			                        update="sucursal_cheque_label banco_cheque_label fecha_cheque_label monto_cheque_label"
+			                        immediate="true"/>
+			            </p:autoComplete>
+			            <p:watermark for="cheque" value="Ingrese el número del Cheque" />
+						<h:outputText/> 	 
+					</p:panelGrid>
+					
+					<p:panelGrid columns="4" styleClass="tabla-form">				
+						<h:outputText value="Monto:  " styleClass="label-form"/>
+						<h:outputText id="monto_cheque_label" value="#{autoCompleteChequeBean.chequeSelected.sucursal}">
+							<f:convertNumber minFractionDigits="2"/>
+						</h:outputText>
+						<h:outputText/>
+						<h:outputText/> 	 
+					</p:panelGrid>
+
+					<p:panelGrid columns="4" styleClass="tabla-form">				
+						<h:outputText value="Sucursal:  " styleClass="label-form"/>
+						<h:outputText id="sucursal_cheque_label" value="#{autoCompleteChequeBean.chequeSelected.sucursal}"/>
+						<h:outputText/>
+						<h:outputText/> 	 
+					</p:panelGrid>
+					
+					<p:panelGrid columns="4" styleClass="tabla-form">				
+						<h:outputText value="Banco:  " styleClass="label-form"/>
+						<h:outputText id="banco_cheque_label" value="#{autoCompleteChequeBean.chequeSelected.banco}"/>
+						<h:outputText/>
+						<h:outputText/> 	 
+					</p:panelGrid>
+					
+					<p:panelGrid columns="4" styleClass="tabla-form">				
+						<h:outputText value="Fecha:  " styleClass="label-form"/>
+						<h:outputText id="fecha_cheque_label" value="#{autoCompleteChequeBean.chequeSelected.fecha}">
+							<f:convertDateTime pattern="dd/MM/yyyy"/> 
+						</h:outputText>
+						<h:outputText/>
+						<h:outputText/>
+					</p:panelGrid>
+				</p:tab>
+			
+			</p:tabView>
+		
+		</p:panel>
+		 
+	</ui:define>
+
+</ui:composition>

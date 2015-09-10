@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:security="http://www.springframework.org/security/tags"
+	xmlns:custom="http://ambar.org/facelets">
+	<p:toolbar>
+		<f:facet name="left">
+			<div class="entity-title">
+				<ui:insert name="title" />
+			</div> 
+		</f:facet>
+		<f:facet name="right">
+			<p:commandButton id="btn_save" type="button" value="Grabar" title="Grabar los cambios realizados" icon="fa fa-save" onclick="PF('confirmationEditar').show();"/>
+			<p:commandButton id="btn_cancel" type="button" value="Cancelar" title="Cancelar los cambios realizados" icon="fa fa-ban" onclick="PF('confirmationCancelar').show();"/>
+		</f:facet>
+	</p:toolbar>
+	
+	<p:hotkey bind="ctrl+s" handler="PF('confirmationEditar').show();"/>
+	<p:hotkey bind="ctrl+z" handler="PF('confirmationCancelar').show();"/>
+	<p:hotkey bind="esc"    handler="PF('confirmationEditar').hide();PF('confirmationCancelar').hide();"/>
+	
+	<p:confirmDialog message="¿Está seguro que desea guardar los cambios?" width="400" showEffect="fade" hideEffect="fade" header="Grabar" severity="alert" widgetVar="confirmationEditar">
+		<p:commandButton value="Si, estoy seguro" action="grabar" process="@form" update="@form" oncomplete="PF('confirmationEditar').hide()"/>
+		<p:commandButton value="No" onclick="PF('confirmationEditar').hide()" type="button" />
+	</p:confirmDialog>
+
+	<p:confirmDialog message="¿Está seguro que desea perder los cambios?" width="400" showEffect="fade" hideEffect="fade" header="Cancelar" severity="alert" widgetVar="confirmationCancelar">
+		<p:commandButton value="Si, estoy seguro" action="cancelar" immediate="true" oncomplete="PF('confirmationCancelar').hide()"/>
+		<p:commandButton value="No" onclick="PF('confirmationCancelar').hide()" type="button" />
+	</p:confirmDialog>
+	
+	<p:confirmDialog message="¿Está seguro que desea eliminar el registro?" width="400" showEffect="fade" hideEffect="fade" header="Eliminar" severity="alert" widgetVar="confirmationEliminar">
+		<p:commandButton value="Si, estoy seguro" action="eliminar" immediate="true" oncomplete="PF('confirmationEliminar').hide()"/>
+		<p:commandButton value="No" onclick="PF('confirmationEliminar').hide()" type="button" />
+	</p:confirmDialog>
+
+</ui:composition>

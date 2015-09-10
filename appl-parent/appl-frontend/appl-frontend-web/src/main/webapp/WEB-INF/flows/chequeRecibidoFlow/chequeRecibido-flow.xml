@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+      parent="parent-flow-listado, parent-flow, parent-flow-crud">
+       
+    <!-- FlowScope variables -->
+	<var name="selectedDTO" class="org.ambar.appl.dto.ChequeDTO" />
+	<var name="nuevaEntidad" class="org.ambar.appl.dto.ChequeDTO" />
+	
+	<on-start>
+		<set name="flowScope.nuevoEnabled" value="false" />
+	</on-start>
+	
+
+    <action-state id="guardarEdicionAction">
+    	<set name="selectedDTO.idCliente" value="autoCompleteClienteBean.idFromSelected"/>    	
+    	<transition to="transactionHasErrors">
+    		<set name="selectedDTO.idBanco" value="autoCompleteBancoBean.idFromSelected"/>
+    		<evaluate expression="chequeRecibidoServices.update(selectedDTO, userContext)" result="transactionResult"/>
+    	</transition>
+    </action-state>
+    
+    <action-state id="guardarNuevoAction">
+    	<set name="nuevaEntidad.idCliente" value="autoCompleteClienteBean.idFromSelected"/>    	
+    	<transition to="transactionHasErrors">
+    		<set name="nuevaEntidad.idBanco" value="autoCompleteBancoBean.idFromSelected"/>    	
+    		<evaluate expression="chequeRecibidoServices.insert(nuevaEntidad, userContext)" result="transactionResult"/>
+    	</transition>
+    </action-state>
+    
+    <action-state id="nuevoState">    	
+    	<evaluate expression="new org.ambar.appl.dto.ChequeDTO()" result="nuevaEntidad"/>
+    	<transition to="nuevoView">
+    		<evaluate expression="autoCompleteBancoBean.loadFromId(nuevaEntidad.idBanco)"/>
+    		<set name="flowScope.estadoEdicion" value="'NUEVO'"/>    		
+    	</transition>
+    </action-state>
+    
+    <action-state id="edicionState"> 
+    	<evaluate expression="chequeRecibidoServices.getById(selected.id, userContext).getResult()" result="selectedDTO"/>   	
+    	<transition to="edicionView">    		
+    		<set name="flowScope.estadoEdicion" value="'EDICION'"/>
+    	</transition>
+    </action-state>
+    
+    <action-state id="consultaState">
+    	<evaluate expression="chequeRecibidoServices.getById(selected.id, userContext).getResult()" result="selectedDTO"/>   	
+    	<transition to="consultaView">    		
+    		<set name="flowScope.estadoEdicion" value="'CONSULTA'"/>
+    	</transition>
+    </action-state>
+    
+    <view-state id="nuevoView" view="../chequeFlow/nuevoView.xhtml">
+    	<on-entry>
+    		<set name="autoCompleteClienteBean.clienteSelected" value="null"/>
+    		<set name="autoCompleteBancoBean.bancoSelected" value="null"/>
+    	</on-entry>
+    </view-state>
+    
+     <view-state id="edicionView" view="../chequeFlow/edicionView.xhtml">
+    	<on-entry>
+    		<evaluate expression="autoCompleteClienteBean.loadFromId(selectedDTO.idCliente)"/>
+    		<evaluate expression="autoCompleteBancoBean.loadFromId(selectedDTO.idBanco)"/>
+    	</on-entry>
+    </view-state>
+    
+    <view-state id="consultaView" view="../chequeFlow/consultaView.xhtml">
+    </view-state>
+    
+    <view-state id="listadoView" view="../chequeFlow/listadoView.xhtml">
+    </view-state>
+    
+    <action-state id="eliminarAction">
+    	<evaluate expression="chequeRecibidoServices.remove(selected, userContext)" result="transactionResult"/>   	
+    	<transition to="transactionHasErrors"/>
+    </action-state>
+    
+    <!-- Recarga de objeto seleccionado para consulta y forward a consulta -->
+    <action-state id="reloadSelectedAndPerformConsultaAction">
+    	<evaluate expression="chequeRecibidoServices.getById(selected.id,userContext).getResult()" result="selected" />
+    	<transition to="consultaView" />
+    </action-state>
+</flow>

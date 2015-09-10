@@ -1,0 +1,701 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ambar:mappings xmlns:ambar="http://www.ambar.org/mapper"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://www.ambar.org/mapper http://www.ambar.org/mapper">
+
+	<!-- Articulo -->
+	<ambar:mapping map-null="false" trim-strings="true" wildcard="true" stop-on-errors="true" map-empty-string="false">
+		<ambar:class-a map-null="false">org.ambar.appl.be.Articulo</ambar:class-a>
+		<ambar:class-b map-null="false">org.ambar.appl.dto.ArticuloDTO</ambar:class-b>
+		<ambar:field inverse-with-jpa="true" field-a-parent="marca">
+			<ambar:a>marca.id</ambar:a>
+			<ambar:b>idMarca</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way" query-alias="marca.descripcion">
+			<ambar:a>marca.descripcion</ambar:a>
+			<ambar:b>descripcionMarca</ambar:b>
+		</ambar:field>
+		<ambar:field inverse-with-jpa="true" field-a-parent="rubro">
+			<ambar:a>rubro.id</ambar:a>
+			<ambar:b>idRubro</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way" query-alias="rubro.descripcion">
+			<ambar:a>rubro.descripcion</ambar:a>
+			<ambar:b>descripcionRubro</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way">
+			<ambar:a>precioNeto</ambar:a>
+			<ambar:b>precioNeto</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way">
+			<ambar:a>precioBruto</ambar:a>
+			<ambar:b>precioBruto</ambar:b>
+		</ambar:field>
+	</ambar:mapping>
+
+	<!-- OrdenTrabajo -->
+	<ambar:mapping map-null="false" trim-strings="true" wildcard="true" stop-on-errors="true" map-empty-string="false">
+		<ambar:class-a map-null="false">org.ambar.appl.be.OrdenTrabajo</ambar:class-a>
+		<ambar:class-b map-null="false">org.ambar.appl.dto.OrdenTrabajoDTO</ambar:class-b>
+		<ambar:field inverse-with-jpa="true" field-a-parent="cliente">
+			<ambar:a>cliente.id</ambar:a>
+			<ambar:b>idCliente</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way" query-alias="cliente.razonSocial">
+			<ambar:a>cliente.razonSocial</ambar:a>
+			<ambar:b>razonSocialCliente</ambar:b>
+		</ambar:field>
+		<ambar:field custom-converter-id="enumDozerConverter">
+			<ambar:a>estadoOrden</ambar:a>
+			<ambar:b>estadoOrden</ambar:b>
+		</ambar:field>
+		<ambar:field custom-converter-id="enumDozerDescConverter" type="one-way">
+			<ambar:a>estadoOrden</ambar:a>
+			<ambar:b>descripcionEstadoOrden</ambar:b>
+		</ambar:field>
+		<ambar:field inverse-with-jpa="true" field-a-parent="factura">
+			<ambar:a>factura.id</ambar:a>
+			<ambar:b>idFactura</ambar:b>
+		</ambar:field>
+		<ambar:field inverse-with-jpa="true" field-a-parent="remito">
+			<ambar:a>remito.id</ambar:a>
+			<ambar:b>idRemito</ambar:b>
+		</ambar:field>
+	</ambar:mapping>
+
+	<!-- Cliente -->
+	<ambar:mapping map-null="false" trim-strings="true" wildcard="true" stop-on-errors="true" map-empty-string="false">
+		<ambar:class-a>org.ambar.appl.be.Cliente</ambar:class-a>
+		<ambar:class-b>org.ambar.appl.dto.ClienteDTO</ambar:class-b>
+		<ambar:field custom-converter-id="enumDozerConverter" query-alias="tipoDocumentoPersistent">
+			<ambar:a>tipoDocumento</ambar:a>
+			<ambar:b>tipoDocumento</ambar:b>
+		</ambar:field>
+		<ambar:field custom-converter-id="enumDozerDescConverter" type="one-way">
+			<ambar:a>tipoDocumento</ambar:a>
+			<ambar:b>descripcionTipoDocumento</ambar:b>
+		</ambar:field>
+		<ambar:field custom-converter-id="enumDozerConverter">
+			<ambar:a>condicionIVA</ambar:a>
+			<ambar:b>condicionIVA</ambar:b>
+		</ambar:field>
+		<ambar:field custom-converter-id="enumDozerDescConverter" type="one-way">
+			<ambar:a>condicionIVA</ambar:a>
+			<ambar:b>descripcionCondicionIVA</ambar:b>
+		</ambar:field>
+		<ambar:field inverse-with-jpa="true" field-a-parent="cuentaCorriente">
+			<ambar:a>cuentaCorriente.id</ambar:a>
+			<ambar:b>idCuentaCorriente</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way" query-alias="cliente.razonSocial">
+			<ambar:a>cuentaCorriente.saldo</ambar:a>
+			<ambar:b>saldoCuentaCorriente</ambar:b>
+		</ambar:field>
+		<ambar:field inverse-with-jpa="true" field-a-parent="pais">
+			<ambar:a>pais.id</ambar:a>
+			<ambar:b>idPais</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way" query-alias="pais.descripcion">
+			<ambar:a>pais.descripcion</ambar:a>
+			<ambar:b>descripcionPais</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way" query-alias="provincia.id.idProvincia">
+			<ambar:a>provincia.id.idProvincia</ambar:a>
+			<ambar:b>idProvincia</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way" query-alias="provincia.descripcion">
+			<ambar:a>provincia.descripcion</ambar:a>
+			<ambar:b>descripcionProvincia</ambar:b>
+		</ambar:field>
+	</ambar:mapping>
+
+	<!-- Proveedor -->
+	<ambar:mapping map-null="false" trim-strings="true" wildcard="true" stop-on-errors="true" map-empty-string="false">
+		<ambar:class-a>org.ambar.appl.be.Proveedor</ambar:class-a>
+		<ambar:class-b>org.ambar.appl.dto.ProveedorDTO</ambar:class-b>
+		<ambar:field custom-converter-id="enumDozerConverter">
+			<ambar:a>condicionIVA</ambar:a>
+			<ambar:b>condicionIVA</ambar:b>
+		</ambar:field>
+		<ambar:field custom-converter-id="enumDozerDescConverter" type="one-way">
+			<ambar:a>condicionIVA</ambar:a>
+			<ambar:b>descripcionCondicionIVA</ambar:b>
+		</ambar:field>
+		<ambar:field inverse-with-jpa="true" field-a-parent="pais">
+			<ambar:a>pais.id</ambar:a>
+			<ambar:b>idPais</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way" query-alias="pais.descripcion">
+			<ambar:a>pais.descripcion</ambar:a>
+			<ambar:b>descripcionPais</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way" query-alias="provincia.id.idProvincia">
+			<ambar:a>provincia.id.idProvincia</ambar:a>
+			<ambar:b>idProvincia</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way" query-alias="provincia.descripcion">
+			<ambar:a>provincia.descripcion</ambar:a>
+			<ambar:b>descripcionProvincia</ambar:b>
+		</ambar:field>
+		<ambar:field inverse-with-jpa="true" field-a-parent="cuentaCorriente">
+			<ambar:a>cuentaCorriente.id</ambar:a>
+			<ambar:b>idCuentaCorriente</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way" query-alias="cliente.razonSocial">
+			<ambar:a>cuentaCorriente.saldo</ambar:a>
+			<ambar:b>saldoCuentaCorriente</ambar:b>
+		</ambar:field>
+	</ambar:mapping>
+
+	<!-- Factura -->
+	<ambar:mapping map-null="false" trim-strings="true" wildcard="true" stop-on-errors="true" map-empty-string="false">
+		<ambar:class-a>org.ambar.appl.be.Factura</ambar:class-a>
+		<ambar:class-b>org.ambar.appl.dto.FacturaDTO</ambar:class-b>
+		<ambar:field custom-converter-id="enumDozerConverter">
+			<ambar:a>tipoFactura</ambar:a>
+			<ambar:b>tipoFactura</ambar:b>
+		</ambar:field>
+		<ambar:field custom-converter-id="enumDozerDescConverter" type="one-way" query-alias="tipoFacturaPersistent">
+			<ambar:a>tipoFactura</ambar:a>
+			<ambar:b>descripcionTipoFactura</ambar:b>
+		</ambar:field>
+		<ambar:field custom-converter-id="enumDozerConverter">
+			<ambar:a>condicionVenta</ambar:a>
+			<ambar:b>condicionVenta</ambar:b>
+		</ambar:field>
+		<ambar:field custom-converter-id="enumDozerDescConverter" type="one-way" query-alias="condicionVentaPersistent">
+			<ambar:a>condicionVenta</ambar:a>
+			<ambar:b>descripcionCondicionVenta</ambar:b>
+		</ambar:field>
+		<ambar:field inverse-with-jpa="true" field-a-parent="remito">
+			<ambar:a>remito.id</ambar:a>
+			<ambar:b>idRemito</ambar:b>
+		</ambar:field>
+		<ambar:field custom-converter-id="enumDozerConverter" query-alias="estadoPagoPersistent">
+			<ambar:a>estadoPago</ambar:a>
+			<ambar:b>estadoPago</ambar:b>
+		</ambar:field>
+		<ambar:field custom-converter-id="enumDozerDescConverter" type="one-way" query-alias="estadoPagoPersistent">
+			<ambar:a>estadoPago</ambar:a>
+			<ambar:b>descripcionEstadoPago</ambar:b>
+		</ambar:field>
+		<ambar:field inverse-with-jpa="true" field-a-parent="cliente">
+			<ambar:a>cliente.id</ambar:a>
+			<ambar:b>idCliente</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way" query-alias="cliente.razonSocial">
+			<ambar:a>cliente.razonSocial</ambar:a>
+			<ambar:b>razonSocialCliente</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way" query-alias="cliente.tipoDocumentoPersistent">
+			<ambar:a>cliente.tipoDocumento</ambar:a>
+			<ambar:b>tipoDocumentoCliente</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way">
+			<ambar:a>cliente.numeroDocumento</ambar:a>
+			<ambar:b>numeroDocumentoCliente</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way" query-alias="cliente.direccion">
+			<ambar:a>cliente.direccion</ambar:a>
+			<ambar:b>direccionCliente</ambar:b>
+		</ambar:field>
+		<ambar:field inverse-with-jpa="true" detail-collection="true" detail-parent="factura">
+			<ambar:a>coleccionDetalleFacturas</ambar:a>
+			<ambar:b>coleccionDetalleFacturas</ambar:b>
+		</ambar:field>
+	</ambar:mapping>
+
+	<!-- Detalle Factura -->
+	<ambar:mapping map-null="false" trim-strings="true" wildcard="true" stop-on-errors="true" map-empty-string="false">
+		<ambar:class-a>org.ambar.appl.be.DetalleFactura</ambar:class-a>
+		<ambar:class-b>org.ambar.appl.dto.DetalleFacturaDTO</ambar:class-b>
+		<ambar:field inverse-with-jpa="true" field-a-parent="factura">
+			<ambar:a>factura.id</ambar:a>
+			<ambar:b>idFactura</ambar:b>
+		</ambar:field>
+		<ambar:field inverse-with-jpa="true" field-a-parent="articulo">
+			<ambar:a>articulo.id</ambar:a>
+			<ambar:b>idArticulo</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way">
+			<ambar:a>articulo.descripcion</ambar:a>
+			<ambar:b>descripcionArticulo</ambar:b>
+		</ambar:field>
+	</ambar:mapping>
+
+	<!-- Remito -->
+	<ambar:mapping map-null="false" trim-strings="true" wildcard="true" stop-on-errors="true" map-empty-string="false">
+		<ambar:class-a>org.ambar.appl.be.Remito</ambar:class-a>
+		<ambar:class-b>org.ambar.appl.dto.RemitoDTO</ambar:class-b>
+		<ambar:field inverse-with-jpa="true" detail-collection="true" detail-parent="remito">
+			<ambar:a>coleccionOrdenesTrabajo</ambar:a>
+			<ambar:b>coleccionOrdenesTrabajo</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way">
+			<ambar:a>cliente.id</ambar:a>
+			<ambar:b>idCliente</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way" query-alias="cliente.razonSocial">
+			<ambar:a>cliente.razonSocial</ambar:a>
+			<ambar:b>razonSocialCliente</ambar:b>
+		</ambar:field>
+	</ambar:mapping>
+
+	<!-- MovimientoCuentaCorriente -->
+	<ambar:mapping map-null="false" trim-strings="true" wildcard="true" stop-on-errors="true" map-empty-string="false">
+		<ambar:class-a>org.ambar.appl.be.MovimientoCuentaCorriente</ambar:class-a>
+		<ambar:class-b>org.ambar.appl.dto.MovimientoCuentaCorrienteDTO</ambar:class-b>
+		<ambar:field inverse-with-jpa="true" field-a-parent="factura">
+			<ambar:a>factura.id</ambar:a>
+			<ambar:b>idFactura</ambar:b>
+		</ambar:field>
+		<ambar:field inverse-with-jpa="true" field-a-parent="cobranza">
+			<ambar:a>cobranza.id</ambar:a>
+			<ambar:b>idCobranza</ambar:b>
+		</ambar:field>
+		<ambar:field inverse-with-jpa="true" field-a-parent="cuentaCorriente">
+			<ambar:a>cuentaCorriente.id</ambar:a>
+			<ambar:b>idCuentaCorriente</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way" query-alias="cuentaCorriente.cliente.id">
+			<ambar:a>cuentaCorriente.cliente.id</ambar:a>
+			<ambar:b>idCliente</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way" query-alias="cuentaCorriente.cliente.razonSocial">
+			<ambar:a>cuentaCorriente.cliente.razonSocial</ambar:a>
+			<ambar:b>razonSocialCliente</ambar:b>
+		</ambar:field>
+	</ambar:mapping>
+
+	<!-- MovimientoCuentaCorrienteProveedor -->
+	<ambar:mapping map-null="false" trim-strings="true" wildcard="true" stop-on-errors="true" map-empty-string="false">
+		<ambar:class-a>org.ambar.appl.be.MovimientoCuentaCorrienteProveedor</ambar:class-a>
+		<ambar:class-b>org.ambar.appl.dto.MovimientoCuentaCorrienteProveedorDTO</ambar:class-b>
+		<ambar:field inverse-with-jpa="true" field-a-parent="factura">
+			<ambar:a>compra.id</ambar:a>
+			<ambar:b>idCompra</ambar:b>
+		</ambar:field>
+		<ambar:field inverse-with-jpa="true" field-a-parent="pago">
+			<ambar:a>pago.id</ambar:a>
+			<ambar:b>idPago</ambar:b>
+		</ambar:field>
+		<ambar:field inverse-with-jpa="true" field-a-parent="cuentaCorriente">
+			<ambar:a>cuentaCorriente.id</ambar:a>
+			<ambar:b>idCuentaCorriente</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way" query-alias="cuentaCorriente.proveedor.id">
+			<ambar:a>cuentaCorriente.proveedor.id</ambar:a>
+			<ambar:b>idProveedor</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way" query-alias="cuentaCorriente.proveedor.razonSocial">
+			<ambar:a>cuentaCorriente.proveedor.razonSocial</ambar:a>
+			<ambar:b>razonSocialProveedor</ambar:b>
+		</ambar:field>
+	</ambar:mapping>
+
+	<!-- MovimientoCuentaBancaria -->
+	<ambar:mapping map-null="false" trim-strings="true" wildcard="true" stop-on-errors="true" map-empty-string="false">
+		<ambar:class-a>org.ambar.appl.be.MovimientoCuentaBancaria</ambar:class-a>
+		<ambar:class-b>org.ambar.appl.dto.MovimientoCuentaBancariaDTO</ambar:class-b>
+		<ambar:field inverse-with-jpa="true" field-a-parent="cuentaBancaria">
+			<ambar:a>cuentaBancaria.id</ambar:a>
+			<ambar:b>idCuentaBancaria</ambar:b>
+		</ambar:field>
+	</ambar:mapping>
+
+	<!-- Cheque -->
+	<ambar:mapping map-null="false" trim-strings="true" wildcard="true" stop-on-errors="true" map-empty-string="false">
+		<ambar:class-a>org.ambar.appl.be.Cheque</ambar:class-a>
+		<ambar:class-b>org.ambar.appl.dto.ChequeDTO</ambar:class-b>
+		<ambar:field inverse-with-jpa="true" field-a-parent="cobranza">
+			<ambar:a>cobranza.id</ambar:a>
+			<ambar:b>idCobranza</ambar:b>
+		</ambar:field>
+		<ambar:field inverse-with-jpa="true" field-a-parent="pago">
+			<ambar:a>pago.id</ambar:a>
+			<ambar:b>idPago</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way" query-alias="cobranza.cliente.id">
+			<ambar:a>cobranza.cliente.id</ambar:a>
+			<ambar:b>idCliente</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way" query-alias="cobranza.cliente.razonSocial">
+			<ambar:a>cobranza.cliente.razonSocial</ambar:a>
+			<ambar:b>razonSocialCliente</ambar:b>
+		</ambar:field>
+		<ambar:field inverse-with-jpa="true" field-a-parent="banco">
+			<ambar:a>banco.id</ambar:a>
+			<ambar:b>idBanco</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way" query-alias="banco.descripcion">
+			<ambar:a>banco.descripcion</ambar:a>
+			<ambar:b>descripcionBanco</ambar:b>
+		</ambar:field>
+	</ambar:mapping>
+
+	<!-- Cuenta Corriente -->
+	<ambar:mapping map-null="false" trim-strings="true" wildcard="true" stop-on-errors="true" map-empty-string="false">
+		<ambar:class-a>org.ambar.appl.be.CuentaCorriente</ambar:class-a>
+		<ambar:class-b>org.ambar.appl.dto.CuentaCorrienteDTO</ambar:class-b>
+		<ambar:field inverse-with-jpa="true" field-a-parent="cliente">
+			<ambar:a>cliente.id</ambar:a>
+			<ambar:b>idCliente</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way" query-alias="cliente.razonSocial">
+			<ambar:a>cliente.razonSocial</ambar:a>
+			<ambar:b>razonSocialCliente</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way" query-alias="cliente.nombreFantasia">
+			<ambar:a>cliente.nombreFantasia</ambar:a>
+			<ambar:b>nombreFantasiaCliente</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way" query-alias="cliente.tipoDocumentoPersistent">
+			<ambar:a>cliente.tipoDocumento</ambar:a>
+			<ambar:b>tipoDocumentoCliente</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way" query-alias="cliente.numeroDocumento">
+			<ambar:a>cliente.numeroDocumento</ambar:a>
+			<ambar:b>numeroDocumentoCliente</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way" custom-converter-id="enumDozerDescConverter" query-alias="cliente.condicionIVAPersistent">
+			<ambar:a>cliente.condicionIVA</ambar:a>
+			<ambar:b>descripcionCondicionIVACliente</ambar:b>
+		</ambar:field>
+		<ambar:field inverse-with-jpa="true" detail-collection="true" detail-parent="cuentaCorriente">
+			<ambar:a>coleccionMovimientos</ambar:a>
+			<ambar:b>coleccionMovimientos</ambar:b>
+		</ambar:field>
+	</ambar:mapping>
+
+	<!-- Cuenta Corriente Proveedor-->
+	<ambar:mapping map-null="false" trim-strings="true" wildcard="true" stop-on-errors="true" map-empty-string="false">
+		<ambar:class-a>org.ambar.appl.be.CuentaCorrienteProveedor</ambar:class-a>
+		<ambar:class-b>org.ambar.appl.dto.CuentaCorrienteProveedorDTO</ambar:class-b>
+		<ambar:field inverse-with-jpa="true" field-a-parent="proveedor">
+			<ambar:a>proveedor.id</ambar:a>
+			<ambar:b>idProveedor</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way" query-alias="proveedor.razonSocial">
+			<ambar:a>proveedor.razonSocial</ambar:a>
+			<ambar:b>razonSocialProveedor</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way" query-alias="proveedor.cuit">
+			<ambar:a>proveedor.cuit</ambar:a>
+			<ambar:b>cuitProveedor</ambar:b>
+		</ambar:field>
+		<ambar:field inverse-with-jpa="true" detail-collection="true" detail-parent="cuentaCorriente">
+			<ambar:a>coleccionMovimientos</ambar:a>
+			<ambar:b>coleccionMovimientos</ambar:b>
+		</ambar:field>
+	</ambar:mapping>
+
+	<!-- Cuenta Bancaria -->
+	<ambar:mapping map-null="false" trim-strings="true" wildcard="true" stop-on-errors="true" map-empty-string="false">
+		<ambar:class-a>org.ambar.appl.be.CuentaBancaria</ambar:class-a>
+		<ambar:class-b>org.ambar.appl.dto.CuentaBancariaDTO</ambar:class-b>
+		<ambar:field inverse-with-jpa="true" field-a-parent="banco">
+			<ambar:a>banco.id</ambar:a>
+			<ambar:b>idBanco</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way" query-alias="banco.descripcion">
+			<ambar:a>banco.descripcion</ambar:a>
+			<ambar:b>descripcionBanco</ambar:b>
+		</ambar:field>
+		<ambar:field inverse-with-jpa="true" detail-collection="true" detail-parent="cuentaBancaria">
+			<ambar:a>coleccionMovimientos</ambar:a>
+			<ambar:b>coleccionMovimientos</ambar:b>
+		</ambar:field>
+	</ambar:mapping>
+
+	<!-- Cobranza -->
+	<ambar:mapping map-null="false" trim-strings="true" wildcard="true" stop-on-errors="true" map-empty-string="false">
+		<ambar:class-a>org.ambar.appl.be.Cobranza</ambar:class-a>
+		<ambar:class-b>org.ambar.appl.dto.CobranzaDTO</ambar:class-b>
+		<ambar:field inverse-with-jpa="true" field-a-parent="cliente">
+			<ambar:a>cliente.id</ambar:a>
+			<ambar:b>idCliente</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way" query-alias="cliente.razonSocial">
+			<ambar:a>cliente.razonSocial</ambar:a>
+			<ambar:b>razonSocialCliente</ambar:b>
+		</ambar:field>
+		<ambar:field inverse-with-jpa="true" detail-collection="true" detail-parent="cobranza">
+			<ambar:a>coleccionCheques</ambar:a>
+			<ambar:b>coleccionCheques</ambar:b>
+		</ambar:field>
+		<ambar:field inverse-with-jpa="true" detail-collection="true" detail-parent="cobranza">
+			<ambar:a>coleccionDetalleCobranza</ambar:a>
+			<ambar:b>coleccionDetalleCobranza</ambar:b>
+		</ambar:field>
+		<ambar:field inverse-with-jpa="true" field-a-parent="bancoTarjetaCredito">
+			<ambar:a>bancoTarjetaCredito.id</ambar:a>
+			<ambar:b>idBancoTarjetaCredito</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way" query-alias="bancoTarjetaCredito.descripcion">
+			<ambar:a>bancoTarjetaCredito.descripcion</ambar:a>
+			<ambar:b>descripcionBancoTarjetaCredito</ambar:b>
+		</ambar:field>
+		<ambar:field inverse-with-jpa="true" field-a-parent="bancoTarjetaDebito">
+			<ambar:a>bancoTarjetaDebito.id</ambar:a>
+			<ambar:b>idBancoTarjetaDebito</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way" query-alias="bancoTarjetaDebito.descripcion">
+			<ambar:a>bancoTarjetaDebito.descripcion</ambar:a>
+			<ambar:b>descripcionBancoTarjetaDebito</ambar:b>
+		</ambar:field>
+	</ambar:mapping>
+
+	<!-- Detalle Cobranza -->
+	<ambar:mapping map-null="false" trim-strings="true" wildcard="true" stop-on-errors="true" map-empty-string="false">
+		<ambar:class-a>org.ambar.appl.be.DetalleCobranza</ambar:class-a>
+		<ambar:class-b>org.ambar.appl.dto.DetalleCobranzaDTO</ambar:class-b>
+		<ambar:field inverse-with-jpa="true" field-a-parent="factura">
+			<ambar:a>factura.id</ambar:a>
+			<ambar:b>idFactura</ambar:b>
+		</ambar:field>
+		<ambar:field inverse-with-jpa="true" field-a-parent="cobranza">
+			<ambar:a>cobranza.id</ambar:a>
+			<ambar:b>idCobranza</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way">
+			<ambar:a>factura.fechaEmision</ambar:a>
+			<ambar:b>fechaEmisionFactura</ambar:b>
+		</ambar:field>
+		<ambar:field custom-converter-id="enumDozerDescConverter" type="one-way">
+			<ambar:a>factura.estadoPago</ambar:a>
+			<ambar:b>descripcionEstadoPagoFactura</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way">
+			<ambar:a>factura.importeTotal</ambar:a>
+			<ambar:b>importeFactura</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way">
+			<ambar:a>factura.saldo</ambar:a>
+			<ambar:b>saldoFactura</ambar:b>
+		</ambar:field>
+	</ambar:mapping>
+
+		<!-- Pago -->
+	<ambar:mapping map-null="false" trim-strings="true" wildcard="true" stop-on-errors="true" map-empty-string="false">
+		<ambar:class-a>org.ambar.appl.be.Pago</ambar:class-a>
+		<ambar:class-b>org.ambar.appl.dto.PagoDTO</ambar:class-b>
+		<ambar:field inverse-with-jpa="true" field-a-parent="proveedor">
+			<ambar:a>proveedor.id</ambar:a>
+			<ambar:b>idProveedor</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way" query-alias="proveedor.razonSocial">
+			<ambar:a>proveedor.razonSocial</ambar:a>
+			<ambar:b>razonSocialProveedor</ambar:b>
+		</ambar:field>
+		<ambar:field inverse-with-jpa="true" detail-collection="true" detail-parent="pago">
+			<ambar:a>coleccionCheques</ambar:a>
+			<ambar:b>coleccionCheques</ambar:b>
+		</ambar:field>
+		<ambar:field inverse-with-jpa="true" detail-collection="true" detail-parent="pago">
+			<ambar:a>coleccionDetallePago</ambar:a>
+			<ambar:b>coleccionDetallePago</ambar:b>
+		</ambar:field>
+		<ambar:field inverse-with-jpa="true" field-a-parent="bancoTarjetaCredito">
+			<ambar:a>bancoTarjetaCredito.id</ambar:a>
+			<ambar:b>idBancoTarjetaCredito</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way" query-alias="bancoTarjetaCredito.descripcion">
+			<ambar:a>bancoTarjetaCredito.descripcion</ambar:a>
+			<ambar:b>descripcionBancoTarjetaCredito</ambar:b>
+		</ambar:field>
+		<ambar:field inverse-with-jpa="true" field-a-parent="bancoTarjetaDebito">
+			<ambar:a>bancoTarjetaDebito.id</ambar:a>
+			<ambar:b>idBancoTarjetaDebito</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way" query-alias="bancoTarjetaDebito.descripcion">
+			<ambar:a>bancoTarjetaDebito.descripcion</ambar:a>
+			<ambar:b>descripcionBancoTarjetaDebito</ambar:b>
+		</ambar:field>
+	</ambar:mapping>
+
+	<!-- Detalle Pago -->
+	<ambar:mapping map-null="false" trim-strings="true" wildcard="true" stop-on-errors="true" map-empty-string="false">
+		<ambar:class-a>org.ambar.appl.be.DetallePago</ambar:class-a>
+		<ambar:class-b>org.ambar.appl.dto.DetallePagoDTO</ambar:class-b>
+		<ambar:field inverse-with-jpa="true" field-a-parent="compra">
+			<ambar:a>compra.id</ambar:a>
+			<ambar:b>idCompra</ambar:b>
+		</ambar:field>
+		<ambar:field inverse-with-jpa="true" field-a-parent="pago">
+			<ambar:a>pago.id</ambar:a>
+			<ambar:b>idPago</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way">
+			<ambar:a>compra.fecha</ambar:a>
+			<ambar:b>fechaCompra</ambar:b>
+		</ambar:field>
+		<ambar:field custom-converter-id="enumDozerDescConverter" type="one-way">
+			<ambar:a>compra.estadoPago</ambar:a>
+			<ambar:b>descripcionEstadoPagoCompra</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way">
+			<ambar:a>compra.importeTotal</ambar:a>
+			<ambar:b>importeCompra</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way">
+			<ambar:a>compra.saldo</ambar:a>
+			<ambar:b>saldoCompra</ambar:b>
+		</ambar:field>
+	</ambar:mapping>
+
+	<!-- Gasto -->
+	<ambar:mapping map-null="false" trim-strings="true" wildcard="true" stop-on-errors="true" map-empty-string="false">
+		<ambar:class-a map-null="false">org.ambar.appl.be.Gasto</ambar:class-a>
+		<ambar:class-b map-null="false">org.ambar.appl.dto.GastoDTO</ambar:class-b>
+		<ambar:field inverse-with-jpa="true" field-a-parent="tipoGasto">
+            <ambar:a>tipoGasto.id</ambar:a>
+            <ambar:b>idTipoGasto</ambar:b>
+        </ambar:field>
+        <ambar:field type="one-way">
+            <ambar:a>tipoGasto.descripcion</ambar:a>
+            <ambar:b>descripcionTipoGasto</ambar:b>
+        </ambar:field>
+	</ambar:mapping>
+
+	<!-- Ingreso -->
+	<ambar:mapping map-null="false" trim-strings="true" wildcard="true" stop-on-errors="true" map-empty-string="false">
+		<ambar:class-a map-null="false">org.ambar.appl.be.Ingreso</ambar:class-a>
+		<ambar:class-b map-null="false">org.ambar.appl.dto.IngresoDTO</ambar:class-b>
+		<ambar:field inverse-with-jpa="true" field-a-parent="tipoIngreso">
+            <ambar:a>tipoIngreso.id</ambar:a>
+            <ambar:b>idTipoIngreso</ambar:b>
+        </ambar:field>
+        <ambar:field type="one-way">
+            <ambar:a>tipoIngreso.descripcion</ambar:a>
+            <ambar:b>descripcionTipoIngreso</ambar:b>
+        </ambar:field>
+        <ambar:field inverse-with-jpa="true" field-a-parent="cliente">
+			<ambar:a>cliente.id</ambar:a>
+			<ambar:b>idCliente</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way" query-alias="cliente.razonSocial">
+			<ambar:a>cliente.razonSocial</ambar:a>
+			<ambar:b>razonSocialCliente</ambar:b>
+		</ambar:field>
+	</ambar:mapping>
+
+	<!-- Compra -->
+	<ambar:mapping map-null="false" trim-strings="true" wildcard="true" stop-on-errors="true" map-empty-string="false">
+		<ambar:class-a map-null="false">org.ambar.appl.be.Compra</ambar:class-a>
+		<ambar:class-b map-null="false">org.ambar.appl.dto.CompraDTO</ambar:class-b>
+		<ambar:field inverse-with-jpa="true" detail-collection="true" detail-parent="compra">
+			<ambar:a>coleccionDetalleCompra</ambar:a>
+			<ambar:b>coleccionDetalleCompra</ambar:b>
+		</ambar:field>
+		<ambar:field custom-converter-id="enumDozerConverter">
+			<ambar:a>condicionVenta</ambar:a>
+			<ambar:b>condicionVenta</ambar:b>
+		</ambar:field>
+		<ambar:field custom-converter-id="enumDozerDescConverter" type="one-way" query-alias="condicionVentaPersistent">
+			<ambar:a>condicionVenta</ambar:a>
+			<ambar:b>descripcionCondicionVenta</ambar:b>
+		</ambar:field>
+		<ambar:field custom-converter-id="enumDozerConverter" query-alias="estadoPagoPersistent">
+			<ambar:a>estadoPago</ambar:a>
+			<ambar:b>estadoPago</ambar:b>
+		</ambar:field>
+		<ambar:field custom-converter-id="enumDozerDescConverter" type="one-way" query-alias="estadoPagoPersistent">
+			<ambar:a>estadoPago</ambar:a>
+			<ambar:b>descripcionEstadoPago</ambar:b>
+		</ambar:field>
+		<ambar:field inverse-with-jpa="true" field-a-parent="proveedor">
+			<ambar:a>proveedor.id</ambar:a>
+			<ambar:b>idProveedor</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way" query-alias="proveedor.razonSocial">
+			<ambar:a>proveedor.razonSocial</ambar:a>
+			<ambar:b>razonSocialProveedor</ambar:b>
+		</ambar:field>
+
+	</ambar:mapping>
+
+	<!-- Detalle Compra -->
+	<ambar:mapping map-null="false" trim-strings="true" wildcard="true" stop-on-errors="true" map-empty-string="false">
+		<ambar:class-a map-null="false">org.ambar.appl.be.DetalleCompra</ambar:class-a>
+		<ambar:class-b map-null="false">org.ambar.appl.dto.DetalleCompraDTO</ambar:class-b>
+		<ambar:field inverse-with-jpa="true" field-a-parent="compra">
+			<ambar:a>compra.id</ambar:a>
+			<ambar:b>idCompra</ambar:b>
+		</ambar:field>
+		<ambar:field inverse-with-jpa="true" field-a-parent="articulo">
+			<ambar:a>articulo.id</ambar:a>
+			<ambar:b>idArticulo</ambar:b>
+		</ambar:field>
+		<ambar:field type="one-way">
+			<ambar:a>articulo.descripcion</ambar:a>
+			<ambar:b>descripcionArticulo</ambar:b>
+		</ambar:field>
+	</ambar:mapping>
+
+	<!-- Asiento Contable -->
+	<ambar:mapping map-null="false" trim-strings="true" wildcard="true" stop-on-errors="true" map-empty-string="false">
+		<ambar:class-a map-null="false">org.ambar.appl.be.AsientoContable</ambar:class-a>
+		<ambar:class-b map-null="false">org.ambar.appl.dto.AsientoContableDTO</ambar:class-b>
+	</ambar:mapping>
+
+	<!-- Tipo Gasto -->
+	<ambar:mapping map-null="false" trim-strings="true" wildcard="true" stop-on-errors="true" map-empty-string="false">
+		<ambar:class-a map-null="false">org.ambar.appl.be.TipoGasto</ambar:class-a>
+		<ambar:class-b map-null="false">org.ambar.appl.dto.TipoGastoDTO</ambar:class-b>
+	</ambar:mapping>
+
+	<!-- Tipo Ingreso -->
+	<ambar:mapping map-null="false" trim-strings="true" wildcard="true" stop-on-errors="true" map-empty-string="false">
+		<ambar:class-a map-null="false">org.ambar.appl.be.TipoIngreso</ambar:class-a>
+		<ambar:class-b map-null="false">org.ambar.appl.dto.TipoIngresoDTO</ambar:class-b>
+	</ambar:mapping>
+
+	<!-- Marca -->
+	<ambar:mapping map-null="false" trim-strings="true" wildcard="true" stop-on-errors="true" map-empty-string="false">
+		<ambar:class-a map-null="false">org.ambar.appl.be.Marca</ambar:class-a>
+		<ambar:class-b map-null="false">org.ambar.appl.dto.MarcaDTO</ambar:class-b>
+	</ambar:mapping>
+
+	<!-- Rubro -->
+	<ambar:mapping map-null="false" trim-strings="true" wildcard="true" stop-on-errors="true" map-empty-string="false">
+		<ambar:class-a map-null="false">org.ambar.appl.be.Rubro</ambar:class-a>
+		<ambar:class-b map-null="false">org.ambar.appl.dto.RubroDTO</ambar:class-b>
+	</ambar:mapping>
+
+	<!-- Banco -->
+	<ambar:mapping map-null="false" trim-strings="true" wildcard="true" stop-on-errors="true" map-empty-string="false">
+		<ambar:class-a map-null="false">org.ambar.appl.be.Banco</ambar:class-a>
+		<ambar:class-b map-null="false">org.ambar.appl.dto.BancoDTO</ambar:class-b>
+	</ambar:mapping>
+
+	<!-- Pais -->
+	<ambar:mapping map-null="false" trim-strings="true" wildcard="true" stop-on-errors="true" map-empty-string="false">
+		<ambar:class-a map-null="false">org.ambar.appl.be.Pais</ambar:class-a>
+		<ambar:class-b map-null="false">org.ambar.appl.dto.PaisDTO</ambar:class-b>
+	</ambar:mapping>
+
+	<!-- Provincia -->
+	<ambar:mapping map-null="false" trim-strings="true" wildcard="true" stop-on-errors="true" map-empty-string="false">
+		<ambar:class-a map-null="false">org.ambar.appl.be.Provincia</ambar:class-a>
+		<ambar:class-b map-null="false">org.ambar.appl.dto.ProvinciaDTO</ambar:class-b>
+		<ambar:field complex-association="true">
+            <ambar:a>id</ambar:a>
+            <ambar:b>id</ambar:b>
+        </ambar:field>
+	</ambar:mapping>
+
+	<!-- Provincia ID -->
+	<ambar:mapping map-null="false" trim-strings="true" wildcard="true" stop-on-errors="true" map-empty-string="false">
+		<ambar:class-a map-null="false">org.ambar.appl.be.ProvinciaID</ambar:class-a>
+		<ambar:class-b map-null="false">org.ambar.appl.dto.ProvinciaDTO</ambar:class-b>
+		<ambar:field inverse-with-jpa="true" field-a-parent="pais">
+            <ambar:a>pais.id</ambar:a>
+            <ambar:b>idPais</ambar:b>
+        </ambar:field>
+        <ambar:field type="one-way">
+            <ambar:a>pais.descripcion</ambar:a>
+            <ambar:b>descripcionPais</ambar:b>
+        </ambar:field>
+	</ambar:mapping>
+
+</ambar:mappings>

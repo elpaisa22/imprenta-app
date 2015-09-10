@@ -1,0 +1,237 @@
+.ui-widget {
+	font-size: 14px !important;
+}
+
+html {
+	overflow:-moz-scrollbars-vertical;
+}
+
+body{
+	line-height:16px;
+	background: #eeeeee url(images/login/bg.jpg) top left repeat !important;
+/* 	background: #EEE; */
+/* 	background: #ffffff; */
+}
+
+
+/********************  LAYOUT ******************/
+div#page {
+  width:100%;
+  max-width: 1600px;
+  min-width: 1080px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align:left;
+  position:relative;
+}
+
+div#header{
+ 	width:100%;
+/*  	height: 60px; */
+	height: 93px;
+}
+
+div#navigation{
+  	width:16%;
+  	float:left;
+  	height:84%;
+}
+
+div#content{
+/*   	width:82%; */
+	width: 100%;
+	float:right;
+  	height:84%;
+}
+
+div#footer {
+  	width:100%;
+  	height:2%;
+  	clear: both;
+  	bottom: 0px;
+}
+
+div#application-header{
+	height: 48px !important;
+	width: 100% !important;
+	display: block;
+}
+/********************  LAYOUT ******************/
+
+.main-menu {
+/* 	width: 100% !important;	 */
+}
+
+a img {
+	border: none; 
+}
+
+.ui-datatable table {
+	font-size:100% !important;
+}
+
+.ui-datatable thead th {
+	padding: 10px 10px !important;
+} 
+
+.ui-datatable tbody td, .ui-datatable tfoot td {
+	padding: 6px 10px !important;
+}
+
+.data-form{
+	margin-top: 5px;
+	margin-bottom: 5px;
+	moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	
+/* 	background-color: #fafafa; */
+/* 	background-image: -moz-linear-gradient(top, #ffffff, #f2f2f2); */
+/* 	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#f2f2f2)); */
+/* 	background-image: -webkit-linear-gradient(top, #ffffff, #f2f2f2); */
+/* 	background-image: -o-linear-gradient(top, #ffffff, #f2f2f2); */
+/* 	background-image: linear-gradient(to bottom, #ffffff, #f2f2f2); */
+/* 	background-repeat: repeat-x; */
+	border: 1px solid #d4d4d4;
+}
+
+.ui-messages-error {
+	margin-top: 5px !important;
+	margin-bottom: 5px !important;
+}
+
+.tabla-form {
+	width: 90%;	
+}
+
+.tabla-form .ui-widget-content {
+	background : transparent !important;
+}
+
+.tabla-form td{
+	width: 25%;
+	border-width : 0px !important;
+	padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.tabla-form tr{
+	height: 30px;
+	border-width : 0px !important;
+}
+
+.tabla-form .label-popup {
+	width: 100px !important; */
+	display: inline-block;
+}
+ .tabla-form .field-popup {
+	width: 200px !important; */
+	display: inline-block;
+}
+
+.label-form {
+	font-weight: bold;
+}
+
+.tabla-form .ui-inputfield.ui-inputtext.ui-widget.ui-state-default.ui-corner-all {
+	width: 90%;
+}
+
+.ui-autocomplete {
+	width: 100% !important;
+}
+
+.ui-autocomplete-input.ui-inputfield.ui-widget.ui-state-default.ui-corner-all {
+	width: 90%;
+}
+
+.hasCalculator {
+	width: 127px !important;	
+}
+
+.btn-agregar {
+	margin-top : 20px;
+}
+
+.fieldset-grid {
+	margin-top : 20px;
+}
+
+.ui-panelmenu .ui-panelmenu-header a{
+/*     text-decoration: none !important; */
+    font-weight: bold;
+}
+
+#content .ui-breadcrumb {
+	padding: 8px 10px 5px 15px !important;
+	margin-bottom: 5px !important;
+}
+
+.ui-breadcrumb a {
+/* 	text-decoration: none; */
+}
+
+.ui-breadcrumb-chevron {
+	margin-left: 4px;
+	margin-right: 6px;
+}
+
+.export-buttons {
+	margin-left : 70% !important;
+}
+
+.export-link {
+/* 	text-decoration: none !important; */
+	font-weight: bold;
+}
+
+.buttons-confirm {
+	position : absolute;
+	bottom: 5px;
+	width: 60% !important;
+}
+
+.ui-toolbar {
+	 white-space: nowrap;
+	 
+	 margin-top: 5px !important;
+	 margin-bottom: 5px !important;
+}
+
+.top-right-section {
+	float: right;
+	display : inline;
+	margin-right: 0px;
+	margin-top: 5px;
+}
+
+.tracking-info-bar {
+	padding: .5em !important;	
+}
+
+.tracking-info-bar label {
+	padding-left : 7px;
+	padding-right : 10%;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	font-size: 90% !important;
+}
+
+.entity-title {
+	margin-left: .5em;
+	color: #778D9B;
+	font-size: 1.3em;
+	margin-top: .7em !important;
+}
+
+.ui-datatable-empty-message {
+	text-align: center;
+}
+
+.texto-buscar {
+	width: 200px;
+	margin-right: 10px !important;
+}
+
+
+

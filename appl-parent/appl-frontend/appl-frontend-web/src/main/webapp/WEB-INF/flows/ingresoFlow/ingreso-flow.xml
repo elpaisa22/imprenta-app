@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+      parent="parent-flow-listado, parent-flow, parent-flow-crud">
+      
+    <!-- FlowScope variables -->
+	<var name="selectedDTO" class="org.ambar.appl.dto.IngresoDTO" />
+	<var name="nuevaEntidad" class="org.ambar.appl.dto.IngresoDTO" />
+	
+
+    <action-state id="guardarEdicionAction">
+    	<set name="selectedDTO.idTipoIngreso" value="autoCompleteTipoIngresoBean.idFromSelected"/>
+    	<transition to="transactionHasErrors">
+    		<set name="selectedDTO.idCliente" value="autoCompleteClienteBean.idFromSelected"/>    	
+    		<evaluate expression="ingresoServices.update(selectedDTO, userContext)" result="transactionResult"/>
+    	</transition>
+    </action-state>
+     
+    <action-state id="guardarNuevoAction">
+    	<set name="nuevaEntidad.idTipoIngreso" value="autoCompleteTipoIngresoBean.idFromSelected"/>
+    	<transition to="transactionHasErrors">
+    		<set name="nuevaEntidad.idCliente" value="autoCompleteClienteBean.idFromSelected"/>
+    		<evaluate expression="ingresoServices.insert(nuevaEntidad, userContext)" result="transactionResult"/>
+    	</transition>
+    </action-state>
+    
+    <action-state id="nuevoState">    	
+    	<evaluate expression="new org.ambar.appl.dto.IngresoDTO()" result="nuevaEntidad"/>
+    	<transition to="nuevoView">
+    		<evaluate expression="autoCompleteClienteBean.loadFromId(nuevaEntidad.idCliente)"/>
+    		<evaluate expression="autoCompleteTipoIngresoBean.loadFromId(nuevaEntidad.idTipoIngreso)"/>
+    		<set name="flowScope.estadoEdicion" value="'NUEVO'"/>    		
+    	</transition>
+    </action-state>
+    
+    <action-state id="edicionState"> 
+    	<evaluate expression="ingresoServices.getById(selected.id, userContext).getResult()" result="selectedDTO"/>   	
+    	<transition to="edicionView">    		
+    		<set name="flowScope.estadoEdicion" value="'EDICION'"/>
+    	</transition>
+    </action-state>
+    
+    <action-state id="consultaState">
+    	<evaluate expression="ingresoServices.getById(selected.id, userContext).getResult()" result="selectedDTO"/>   	
+    	<transition to="consultaView">    		
+    		<set name="flowScope.estadoEdicion" value="'CONSULTA'"/>
+    	</transition>
+    </action-state>
+    
+    <action-state id="eliminarAction">
+    	<evaluate expression="ingresoServices.remove(selected, userContext)" result="transactionResult"/>   	
+    	<transition to="transactionHasErrors"/>
+    </action-state>
+    
+    <view-state id="edicionView">
+    	<on-entry>
+    		<evaluate expression="autoCompleteTipoIngresoBean.loadFromId(selectedDTO.idTipoIngreso)"/>
+    		<evaluate expression="autoCompleteClienteBean.loadFromId(selectedDTO.idCliente)"/>
+    	</on-entry>
+    </view-state>
+    
+    <!-- Recarga de objeto seleccionado para consulta y forward a consulta -->
+    <action-state id="reloadSelectedAndPerformConsultaAction">
+    	<evaluate expression="ingresoServices.getById(selected.id,userContext).getResult()" result="selected" />
+    	<transition to="consultaView" />
+    </action-state>
+</flow>

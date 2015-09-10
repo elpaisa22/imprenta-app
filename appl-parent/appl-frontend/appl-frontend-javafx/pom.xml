@@ -1,0 +1,109 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  
+  <modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<artifactId>appl-frontend</artifactId>
+		<groupId>org.ambar.appl</groupId>
+		<version>0.1.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>appl-frontend-javafx</artifactId>
+	<packaging>jar</packaging>
+	<name>Front-End Desktop de la Aplicaci�n</name>
+	<url>http://maven.apache.org</url>
+
+	
+  <build>
+      <plugins>          
+          <plugin>
+		      <groupId>com.zenjava</groupId>
+		      <artifactId>javafx-maven-plugin</artifactId>
+		      <version>2.1-SNAPSHOT</version>		      
+		      <configuration>
+		          <mainClass>org.ambar.appl.main.MainApp</mainClass>
+		          <allPermissions>true</allPermissions>
+		          <icon>src/main/resources/icon/artwork.ico</icon>
+
+		          <title>Software para la administracion de imprentas</title>
+		          <vendor>AmbarSoft</vendor>
+		          <description>Administracion de imprentas y talleres de la industria grafica</description>
+
+		          <executableJarFileName>PrintSoft.jar</executableJarFileName>
+		          <bundleType>ALL</bundleType>
+		          <needShortcut>true</needShortcut>
+		          <needMenu>true</needMenu>
+		          <nativeReleaseVersion>1.34.5</nativeReleaseVersion>
+		      </configuration>
+		  </plugin>
+      </plugins>      
+  </build>
+  
+  <organization>
+      <name>AmbarSoft</name>
+  </organization>
+
+  <dependencies>
+  
+    <dependency>
+		<groupId>org.ambar.core</groupId>
+		<artifactId>ambar-core-impl</artifactId>
+		<version>${ambar.core.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.ambar.core</groupId>
+		<artifactId>ambar-core-dictionary</artifactId>
+		<version>${ambar.core.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.ambar.core</groupId>
+		<artifactId>ambar-core-fxcontrols</artifactId>
+		<version>${ambar.core.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.ambar.appl</groupId>
+		<artifactId>application-services-impl</artifactId>
+		<version>${project.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.controlsfx</groupId>
+		<artifactId>controlsfx</artifactId>
+		<version>8.20.8</version>
+	</dependency>
+	<dependency>
+		<groupId>mysql</groupId>
+		<artifactId>mysql-connector-java</artifactId>
+		<version>5.1.6</version>
+	</dependency>
+	<dependency>
+		<groupId>commons-dbcp</groupId>
+		<artifactId>commons-dbcp</artifactId>
+		<version>1.4</version>
+	</dependency>
+	<dependency>
+		<groupId>commons-logging</groupId>
+		<artifactId>commons-logging</artifactId>
+		<version>1.1.1</version>
+	</dependency>
+	<dependency>
+		<groupId>org.glassfish.web</groupId>
+		<artifactId>el-impl</artifactId>
+		<version>2.2</version>
+	</dependency>
+	  
+  </dependencies>
+  
+  <pluginRepositories>
+    <pluginRepository>
+        <id>sonatype.snapshots</id>
+        <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        <releases>
+            <updatePolicy>daily</updatePolicy>
+        </releases>
+        <snapshots>
+            <updatePolicy>daily</updatePolicy>
+        </snapshots>
+    </pluginRepository>
+</pluginRepositories>
+</project>

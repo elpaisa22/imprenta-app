@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+      parent="parent-flow-listado, parent-flow, parent-flow-crud">
+      
+    <!-- FlowScope variables -->
+	<var name="selectedDTO" class="org.ambar.appl.dto.CobranzaDTO" />
+	<var name="nuevaEntidad" class="org.ambar.appl.dto.CobranzaDTO" />
+	
+	<var name ="listFacturas" class="org.ambar.core.dto.results.ResultListDTO" />
+	 
+	<on-start>
+		<set name="flowScope.edicionEnabled" value="false" />
+	</on-start>
+
+    <action-state id="guardarEdicionAction">
+    	<set name="selectedDTO.idCliente" value="autoCompleteClienteBean.idFromSelected"/>      	
+    	<transition to="transactionHasErrors">
+    		<evaluate expression="cobranzaServices.update(selectedDTO, userContext)" result="transactionResult"/>
+    	</transition>
+    </action-state>
+    
+    <action-state id="guardarNuevoAction">    	
+    	<set name="selectedDTO.idCliente" value="autoCompleteClienteBean.idFromSelected"/>
+    	<transition to="transactionHasErrors">
+    		<evaluate expression="cobranzaServices.insert(nuevaEntidad, userContext)" result="transactionResult"/>
+    	</transition>
+    </action-state>
+    
+    <action-state id="nuevoState">    	
+    	<evaluate expression="new org.ambar.appl.dto.CobranzaDTO()" result="nuevaEntidad"/>
+    	<transition to="nuevoView">
+    		<evaluate expression="abmCobranzaBean.init()"/>
+    		<set name="flowScope.estadoEdicion" value="'NUEVO'"/>
+    		<set name="autoCompleteClienteBean.clienteSelected" value="null"/>
+    	</transition>
+    </action-state>
+    
+    <action-state id="edicionState"> 
+    	<evaluate expression="cobranzaServices.getById(selected.id, userContext).getResult()" result="selectedDTO"/>   	
+    	<transition to="edicionView">
+    		<evaluate expression="abmCobranzaBean.init()"/>    		
+    		<set name="flowScope.estadoEdicion" value="'EDICION'"/>
+    	</transition>
+    </action-state>
+    
+    <action-state id="consultaState">
+    	<evaluate expression="cobranzaServices.getById(selected.id, userContext).getResult()" result="selectedDTO"/>   	
+    	<transition to="consultaView">    		
+    		<set name="flowScope.estadoEdicion" value="'CONSULTA'"/>
+    	</transition>
+    </action-state>
+    
+    <action-state id="eliminarAction">
+    	<evaluate expression="cobranzaServices.remove(selected, userContext)" result="transactionResult"/>   	
+    	<transition to="transactionHasErrors"/>
+    </action-state>
+    
+    <view-state id="nuevoView">
+    	<transition on="continuar" to="clienteCobranzaValidate">
+    		<set name="nuevaEntidad.idCliente" value="autoCompleteClienteBean.idFromSelected"/>
+    	</transition>
+    </view-state>
+    
+    <!-- Recarga de objeto seleccionado para consulta y forward a consulta -->
+    <action-state id="reloadSelectedAndPerformConsultaAction">
+    	<evaluate expression="cobranzaServices.getById(selected.id,userContext).getResult()" result="selected" />
+    	<transition to="consultaView" />
+    </action-state>
+    
+    <decision-state id="clienteCobranzaValidate">
+    	<if test="nuevaEntidad.idCliente == null" then="clienteHasErrors" else="montoCobranzaValidate"/>
+    </decision-state>
+    
+    <action-state id="clienteHasErrors">
+    	<evaluate expression="messagesHelper.addErrorMessages('Debe ingresar un cliente para poder realizar la cobranza')"/>
+    	<transition to="nuevoView"/>
+    </action-state>
+    
+    <decision-state id="montoCobranzaValidate">
+    	<if test="nuevaEntidad.importeTotal &lt;= 0" then="montoCobranzaHasErrors" else="detalleCobranzaPrepare"/>
+    </decision-state>
+    
+    <action-state id="montoCobranzaHasErrors">
+    	<evaluate expression="messagesHelper.addErrorMessages('No se puede procesar una cobranza con importe total 0.')"/>
+    	<transition to="nuevoView"/>
+    </action-state>    
+    
+    <action-state id="detalleCobranzaPrepare">
+    	<evaluate expression="abmCobranzaBean.cargarDetalleCobranza(nuevaEntidad.idCliente, nuevaEntidad.importeTotal)"/>
+    	<transition to="detalleCobranzaView"/>
+    </action-state>
+    
+    <view-state id="detalleCobranzaView" view="detalleCobranza.xhtml">
+    	<transition on="grabar" to="guardarNuevoAction">
+    		<set name="nuevaEntidad.coleccionDetalleCobranza" value="abmCobranzaBean.detalleFacturasSelected"/>
+    	</transition>
+    	<transition on="cancelar" to="nuevoView"/>
+    </view-state>
+    
+    <view-state id="edicionView">
+    	<on-entry>
+    		<evaluate expression="autoCompleteClienteBean.loadFromId(selectedDTO.idCliente)"/>
+    	</on-entry>
+    </view-state>
+</flow>

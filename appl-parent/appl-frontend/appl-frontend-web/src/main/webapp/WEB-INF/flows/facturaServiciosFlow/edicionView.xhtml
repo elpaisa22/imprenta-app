@@ -1,0 +1,205 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:security="http://www.springframework.org/security/tags"
+	xmlns:custom="http://ambar.org/facelets"
+	template="/WEB-INF/templates/template_crud.xhtml">
+	
+	<ui:define name="title">
+		<h:outputText value="Edicion de Factura" /> 
+	</ui:define>
+	
+	<ui:define name="toolbar_crud">
+		<ui:include src="/WEB-INF/templates/toolbars/toolbar_edicion.xhtml" />
+	</ui:define>
+	
+	<ui:define name="content_crud">	
+
+		<p:panel id="content_crud" styleClass="data-form">
+
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Nro Factura:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.id}" converter="idFacturaConverter"/>
+				<h:outputText value="Tipo de Factura" styleClass="label-form"/>
+				<p:selectOneMenu id="fld_tipoFactura" value="#{selectedDTO.tipoFactura}" label="Tipo de Factura" immediate="true">
+					<f:selectItem itemLabel="Factura A" itemValue="A"/>  
+					<f:selectItem itemLabel="Factura B" itemValue="B"/>    
+				</p:selectOneMenu>
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Fecha de Emisión:  " styleClass="label-form"/>
+				<p:calendar value="#{selectedDTO.fechaEmision}" showOn="button" pattern="dd/MM/yyyy" locale="es" disabled="true"/>
+				<h:outputText value="Condición de Venta:  " styleClass="label-form"/>
+				<p:selectOneMenu value="#{selectedDTO.condicionVenta}"
+				                 required="true" label="Condición de Venta">  
+		            <f:selectItem itemLabel="Seleccione una opción" itemValue="" />  
+		            <f:selectItem itemLabel="Contado" itemValue="CONTADO" />  
+		            <f:selectItem itemLabel="Cuenta Corriente" itemValue="CUENTA_CORRIENTE" />
+		        </p:selectOneMenu>					 
+			</p:panelGrid>			
+						
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Nro. de Remito:  " styleClass="label-form"/>
+				<p:inputText value="#{selectedDTO.idRemito}" />
+				<h:outputText value="Estado de Pago:  " styleClass="label-form"/>
+				<p:selectOneMenu value="#{selectedDTO.estadoPago}" disabled="true">  
+		            <f:selectItem itemLabel="Seleccione una opción" itemValue="" />  
+		            <f:selectItem itemLabel="Pendiente" itemValue="PENDIENTE" />  
+		            <f:selectItem itemLabel="Parcial" itemValue="PARCIAL" />
+		            <f:selectItem itemLabel="Pagada" itemValue="PAGADA" />
+		        </p:selectOneMenu>					 
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Cliente:  " styleClass="label-form"/>
+				<p:autoComplete id="cliente" value="#{autoCompleteClienteBean.clienteSelected}" completeMethod="#{autoCompleteClienteBean.completeCliente}"  
+	                        var="c" itemLabel="#{c.razonSocial}" itemValue="#{c}" forceSelection="true" converter="#{autoCompleteClienteBean}"
+	                        required="true" label="Cliente">
+	                <p:ajax event="itemSelect"
+	                        immediate="true" process="@form" oncomplete="actualizarFactura();"/>
+	                <p:ajax event="change"
+	                        immediate="true" process="@form" oncomplete="actualizarFactura();"/>	                	  
+	                <p:column> 
+	                	<f:facet name="header">
+								<h:outputText value="Nro Cliente" />
+						</f:facet>
+	                    <h:outputText value="#{c.id}"/>   
+	                </p:column>
+	                <p:column>
+	                	<f:facet name="header">
+								<h:outputText value="Razon Social" />
+						</f:facet>
+	                	<h:outputText value="#{c.razonSocial}"/>
+	                </p:column>
+	                <p:column>
+	                	<f:facet name="header">
+								<h:outputText value="Tipo Documento" />
+						</f:facet>
+	                	<h:outputText value="#{c.tipoDocumento}"/>
+	                </p:column> 
+	                <p:column>
+	                	<f:facet name="header">
+								<h:outputText value="Nro Documento" />
+						</f:facet>
+	                	<h:outputText value="#{c.numeroDocumento}"/>
+	                </p:column>  
+	            </p:autoComplete>
+				<p:watermark for="cliente" value="Ingrese el Nombre del Cliente" />
+				<h:outputText/>					 
+			</p:panelGrid>
+			
+			<p:separator/>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Agregar descripción" styleClass="label-form"/>
+				<p:inputText id="fld_descServicio" value="#{abmFacturaBean.descripcionServicio}">
+					<p:ajax event="keyup" delay="10" update="btnAgregarDetalle" global="false"/>
+				</p:inputText>
+	            
+				<p:commandButton id="btnAgregarDetalle"
+								 value="Agregar"
+				                 icon="fa fa-plus-circle"
+				                 title="Agrega el artículo seleccionado"
+				                 disabled="#{abmFacturaBean.descripcionServicio == null || abmFacturaBean.descripcionServicio.equals('')}"
+				                 actionListener="#{abmFacturaBean.agregarDetalle(selectedDTO, abmFacturaBean.descripcionServicio)}"
+				                 update="detalles lblImporteTotal fld_descServicio"
+				                 process="@this fld_descServicio detalles"
+				                 partialSubmit="true"/>
+				
+				<p:watermark for="fld_descServicio" value="Ingrese una descripción" />
+			</p:panelGrid>
+
+
+			<p:panel header="Detalle"
+			         toggleable="false"
+			         closable="false">
+
+			         <p:dataTable id="detalles" var="det" value="#{selectedDTO.coleccionDetalleFacturas}" emptyMessage="No existen datos">
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Descripción" />
+							</f:facet>
+							<h:outputText value="#{det.descripcionServicio}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Precio Unitario" />
+							</f:facet>
+							<p:inputText value="#{det.precioUnitario}" onchange="recalcularImportes();">
+								<f:convertNumber minFractionDigits="2"/>
+							</p:inputText>
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Cantidad" />
+							</f:facet>
+							<p:spinner value="#{det.cantidad}" min="0" onchange="recalcularImportes();"/>
+						</p:column>
+						<p:column rendered="false">
+							<f:facet name="header">
+								<h:outputText value="% Descuento" />
+							</f:facet>
+							<h:outputText value="#{det.descuento}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Monto Total" />
+							</f:facet>
+							<h:outputText value="#{det.montoTotal}" >
+								<f:convertNumber minFractionDigits="2"/>
+							</h:outputText>
+						</p:column>
+						<p:column style="text-align: center;">
+							<f:facet name="header">
+								<h:outputText value="Eliminar" />
+							</f:facet>
+							<p:commandButton icon="fa fa-trash-o"
+											 title="Eliminar detalle"
+							                 actionListener="#{abmFacturaBean.eliminarDetalle(selectedDTO, det)}"
+				                             update="detalles :form-main:lblImporteTotal"
+				                             process="@this detalles"
+				                             partialSubmit="true" />
+						</p:column>
+					</p:dataTable>
+			</p:panel>
+			
+			<p:spacer height="20"/>
+
+			<p:panelGrid id="lblImporteTotal" columns="4" styleClass="tabla-form">
+				<h:outputText value="Sub Total:  " styleClass="label-form" rendered="#{selectedDTO.tipoFactura == 'B'}"/>
+				<h:outputText value="#{selectedDTO.importeSubTotal}" style="font-size: 1.5em;" rendered="#{selectedDTO.tipoFactura == 'B'}">
+					<f:convertNumber type="currency"/>
+				</h:outputText>
+				<h:outputText value="Importe IVA:  " styleClass="label-form" rendered="#{selectedDTO.tipoFactura == 'B'}"/>
+				<h:outputText value="#{selectedDTO.importeIVA}" style="font-size: 1.5em;" rendered="#{selectedDTO.tipoFactura == 'B'}">
+					<f:convertNumber type="currency"/>
+				</h:outputText>
+				<h:outputText value="Items:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.coleccionDetalleFacturas.size()}" style="font-size: 1.5em;"/>
+				<h:outputText value="Importe Total:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.importeTotal}" style="font-size: 1.5em;">
+					<f:convertNumber minFractionDigits="2"/>
+				</h:outputText>
+				
+			</p:panelGrid>
+
+			
+			<p:remoteCommand name="recalcularImportes"
+			                 process="@this detalles lblImporteTotal"
+			                 partialSubmit="true"
+			                 actionListener="#{abmFacturaBean.actualizarImportes(selectedDTO)}"
+			                 update="lblImporteTotal detalles"/>
+			
+			<p:remoteCommand name="actualizarFactura"
+			                 process="@this cliente fld_tipoFactura"
+			                 partialSubmit="true"
+			                 actionListener="#{abmFacturaBean.clienteChanged(selectedDTO, autoCompleteClienteBean.clienteSelected)}"
+			                 update="fld_tipoFactura lblImporteTotal"/>
+		</p:panel>				 
+	</ui:define>	
+</ui:composition>

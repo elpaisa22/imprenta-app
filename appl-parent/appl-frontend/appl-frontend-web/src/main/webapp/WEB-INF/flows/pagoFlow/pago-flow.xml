@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+      parent="parent-flow-listado, parent-flow, parent-flow-crud">
+      
+    <!-- FlowScope variables -->
+	<var name="selectedDTO" class="org.ambar.appl.dto.PagoDTO" />
+	<var name="nuevaEntidad" class="org.ambar.appl.dto.PagoDTO" />
+	
+	<var name ="listCompras" class="org.ambar.core.dto.results.ResultListDTO" />
+	 
+	<on-start>
+		<set name="flowScope.edicionEnabled" value="false" />
+	</on-start>
+
+    <action-state id="guardarEdicionAction">
+    	<set name="selectedDTO.idProveedor" value="autoCompleteProveedorBean.idFromSelected"/>      	
+    	<transition to="transactionHasErrors">
+    		<evaluate expression="pagoServices.update(selectedDTO, userContext)" result="transactionResult"/>
+    	</transition>
+    </action-state>
+    
+    <action-state id="guardarNuevoAction">    	
+    	<set name="selectedDTO.idProveedor" value="autoCompleteProveedorBean.idFromSelected"/>
+    	<transition to="transactionHasErrors">
+    		<evaluate expression="pagoServices.insert(nuevaEntidad, userContext)" result="transactionResult"/>
+    	</transition>
+    </action-state>
+    
+    <action-state id="nuevoState">    	
+    	<evaluate expression="new org.ambar.appl.dto.PagoDTO()" result="nuevaEntidad"/>
+    	<transition to="nuevoView">
+    		<evaluate expression="abmPagoBean.init()"/>
+    		<set name="flowScope.estadoEdicion" value="'NUEVO'"/>
+    		<set name="autoCompleteProveedorBean.proveedorSelected" value="null"/>
+    	</transition>
+    </action-state>
+    
+    <action-state id="edicionState"> 
+    	<evaluate expression="pagoServices.getById(selected.id, userContext).getResult()" result="selectedDTO"/>   	
+    	<transition to="edicionView">
+    		<evaluate expression="abmPagoBean.init()"/>    		
+    		<set name="flowScope.estadoEdicion" value="'EDICION'"/>
+    	</transition>
+    </action-state>
+    
+    <action-state id="consultaState">
+    	<evaluate expression="pagoServices.getById(selected.id, userContext).getResult()" result="selectedDTO"/>   	
+    	<transition to="consultaView">    		
+    		<set name="flowScope.estadoEdicion" value="'CONSULTA'"/>
+    	</transition>
+    </action-state>
+    
+    <action-state id="eliminarAction">
+    	<evaluate expression="pagoServices.remove(selected, userContext)" result="transactionResult"/>   	
+    	<transition to="transactionHasErrors"/>
+    </action-state>
+    
+    <view-state id="nuevoView">
+    	<transition on="continuar" to="proveedorPagoValidate">
+    		<set name="nuevaEntidad.idProveedor" value="autoCompleteProveedorBean.idFromSelected"/>
+    	</transition>
+    </view-state>
+    
+    <!-- Recarga de objeto seleccionado para consulta y forward a consulta -->
+    <action-state id="reloadSelectedAndPerformConsultaAction">
+    	<evaluate expression="pagoServices.getById(selected.id,userContext).getResult()" result="selected" />
+    	<transition to="consultaView" />
+    </action-state>
+    
+    <decision-state id="proveedorPagoValidate">
+    	<if test="nuevaEntidad.idProveedor == null" then="proveedorHasErrors" else="montoPagoValidate"/>
+    </decision-state>
+    
+    <action-state id="proveedorHasErrors">
+    	<evaluate expression="messagesHelper.addErrorMessages('Debe ingresar un proveedor para poder realizar la pago')"/>
+    	<transition to="nuevoView"/>
+    </action-state>
+    
+    <decision-state id="montoPagoValidate">
+    	<if test="nuevaEntidad.importeTotal &lt;= 0" then="montoPagoHasErrors" else="detallePagoPrepare"/>
+    </decision-state>
+    
+    <action-state id="montoPagoHasErrors">
+    	<evaluate expression="messagesHelper.addErrorMessages('No se puede procesar una pago con importe total 0.')"/>
+    	<transition to="nuevoView"/>
+    </action-state>    
+    
+    <action-state id="detallePagoPrepare">
+    	<evaluate expression="abmPagoBean.cargarDetallePago(nuevaEntidad.idProveedor, nuevaEntidad.importeTotal)"/>
+    	<transition to="detallePagoView"/>
+    </action-state>
+    
+    <view-state id="detallePagoView" view="detallePago.xhtml">
+    	<transition on="grabar" to="guardarNuevoAction">
+    		<set name="nuevaEntidad.coleccionDetallePago" value="abmPagoBean.detalleComprasSelected"/>
+    	</transition>
+    	<transition on="cancelar" to="nuevoView"/>
+    </view-state>
+    
+    <view-state id="edicionView">
+    	<on-entry>
+    		<evaluate expression="autoCompleteProveedorBean.loadFromId(selectedDTO.idProveedor)"/>
+    	</on-entry>
+    </view-state>
+</flow>

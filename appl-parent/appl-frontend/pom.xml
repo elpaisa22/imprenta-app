@@ -1,0 +1,24 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+		<artifactId>appl-parent</artifactId>
+		<groupId>org.ambar.appl</groupId>
+		<version>0.1.0-SNAPSHOT</version>
+  </parent>
+  
+  <groupId>org.ambar.appl</groupId>
+  <artifactId>appl-frontend</artifactId>
+  <packaging>pom</packaging>
+
+  <name>Frontend de la aplicación</name>
+  <description>Proyecto padre de todos los modulos Frontend de la aplicación</description>
+
+  <modules>
+		<module>appl-frontend-web</module>
+		<module>appl-frontend-desktop</module>
+		<module>appl-frontend-javafx</module>
+  </modules>
+</project>

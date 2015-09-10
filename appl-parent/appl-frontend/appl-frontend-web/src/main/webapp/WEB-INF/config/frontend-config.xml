@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+
+        <!-- Navegacion principal -->  
+        <bean id="menuBean" class="org.ambar.appl.frontend.beans.impl.MenuBean" scope="session">
+        	<property name="dictionaryServices" ref="dictionaryServices"/>
+        </bean>
+        
+        <bean id="dataTableBean" class="org.ambar.appl.frontend.beans.impl.DataTableBeanImpl" scope="session">
+        	<property name="dictionaryServices" ref="dictionaryServices"/>
+        	<property name="serviceLocator" ref="serviceLocator"/>
+        	<property name="lazyDataModel" ref="lazyDataModel"/>
+        </bean>
+        
+        <bean id="lazyDataModel" class="org.ambar.appl.frontend.beans.impl.GenericLazyDataModel" scope="session">
+        	<property name="dictionaryServices" ref="dictionaryServices"/>
+        	<property name="requestContext" ref="userContext"/>
+        </bean>
+        
+        <bean id="breadcrumbBean" class="org.ambar.appl.frontend.beans.impl.BreadcrumbBean" scope="session">
+        	<property name="dictionaryServices" ref="dictionaryServices"/>
+        </bean>
+        
+        <!-- Filler -->
+        <bean id="entityFiller" class="org.ambar.appl.frontend.filler.EntityFiller"/>
+        <bean id="facturaFiller" class="org.ambar.appl.frontend.filler.entities.FacturaFiller"/>
+        <bean id="provinciaFiller" class="org.ambar.appl.frontend.filler.entities.ProvinciaFiller"/>
+        
+        <!-- Detail Grid Beans -->
+        <bean id="abmFacturaBean"
+        	class="org.ambar.appl.frontend.viewbeans.ABMFacturaBean"
+        	scope="session">
+        </bean>
+        <bean id="abmCompraBean"
+        	class="org.ambar.appl.frontend.viewbeans.ABMCompraBean"
+        	scope="session">
+        </bean>
+        <bean id="abmArticuloBean"
+        	class="org.ambar.appl.frontend.viewbeans.ABMArticuloBean"
+        	scope="session">
+        </bean>
+        <bean id="abmCobranzaBean"
+        	class="org.ambar.appl.frontend.viewbeans.ABMCobranzaBean"
+        	scope="session">
+        	<property name="facturaServices" ref="facturaServices"/>
+        	<property name="bancoServices" ref="bancoServices"/>
+        	<property name="requestContext" ref="userContext"/>
+        </bean>
+        <bean id="abmPagoBean"
+        	class="org.ambar.appl.frontend.viewbeans.ABMPagoBean"
+        	scope="session">
+        	<property name="compraServices" ref="compraServices"/>
+        	<property name="bancoServices" ref="bancoServices"/>
+        	<property name="requestContext" ref="userContext"/>
+        </bean>
+        <bean id="abmClienteBean"
+        	class="org.ambar.appl.frontend.viewbeans.ABMClienteBean"
+        	scope="session">
+        	<property name="paisServices" ref="paisServices"/>
+        	<property name="provinciaServices" ref="provinciaServices"/>
+        	<property name="requestContext" ref="userContext"/>
+        </bean>
+        <bean id="abmProveedorBean"
+        	class="org.ambar.appl.frontend.viewbeans.ABMProveedorBean"
+        	scope="session">
+        	<property name="paisServices" ref="paisServices"/>
+        	<property name="provinciaServices" ref="provinciaServices"/>
+        	<property name="requestContext" ref="userContext"/>
+        </bean>
+
+        <!-- Autocompletes -->
+        <bean id="autoCompleteClienteBean" class="org.ambar.appl.frontend.beans.autocomplete.AutoCompleteClienteBean" scope="session">
+        	<property name="clienteServices" ref="clienteServices"/>
+        	<property name="requestContext" ref="userContext"/>
+        </bean>
+        <bean id="autoCompleteChequeBean" class="org.ambar.appl.frontend.beans.autocomplete.AutoCompleteChequeBean" scope="session">
+        	<property name="chequeServices" ref="chequeServices"/>
+        	<property name="requestContext" ref="userContext"/>
+        </bean>
+        <bean id="autoCompleteFacturaBean" class="org.ambar.appl.frontend.beans.autocomplete.AutoCompleteFacturaBean" scope="session">
+        	<property name="facturaServices" ref="facturaServices"/>
+        	<property name="requestContext" ref="userContext"/>
+        </bean>
+        <bean id="autoCompleteArticuloBean" class="org.ambar.appl.frontend.beans.autocomplete.AutoCompleteArticuloBean" scope="session">
+        	<property name="articuloServices" ref="articuloServices"/>
+        	<property name="requestContext" ref="userContext"/>
+        </bean>
+  		<bean id="autoCompleteMarcaBean" class="org.ambar.appl.frontend.beans.autocomplete.AutoCompleteMarcaBean" scope="session">
+        	<property name="marcaServices" ref="marcaServices"/>
+        	<property name="requestContext" ref="userContext"/>
+        </bean>
+        <bean id="autoCompleteRubroBean" class="org.ambar.appl.frontend.beans.autocomplete.AutoCompleteRubroBean" scope="session">
+        	<property name="rubroServices" ref="rubroServices"/>
+        	<property name="requestContext" ref="userContext"/>
+        </bean>
+        <bean id="autoCompleteTipoGastoBean" class="org.ambar.appl.frontend.beans.autocomplete.AutoCompleteTipoGastoBean" scope="session">
+        	<property name="tipoGastoServices" ref="tipoGastoServices"/>
+        	<property name="requestContext" ref="userContext"/>
+        </bean>
+        <bean id="autoCompleteTipoIngresoBean" class="org.ambar.appl.frontend.beans.autocomplete.AutoCompleteTipoIngresoBean" scope="session">
+        	<property name="tipoIngresoServices" ref="tipoIngresoServices"/>
+        	<property name="requestContext" ref="userContext"/>
+        </bean>
+        <bean id="autoCompleteBancoBean" class="org.ambar.appl.frontend.beans.autocomplete.AutoCompleteBancoBean" scope="session">
+        	<property name="bancoServices" ref="bancoServices"/>
+        	<property name="requestContext" ref="userContext"/>
+        </bean>
+        <bean id="autoCompletePaisBean" class="org.ambar.appl.frontend.beans.autocomplete.AutoCompletePaisBean" scope="session">
+        	<property name="paisServices" ref="paisServices"/>
+        	<property name="requestContext" ref="userContext"/>
+        </bean>
+        <bean id="autoCompleteProveedorBean" class="org.ambar.appl.frontend.beans.autocomplete.AutoCompleteProveedorBean" scope="session">
+        	<property name="proveedorServices" ref="proveedorServices"/>
+        	<property name="requestContext" ref="userContext"/>
+        </bean>
+           
+</beans>

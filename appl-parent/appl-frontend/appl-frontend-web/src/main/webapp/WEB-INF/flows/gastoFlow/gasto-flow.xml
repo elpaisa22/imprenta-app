@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+      parent="parent-flow-listado, parent-flow, parent-flow-crud">
+      
+    <!-- FlowScope variables -->
+	<var name="selectedDTO" class="org.ambar.appl.dto.GastoDTO" />
+	<var name="nuevaEntidad" class="org.ambar.appl.dto.GastoDTO" />
+	
+
+    <action-state id="guardarEdicionAction">
+    	<set name="selectedDTO.idTipoGasto" value="autoCompleteTipoGastoBean.idFromSelected"/>
+    	<transition to="transactionHasErrors">
+    		<evaluate expression="gastoServices.update(selectedDTO, userContext)" result="transactionResult"/>
+    	</transition>
+    </action-state>
+     
+    <action-state id="guardarNuevoAction">
+    	<set name="nuevaEntidad.idTipoGasto" value="autoCompleteTipoGastoBean.idFromSelected"/>
+    	<transition to="transactionHasErrors">
+    		<evaluate expression="gastoServices.insert(nuevaEntidad, userContext)" result="transactionResult"/>
+    	</transition>
+    </action-state>
+    
+    <action-state id="nuevoState">    	
+    	<evaluate expression="new org.ambar.appl.dto.GastoDTO()" result="nuevaEntidad"/>
+    	<transition to="nuevoView">
+    		<evaluate expression="autoCompleteTipoGastoBean.loadFromId(nuevaEntidad.idTipoGasto)"/>
+    		<set name="flowScope.estadoEdicion" value="'NUEVO'"/>    		
+    	</transition>
+    </action-state>
+    
+    <action-state id="edicionState"> 
+    	<evaluate expression="gastoServices.getById(selected.id, userContext).getResult()" result="selectedDTO"/>   	
+    	<transition to="edicionView">    		
+    		<set name="flowScope.estadoEdicion" value="'EDICION'"/>
+    	</transition>
+    </action-state>
+    
+    <action-state id="consultaState">
+    	<evaluate expression="gastoServices.getById(selected.id, userContext).getResult()" result="selectedDTO"/>   	
+    	<transition to="consultaView">    		
+    		<set name="flowScope.estadoEdicion" value="'CONSULTA'"/>
+    	</transition>
+    </action-state>
+    
+    <action-state id="eliminarAction">
+    	<evaluate expression="gastoServices.remove(selected, userContext)" result="transactionResult"/>   	
+    	<transition to="transactionHasErrors"/>
+    </action-state>
+    
+    <view-state id="edicionView">
+    	<on-entry>
+    		<evaluate expression="autoCompleteTipoGastoBean.loadFromId(selectedDTO.idTipoGasto)"/>
+    	</on-entry>
+    </view-state>
+    
+    <!-- Recarga de objeto seleccionado para consulta y forward a consulta -->
+    <action-state id="reloadSelectedAndPerformConsultaAction">
+    	<evaluate expression="gastoServices.getById(selected.id,userContext).getResult()" result="selected" />
+    	<transition to="consultaView" />
+    </action-state>
+</flow>

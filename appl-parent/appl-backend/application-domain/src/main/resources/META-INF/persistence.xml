@@ -1,0 +1,26 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0">
+
+	<persistence-unit name="AMBAR-PU" transaction-type="RESOURCE_LOCAL">
+		<class>org.ambar.appl.be.Cliente</class>
+		<class>org.ambar.appl.be.OrdenTrabajo</class>
+		<class>org.ambar.appl.be.Factura</class>
+		<class>org.ambar.appl.be.Cobranza</class>
+		<class>org.ambar.appl.be.Cheque</class>
+		<class>org.ambar.appl.be.DetalleFactura</class>
+		<class>org.ambar.appl.be.Remito</class>
+		<class>org.ambar.appl.be.Movimiento</class>
+		<class>org.ambar.appl.be.CuentaCorriente</class>
+		<class>org.ambar.appl.be.Articulo</class>
+		<class>org.ambar.appl.be.Proveedor</class>
+		<class>org.ambar.appl.be.NumeradorComprobante</class>
+		<class>org.ambar.appl.be.Rubro</class>
+		<class>org.ambar.appl.be.Marca</class>
+		<class>org.ambar.appl.be.Banco</class>
+		<class>org.ambar.appl.be.Pais</class>
+		<class>org.ambar.appl.be.Provincia</class>
+	</persistence-unit>
+
+</persistence>

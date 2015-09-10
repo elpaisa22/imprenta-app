@@ -1,0 +1,43 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:security="http://www.springframework.org/security/tags"
+	xmlns:custom="http://ambar.org/facelets">
+	
+	<div style="min-height: 20px;" >
+			<label class="col-sm-1 control-label">USUARIO:</label>
+			<div class="col-sm-2">
+	     			<p>
+					<h:outputText value="#{selectedDTO.trackInfo.usuario}" />
+				</p>
+			</div>
+			<label class="col-sm-1 control-label">ALTA:</label>
+			<div class="col-sm-2">
+	     			<p>
+					<h:outputText value="#{selectedDTO.trackInfo.fechaCreacion}" >
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm"/> 
+					</h:outputText>
+				</p>
+			</div>
+			<label class="col-sm-1 control-label">MODIF.:</label>
+			<div class="col-sm-2">
+	     			<p>
+					<h:outputText value="#{selectedDTO.trackInfo.fechaModificacion}" >
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm"/> 
+					</h:outputText>
+				</p>
+			</div>
+			<label class="col-sm-1 control-label">ESTADO:</label>
+			<div class="col-sm-2">
+	     			<p>
+					<h:outputText value="#{selectedDTO.trackInfo.estado}" />
+				</p>
+			</div>
+	</div>
+	
+	
+</ui:composition>

@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans  xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:aop="http://www.springframework.org/schema/aop"
+        xsi:schemaLocation="
+	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+	<!-- DAOs -->
+	<bean id="ordenTrabajoDAO" class="org.ambar.appl.dao.impl.OrdenTrabajoDAOImpl" parent="parentDAO"/>
+	<bean id="clienteDAO" class="org.ambar.appl.dao.impl.ClienteDAOImpl" parent="parentDAO"/>
+	<bean id="proveedorDAO" class="org.ambar.appl.dao.impl.ProveedorDAOImpl" parent="parentDAO"/>
+	<bean id="cuentaCorrienteDAO" class="org.ambar.appl.dao.impl.CuentaCorrienteDAOImpl" parent="parentDAO"/>
+	<bean id="cuentaCorrienteProveedorDAO" class="org.ambar.appl.dao.impl.CuentaCorrienteProveedorDAOImpl" parent="parentDAO"/>
+	<bean id="cuentaBancariaDAO" class="org.ambar.appl.dao.impl.CuentaBancariaDAOImpl" parent="parentDAO"/>
+	<bean id="facturaDAO" class="org.ambar.appl.dao.impl.FacturaDAOImpl" parent="parentDAO"/>
+	<bean id="remitoDAO" class="org.ambar.appl.dao.impl.RemitoDAOImpl" parent="parentDAO"/>
+	<bean id="movimientoCuentaCorrienteDAO" class="org.ambar.appl.dao.impl.MovimientoCuentaCorrienteDAOImpl" parent="parentDAO"/>
+	<bean id="movimientoCuentaCorrienteProveedorDAO" class="org.ambar.appl.dao.impl.MovimientoCuentaCorrienteProveedorDAOImpl" parent="parentDAO"/>
+	<bean id="movimientoCuentaBancariaDAO" class="org.ambar.appl.dao.impl.MovimientoCuentaBancariaDAOImpl" parent="parentDAO"/>
+	<bean id="chequeDAO" class="org.ambar.appl.dao.impl.ChequeDAOImpl" parent="parentDAO"/>
+	<bean id="chequeRecibidoDAO" class="org.ambar.appl.dao.impl.ChequeRecibidoDAOImpl" parent="parentDAO"/>
+	<bean id="chequePropioDAO" class="org.ambar.appl.dao.impl.ChequePropioDAOImpl" parent="parentDAO"/>
+	<bean id="chequeEntregadoDAO" class="org.ambar.appl.dao.impl.ChequeEntregadoDAOImpl" parent="parentDAO"/>
+	<bean id="articuloDAO" class="org.ambar.appl.dao.impl.ArticuloDAOImpl" parent="parentDAO"/>
+	<bean id="cobranzaDAO" class="org.ambar.appl.dao.impl.CobranzaDAOImpl" parent="parentDAO"/>
+	<bean id="gastoDAO" class="org.ambar.appl.dao.impl.GastoDAOImpl" parent="parentDAO"/>
+	<bean id="ingresoDAO" class="org.ambar.appl.dao.impl.IngresoDAOImpl" parent="parentDAO"/>
+	<bean id="compraDAO" class="org.ambar.appl.dao.impl.CompraDAOImpl" parent="parentDAO"/>
+	<bean id="pagoDAO" class="org.ambar.appl.dao.impl.PagoDAOImpl" parent="parentDAO"/>
+	<bean id="asientoContableDAO" class="org.ambar.appl.dao.impl.AsientoContableDAOImpl" parent="parentDAO"/>
+	<bean id="numeradorComprobanteDAO" class="org.ambar.appl.dao.impl.NumeradorComprobanteDAOImpl" parent="parentDAO"/>
+	<bean id="tipoIngresoDAO" class="org.ambar.appl.dao.impl.TipoIngresoDAOImpl" parent="parentDAO"/>
+	<bean id="tipoGastoDAO" class="org.ambar.appl.dao.impl.TipoGastoDAOImpl" parent="parentDAO"/>
+	<bean id="marcaDAO" class="org.ambar.appl.dao.impl.MarcaDAOImpl" parent="parentDAO"/>
+	<bean id="rubroDAO" class="org.ambar.appl.dao.impl.RubroDAOImpl" parent="parentDAO"/>
+	<bean id="bancoDAO" class="org.ambar.appl.dao.impl.BancoDAOImpl" parent="parentDAO"/>
+	<bean id="paisDAO" class="org.ambar.appl.dao.impl.PaisDAOImpl" parent="parentDAO"/>
+	<bean id="provinciaDAO" class="org.ambar.appl.dao.impl.ProvinciaDAOImpl" parent="parentDAO"/>
+
+
+	<!-- BOs -->
+	<bean id="ordenTrabajoBO" class="org.ambar.appl.bo.impl.OrdenTrabajoBOImpl" init-method="init" parent="parentBO">
+		<property name="dao" ref="ordenTrabajoDAO"/>
+	</bean>
+	<bean id="clienteBO" class="org.ambar.appl.bo.impl.ClienteBOImpl" init-method="init" parent="parentBO">
+		<property name="dao" ref="clienteDAO"/>
+	</bean>
+	<bean id="proveedorBO" class="org.ambar.appl.bo.impl.ProveedorBOImpl" init-method="init" parent="parentBO">
+		<property name="dao" ref="proveedorDAO"/>
+	</bean>
+	<bean id="cuentaCorrienteBO" class="org.ambar.appl.bo.impl.CuentaCorrienteBOImpl" init-method="init" parent="parentBO">
+		<property name="dao" ref="cuentaCorrienteDAO"/>
+	</bean>
+	<bean id="cuentaCorrienteProveedorBO" class="org.ambar.appl.bo.impl.CuentaCorrienteProveedorBOImpl" init-method="init" parent="parentBO">
+		<property name="dao" ref="cuentaCorrienteProveedorDAO"/>
+	</bean>
+	<bean id="cuentaBancariaBO" class="org.ambar.appl.bo.impl.CuentaBancariaBOImpl" init-method="init" parent="parentBO">
+		<property name="dao" ref="cuentaBancariaDAO"/>
+	</bean>
+	<bean id="facturaBO" class="org.ambar.appl.bo.impl.FacturaBOImpl" init-method="init" parent="parentBO">
+		<property name="dao" ref="facturaDAO"/>
+		<property name="movimientoCuentaCorrienteBO" ref="movimientoCuentaCorrienteBO"/>
+		<property name="cobranzaBO" ref="cobranzaBO"/>
+		<property name="numeradorComprobanteBO" ref="numeradorComprobanteBO"/>
+	</bean>
+	<bean id="remitoBO" class="org.ambar.appl.bo.impl.RemitoBOImpl" init-method="init" parent="parentBO">
+		<property name="dao" ref="remitoDAO"/>
+	</bean>
+	<bean id="movimientoCuentaCorrienteBO" class="org.ambar.appl.bo.impl.MovimientoCuentaCorrienteBOImpl" init-method="init" parent="parentBO">
+		<property name="dao" ref="movimientoCuentaCorrienteDAO"/>
+	</bean>
+	<bean id="movimientoCuentaCorrienteProveedorBO" class="org.ambar.appl.bo.impl.MovimientoCuentaCorrienteProveedorBOImpl" init-method="init" parent="parentBO">
+		<property name="dao" ref="movimientoCuentaCorrienteProveedorDAO"/>
+	</bean>
+	<bean id="movimientoCuentaBancariaBO" class="org.ambar.appl.bo.impl.MovimientoCuentaBancariaBOImpl" init-method="init" parent="parentBO">
+		<property name="dao" ref="movimientoCuentaBancariaDAO"/>
+	</bean>
+	<bean id="chequeBO" class="org.ambar.appl.bo.impl.ChequeBOImpl" init-method="init" parent="parentBO">
+		<property name="dao" ref="chequeDAO"/>
+	</bean>
+	<bean id="chequeRecibidoBO" class="org.ambar.appl.bo.impl.ChequeBOImpl" init-method="init" parent="parentBO">
+		<property name="dao" ref="chequeRecibidoDAO"/>
+	</bean>
+	<bean id="chequePropioBO" class="org.ambar.appl.bo.impl.ChequeBOImpl" init-method="init" parent="parentBO">
+		<property name="dao" ref="chequePropioDAO"/>
+	</bean>
+	<bean id="chequeEntregadoBO" class="org.ambar.appl.bo.impl.ChequeBOImpl" init-method="init" parent="parentBO">
+		<property name="dao" ref="chequeEntregadoDAO"/>
+	</bean>
+	<bean id="articuloBO" class="org.ambar.appl.bo.impl.ArticuloBOImpl" init-method="init" parent="parentBO">
+		<property name="dao" ref="articuloDAO"/>
+	</bean>
+	<bean id="cobranzaBO" class="org.ambar.appl.bo.impl.CobranzaBOImpl" init-method="init" parent="parentBO">
+		<property name="dao" ref="cobranzaDAO"/>
+		<property name="movimientoCuentaCorrienteBO" ref="movimientoCuentaCorrienteBO"/>
+	</bean>
+	<bean id="pagoBO" class="org.ambar.appl.bo.impl.PagoBOImpl" init-method="init" parent="parentBO">
+		<property name="dao" ref="pagoDAO"/>
+		<property name="movimientoCuentaCorrienteProveedorBO" ref="movimientoCuentaCorrienteProveedorBO"/>
+	</bean>
+	<bean id="gastoBO" class="org.ambar.appl.bo.impl.GastoBOImpl" init-method="init" parent="parentBO">
+		<property name="dao" ref="gastoDAO"/>
+	</bean>
+	<bean id="ingresoBO" class="org.ambar.appl.bo.impl.IngresoBOImpl" init-method="init" parent="parentBO">
+		<property name="dao" ref="ingresoDAO"/>
+	</bean>
+	<bean id="compraBO" class="org.ambar.appl.bo.impl.CompraBOImpl" init-method="init" parent="parentBO">
+		<property name="dao" ref="compraDAO"/>
+		<property name="movimientoCuentaCorrienteProveedorBO" ref="movimientoCuentaCorrienteProveedorBO"/>
+		<property name="pagoBO" ref="pagoBO"/>
+	</bean>
+	<bean id="asientoContableBO" class="org.ambar.appl.bo.impl.AsientoContableBOImpl" init-method="init" parent="parentBO">
+		<property name="dao" ref="asientoContableDAO"/>
+	</bean>
+	<bean id="numeradorComprobanteBO" class="org.ambar.appl.bo.impl.NumeradorComprobanteBOImpl" init-method="init" parent="parentBO">
+		<property name="dao" ref="numeradorComprobanteDAO"/>
+	</bean>
+	<bean id="tipoIngresoBO" class="org.ambar.appl.bo.impl.TipoIngresoBOImpl" init-method="init" parent="parentBO">
+		<property name="dao" ref="tipoIngresoDAO"/>
+	</bean>
+	<bean id="tipoGastoBO" class="org.ambar.appl.bo.impl.TipoGastoBOImpl" init-method="init" parent="parentBO">
+		<property name="dao" ref="tipoGastoDAO"/>
+	</bean>
+	<bean id="marcaBO" class="org.ambar.appl.bo.impl.MarcaBOImpl" init-method="init" parent="parentBO">
+		<property name="dao" ref="marcaDAO"/>
+	</bean>
+	<bean id="rubroBO" class="org.ambar.appl.bo.impl.RubroBOImpl" init-method="init" parent="parentBO">
+		<property name="dao" ref="rubroDAO"/>
+	</bean>
+	<bean id="bancoBO" class="org.ambar.appl.bo.impl.BancoBOImpl" init-method="init" parent="parentBO">
+		<property name="dao" ref="bancoDAO"/>
+	</bean>
+	<bean id="paisBO" class="org.ambar.appl.bo.impl.PaisBOImpl" init-method="init" parent="parentBO">
+		<property name="dao" ref="paisDAO"/>
+	</bean>
+	<bean id="provinciaBO" class="org.ambar.appl.bo.impl.ProvinciaBOImpl" init-method="init" parent="parentBO">
+		<property name="dao" ref="provinciaDAO"/>
+	</bean>
+
+	<!-- Mappers -->
+	<bean id="ordenTrabajoMapper" class="org.ambar.appl.mappers.impl.OrdenTrabajoMapperImpl" parent="parentMapper"/>
+	<bean id="clienteMapper" class="org.ambar.appl.mappers.impl.ClienteMapperImpl" parent="parentMapper">
+		<property name="provinciaDAO" ref="provinciaDAO"/>
+	</bean>
+	<bean id="proveedorMapper" class="org.ambar.appl.mappers.impl.ProveedorMapperImpl" parent="parentMapper">
+		<property name="provinciaDAO" ref="provinciaDAO"/>
+	</bean>
+	<bean id="cuentaCorrienteMapper" class="org.ambar.appl.mappers.impl.CuentaCorrienteMapperImpl" parent="parentMapper"/>
+	<bean id="cuentaCorrienteProveedorMapper" class="org.ambar.appl.mappers.impl.CuentaCorrienteProveedorMapperImpl" parent="parentMapper"/>
+	<bean id="cuentaBancariaMapper" class="org.ambar.appl.mappers.impl.CuentaBancariaMapperImpl" parent="parentMapper"/>
+	<bean id="facturaMapper" class="org.ambar.appl.mappers.impl.FacturaMapperImpl" parent="parentMapper"/>
+	<bean id="remitoMapper" class="org.ambar.appl.mappers.impl.RemitoMapperImpl" parent="parentMapper"/>
+	<bean id="movimientoCuentaCorrienteMapper" class="org.ambar.appl.mappers.impl.MovimientoCuentaCorrienteMapperImpl" parent="parentMapper"/>
+	<bean id="movimientoCuentaCorrienteProveedorMapper" class="org.ambar.appl.mappers.impl.MovimientoCuentaCorrienteProveedorMapperImpl" parent="parentMapper"/>
+	<bean id="movimientoCuentaBancariaMapper" class="org.ambar.appl.mappers.impl.MovimientoCuentaBancariaMapperImpl" parent="parentMapper"/>
+	<bean id="chequeMapper" class="org.ambar.appl.mappers.impl.ChequeMapperImpl" parent="parentMapper"/>
+	<bean id="articuloMapper" class="org.ambar.appl.mappers.impl.ArticuloMapperImpl" parent="parentMapper"/>
+	<bean id="cobranzaMapper" class="org.ambar.appl.mappers.impl.CobranzaMapperImpl" parent="parentMapper"/>
+	<bean id="pagoMapper" class="org.ambar.appl.mappers.impl.PagoMapperImpl" parent="parentMapper"/>
+	<bean id="ingresoMapper" class="org.ambar.appl.mappers.impl.IngresoMapperImpl" parent="parentMapper"/>
+	<bean id="gastoMapper" class="org.ambar.appl.mappers.impl.GastoMapperImpl" parent="parentMapper"/>
+	<bean id="compraMapper" class="org.ambar.appl.mappers.impl.CompraMapperImpl" parent="parentMapper"/>
+	<bean id="asientoContableMapper" class="org.ambar.appl.mappers.impl.AsientoContableMapperImpl" parent="parentMapper"/>
+	<bean id="numeradorComprobanteMapper" class="org.ambar.appl.mappers.impl.NumeradorComprobanteMapperImpl" parent="parentMapper"/>
+	<bean id="tipoIngresoMapper" class="org.ambar.appl.mappers.impl.TipoIngresoMapperImpl" parent="parentMapper"/>
+	<bean id="tipoGastoMapper" class="org.ambar.appl.mappers.impl.TipoGastoMapperImpl" parent="parentMapper"/>
+	<bean id="marcaMapper" class="org.ambar.appl.mappers.impl.MarcaMapperImpl" parent="parentMapper"/>
+	<bean id="rubroMapper" class="org.ambar.appl.mappers.impl.RubroMapperImpl" parent="parentMapper"/>
+	<bean id="bancoMapper" class="org.ambar.appl.mappers.impl.BancoMapperImpl" parent="parentMapper"/>
+	<bean id="paisMapper" class="org.ambar.appl.mappers.impl.PaisMapperImpl" parent="parentMapper"/>
+	<bean id="provinciaIDMapper" class="org.ambar.appl.mappers.impl.ProvinciaIDMapperImpl" parent="parentMapper"/>
+	<bean id="provinciaMapper" class="org.ambar.appl.mappers.impl.ProvinciaMapperImpl" parent="parentMapper"/>
+
+	<!-- Services -->
+	<bean id="ordenTrabajoServices" class="org.ambar.appl.services.impl.OrdenTrabajoServicesImpl" parent="parentServices">
+		<property name="businessObject" ref="ordenTrabajoBO"/>
+		<property name="entityMapper" ref="ordenTrabajoMapper"/>
+	</bean>
+	<bean id="clienteServices" class="org.ambar.appl.services.impl.ClienteServicesImpl" parent="parentServices">
+		<property name="businessObject" ref="clienteBO"/>
+		<property name="entityMapper" ref="clienteMapper"/>
+	</bean>
+	<bean id="proveedorServices" class="org.ambar.appl.services.impl.ProveedorServicesImpl" parent="parentServices">
+		<property name="businessObject" ref="proveedorBO"/>
+		<property name="entityMapper" ref="proveedorMapper"/>
+	</bean>
+	<bean id="cuentaCorrienteServices" class="org.ambar.appl.services.impl.CuentaCorrienteServicesImpl" parent="parentServices">
+		<property name="businessObject" ref="cuentaCorrienteBO"/>
+		<property name="entityMapper" ref="cuentaCorrienteMapper"/>
+	</bean>
+	<bean id="cuentaCorrienteProveedorServices" class="org.ambar.appl.services.impl.CuentaCorrienteProveedorServicesImpl" parent="parentServices">
+		<property name="businessObject" ref="cuentaCorrienteProveedorBO"/>
+		<property name="entityMapper" ref="cuentaCorrienteProveedorMapper"/>
+	</bean>
+	<bean id="cuentaBancariaServices" class="org.ambar.appl.services.impl.CuentaBancariaServicesImpl" parent="parentServices">
+		<property name="businessObject" ref="cuentaBancariaBO"/>
+		<property name="entityMapper" ref="cuentaBancariaMapper"/>
+	</bean>
+	<bean id="facturaServices" class="org.ambar.appl.services.impl.FacturaServicesImpl" parent="parentServices">
+		<property name="businessObject" ref="facturaBO"/>
+		<property name="entityMapper" ref="facturaMapper"/>
+	</bean>
+	<bean id="remitoServices" class="org.ambar.appl.services.impl.RemitoServicesImpl" parent="parentServices">
+		<property name="businessObject" ref="remitoBO"/>
+		<property name="entityMapper" ref="remitoMapper"/>
+	</bean>
+	<bean id="movimientoCuentaCorrienteServices" class="org.ambar.appl.services.impl.MovimientoCuentaCorrienteServicesImpl" parent="parentServices">
+		<property name="businessObject" ref="movimientoCuentaCorrienteBO"/>
+		<property name="entityMapper" ref="movimientoCuentaCorrienteMapper"/>
+	</bean>
+	<bean id="movimientoCuentaCorrienteProveedorServices" class="org.ambar.appl.services.impl.MovimientoCuentaCorrienteProveedorServicesImpl" parent="parentServices">
+		<property name="businessObject" ref="movimientoCuentaCorrienteProveedorBO"/>
+		<property name="entityMapper" ref="movimientoCuentaCorrienteProveedorMapper"/>
+	</bean>
+	<bean id="movimientoCuentaBancariaServices" class="org.ambar.appl.services.impl.MovimientoCuentaBancariaServicesImpl" parent="parentServices">
+		<property name="businessObject" ref="movimientoCuentaBancariaBO"/>
+		<property name="entityMapper" ref="movimientoCuentaBancariaMapper"/>
+	</bean>
+	<bean id="chequeServices" class="org.ambar.appl.services.impl.ChequeServicesImpl" parent="parentServices">
+		<property name="businessObject" ref="chequeBO"/>
+		<property name="entityMapper" ref="chequeMapper"/>
+	</bean>
+	<bean id="chequeRecibidoServices" class="org.ambar.appl.services.impl.ChequeServicesImpl" parent="parentServices">
+		<property name="businessObject" ref="chequeRecibidoBO"/>
+		<property name="entityMapper" ref="chequeMapper"/>
+	</bean>
+	<bean id="chequePropioServices" class="org.ambar.appl.services.impl.ChequeServicesImpl" parent="parentServices">
+		<property name="businessObject" ref="chequePropioBO"/>
+		<property name="entityMapper" ref="chequeMapper"/>
+	</bean>
+	<bean id="chequeEntregadoServices" class="org.ambar.appl.services.impl.ChequeServicesImpl" parent="parentServices">
+		<property name="businessObject" ref="chequeEntregadoBO"/>
+		<property name="entityMapper" ref="chequeMapper"/>
+	</bean>
+	<bean id="articuloServices" class="org.ambar.appl.services.impl.ArticuloServicesImpl" parent="parentServices">
+		<property name="businessObject" ref="articuloBO"/>
+		<property name="entityMapper" ref="articuloMapper"/>
+	</bean>
+	<bean id="cobranzaServices" class="org.ambar.appl.services.impl.CobranzaServicesImpl" parent="parentServices">
+		<property name="businessObject" ref="cobranzaBO"/>
+		<property name="entityMapper" ref="cobranzaMapper"/>
+	</bean>
+	<bean id="pagoServices" class="org.ambar.appl.services.impl.PagoServicesImpl" parent="parentServices">
+		<property name="businessObject" ref="pagoBO"/>
+		<property name="entityMapper" ref="pagoMapper"/>
+	</bean>
+	<bean id="gastoServices" class="org.ambar.appl.services.impl.GastoServicesImpl" parent="parentServices">
+		<property name="businessObject" ref="gastoBO"/>
+		<property name="entityMapper" ref="gastoMapper"/>
+	</bean>
+	<bean id="ingresoServices" class="org.ambar.appl.services.impl.IngresoServicesImpl" parent="parentServices">
+		<property name="businessObject" ref="ingresoBO"/>
+		<property name="entityMapper" ref="ingresoMapper"/>
+	</bean>
+	<bean id="compraServices" class="org.ambar.appl.services.impl.CompraServicesImpl" parent="parentServices">
+		<property name="businessObject" ref="compraBO"/>
+		<property name="entityMapper" ref="compraMapper"/>
+	</bean>
+	<bean id="asientoContableServices" class="org.ambar.appl.services.impl.AsientoContableServicesImpl" parent="parentServices">
+		<property name="businessObject" ref="asientoContableBO"/>
+		<property name="entityMapper" ref="asientoContableMapper"/>
+	</bean>
+	<bean id="numeradorComprobanteServices" class="org.ambar.appl.services.impl.NumeradorComprobanteServicesImpl" parent="parentServices">
+		<property name="businessObject" ref="numeradorComprobanteBO"/>
+		<property name="entityMapper" ref="numeradorComprobanteMapper"/>
+	</bean>
+	<bean id="tipoIngresoServices" class="org.ambar.appl.services.impl.TipoIngresoServicesImpl" parent="parentServices">
+		<property name="businessObject" ref="tipoIngresoBO"/>
+		<property name="entityMapper" ref="tipoIngresoMapper"/>
+	</bean>
+	<bean id="tipoGastoServices" class="org.ambar.appl.services.impl.TipoGastoServicesImpl" parent="parentServices">
+		<property name="businessObject" ref="tipoGastoBO"/>
+		<property name="entityMapper" ref="tipoGastoMapper"/>
+	</bean>
+	<bean id="marcaServices" class="org.ambar.appl.services.impl.MarcaServicesImpl" parent="parentServices">
+		<property name="businessObject" ref="marcaBO"/>
+		<property name="entityMapper" ref="marcaMapper"/>
+	</bean>
+	<bean id="rubroServices" class="org.ambar.appl.services.impl.RubroServicesImpl" parent="parentServices">
+		<property name="businessObject" ref="rubroBO"/>
+		<property name="entityMapper" ref="rubroMapper"/>
+	</bean>
+	<bean id="bancoServices" class="org.ambar.appl.services.impl.BancoServicesImpl" parent="parentServices">
+		<property name="businessObject" ref="bancoBO"/>
+		<property name="entityMapper" ref="bancoMapper"/>
+	</bean>
+	<bean id="paisServices" class="org.ambar.appl.services.impl.PaisServicesImpl" parent="parentServices">
+		<property name="businessObject" ref="paisBO"/>
+		<property name="entityMapper" ref="paisMapper"/>
+	</bean>
+	<bean id="provinciaServices" class="org.ambar.appl.services.impl.ProvinciaServicesImpl" parent="parentServices">
+		<property name="businessObject" ref="provinciaBO"/>
+		<property name="entityMapper" ref="provinciaMapper"/>
+		<property name="provinciaIDMapper" ref="provinciaIDMapper"/>
+	</bean>
+
+	<!-- Validators -->
+	<bean id="ordenTrabajoUniqueIdValidator"
+		class="org.ambar.core.validation.validators.UniqueIdValidation">
+		<property name="dao" ref="ordenTrabajoDAO" />
+		<property name="messageService" ref="messagesService" />
+	</bean>
+	<bean id="clienteUniqueIdValidator"
+		class="org.ambar.core.validation.validators.UniqueIdValidation">
+		<property name="dao" ref="clienteDAO" />
+		<property name="messageService" ref="messagesService" />
+	</bean>
+	<bean id="facturaUniqueIdValidator"
+		class="org.ambar.core.validation.validators.UniqueIdValidation">
+		<property name="dao" ref="facturaDAO" />
+		<property name="messageService" ref="messagesService" />
+	</bean>
+	<bean id="numeradorComprobanteUniqueIdValidator"
+		class="org.ambar.core.validation.validators.UniqueIdValidation">
+		<property name="dao" ref="numeradorComprobanteDAO" />
+		<property name="messageService" ref="messagesService" />
+	</bean>
+	<bean id="facturaInsertUpdateValidator"
+		class="org.ambar.appl.validation.FacturaInsertUpdateValidator">
+		<property name="messageService" ref="messagesService" />
+	</bean>
+
+</beans>

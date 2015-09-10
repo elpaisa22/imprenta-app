@@ -1,0 +1,119 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:security="http://www.springframework.org/security/tags"
+	xmlns:custom="http://ambar.org/facelets"
+	template="/WEB-INF/templates/template_crud.xhtml">
+	
+	<ui:define name="title">
+		<h:outputText value="Consulta de Factura" /> 
+	</ui:define>
+	 
+	<ui:define name="toolbar_crud">
+		<ui:include src="/WEB-INF/templates/toolbars/toolbar_consulta.xhtml" />
+	</ui:define>
+	
+	<ui:define name="content_crud">	
+		
+		<p:panel id="content_crud" styleClass="data-form">
+
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Nro Factura:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.id}" converter="idFacturaConverter" />
+				<h:outputText value="Tipo de Factura" styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.descripcionTipoFactura}" />				 
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Fecha de Emisión:  " styleClass="label-form"/>					
+				<h:outputText value="#{selectedDTO.fechaEmision}">
+					<f:convertDateTime pattern="dd/MM/yyyy"/> 
+				</h:outputText>
+				<h:outputText value="Condición de Venta:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.descripcionCondicionVenta}" />					 
+			</p:panelGrid>			
+						
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Nro. de Remito:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.idRemito}" />
+				<h:outputText value="Estado de Pago:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.descripcionEstadoPago}" />					 
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Nro Cliente:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.idCliente}" />
+				<h:outputText value="Razón Social del Cliente:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.razonSocialCliente}" />					 
+			</p:panelGrid>			
+				
+			<p:panel header="Detalle"
+			         toggleable="false"
+			         closable="false">
+			         
+			         <p:dataTable id="detalles" var="det" value="#{selectedDTO.coleccionDetalleFacturas}" emptyMessage="No existen datos">
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Descripción" />
+							</f:facet>
+							<p:inplace>
+								<h:outputText value="#{det.descripcionServicio}" />
+							</p:inplace>
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Precio Unitario" />
+							</f:facet>
+							<h:outputText value="#{det.precioUnitario}">
+								<f:convertNumber type="currency"/>
+							</h:outputText>
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Cantidad" />
+							</f:facet>
+							<h:outputText value="#{det.cantidad}"/>
+						</p:column>
+						<p:column rendered="false">
+							<f:facet name="header">
+								<h:outputText value="% Descuento" />
+							</f:facet>
+							<h:outputText value="#{det.descuento}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Monto Total" />
+							</f:facet>
+							<h:outputText value="#{det.montoTotal}" >
+								<f:convertNumber type="currency"/>
+							</h:outputText>
+						</p:column>
+					</p:dataTable>			
+			</p:panel>
+			
+			<p:spacer height="20"/>
+
+			<p:panelGrid id="lblImporteTotal" columns="4" styleClass="tabla-form">
+				<h:outputText value="Sub Total:  " styleClass="label-form" rendered="#{selectedDTO.tipoFactura == 'B'}"/>
+				<h:outputText value="#{selectedDTO.importeSubTotal}" style="font-size: 1.5em;" rendered="#{selectedDTO.tipoFactura == 'B'}">
+					<f:convertNumber type="currency"/>
+				</h:outputText>
+				<h:outputText value="Importe IVA:  " styleClass="label-form" rendered="#{selectedDTO.tipoFactura == 'B'}"/>
+				<h:outputText value="#{selectedDTO.importeIVA}" style="font-size: 1.5em;" rendered="#{selectedDTO.tipoFactura == 'B'}">
+					<f:convertNumber type="currency"/>
+				</h:outputText>
+				<h:outputText/>
+				<h:outputText/>
+				<h:outputText value="Importe Total:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.importeTotal}" style="font-size: 1.5em;">
+					<f:convertNumber type="currency"/>
+				</h:outputText>
+			</p:panelGrid>
+			
+		</p:panel>				 
+	</ui:define>	
+</ui:composition>

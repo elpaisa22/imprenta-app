@@ -1,0 +1,105 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:security="http://www.springframework.org/security/tags"
+	xmlns:custom="http://ambar.org/facelets"
+	template="/WEB-INF/templates/template_crud.xhtml">
+	 
+	<ui:define name="title">
+		<h:outputText value="Consulta de Órden de Trabajo" /> 
+	</ui:define>
+	
+	<ui:define name="toolbar_crud">
+		<ui:include src="/WEB-INF/templates/toolbars/toolbar_consulta.xhtml" />
+	</ui:define>
+	
+	<ui:define name="content_crud">	
+
+		<p:panel id="content_crud" styleClass="data-form">
+		
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Nro Orden:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.id}" />
+				<h:outputText/>
+				<h:outputText/>					 
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Nro Cliente:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.idCliente}" />
+				<h:outputText value="Razón Social del Cliente:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.razonSocialCliente}" />					 
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Descripción:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.descripcion}" />
+				<h:outputText value="Cantidad:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.cantidad}" />					 
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Fecha Ingreso:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.fechaInicio}">
+					<f:convertDateTime pattern="dd/MM/yyyy"/> 
+				</h:outputText>
+				<h:outputText value="Fecha Pautada:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.fechaPautada}">
+					<f:convertDateTime pattern="dd/MM/yyyy"/> 
+				</h:outputText>					 
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Estado de la Órden:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.descripcionEstadoOrden}" />
+				<h:outputText value="Fecha Entrega:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.fechaEntrega}">
+					<f:convertDateTime pattern="dd/MM/yyyy"/> 
+				</h:outputText>									 
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Importe Total:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.importeTotal}">
+					<f:convertNumber  type="currency" currencySymbol="$ "/>
+				</h:outputText>
+				<h:outputText/>
+				<h:outputText/>					 
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Ancho:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.ancho}" />
+				<h:outputText value="Alto:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.alto}" />
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Tipo de Material:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.tipoMaterial}" />
+				<h:outputText/>
+				<h:outputText/>	
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Colores frontales:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.coloresFrontales}" />
+				<h:outputText value="Colores traseros:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.coloresTraseros}" />
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Nro. Factura:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.idFactura}" />
+				<h:outputText value="Nro. Remito:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.idRemito}" />
+			</p:panelGrid>			
+		
+		</p:panel>				 
+	</ui:define>
+</ui:composition>

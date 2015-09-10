@@ -1,0 +1,105 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:security="http://www.springframework.org/security/tags"
+	xmlns:custom="http://ambar.org/facelets"
+	template="/WEB-INF/templates/template_main.xhtml">
+	
+	<ui:define name="content">
+	
+		<script type="text/javascript">
+			jQuery(document).ready(function() {
+				if (jQuery(".ui-messages-info").length > 0){
+				    setTimeout(function() {
+				    	jQuery(".ui-messages-info").hide('slow')
+				    }, 5000);
+				}
+				if (jQuery(".ui-messages-warn").length > 0){
+				    setTimeout(function() {
+				    	jQuery(".ui-messages-warn").hide('slow')
+				    }, 5000);
+				}
+			});
+		</script>
+		
+		<p:breadCrumb id="breadcrumb-navigation" model="#{breadcrumbBean.breadcrumbModel}"/>   
+		
+		<ui:insert name="toolbar_listado"/>
+
+		<p:messages id="messagesError" closable="true"/>
+
+		<p:dataTable id="dataTable"
+			widgetVar="dataTable"
+		    var="entity" value="#{dataTableBean.lazyDataModel}"
+			paginator="true" rows="10" paginatorPosition="bottom"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			currentPageReportTemplate="(Registros {startRecord} - {endRecord} de {totalRecords}, Página {currentPage}/{totalPages})"
+			resizableColumns="true"
+			selectionMode="single" selection="#{flowScope.selected}"
+			styleClass="main-grid" emptyMessage="No se encontraron datos."
+			lazy="true"
+			binding="#{dataTableBean.dataTable}">
+			
+			<p:ajax event="sort" oncomplete="gridBehavior();"/>
+			<p:ajax event="filter" oncomplete="gridBehavior();"/>
+			<p:ajax event="page" oncomplete="gridBehavior();"/>
+			
+			<p:columns value="#{flowScope.columns}"
+			           var="column"
+				       columnIndexVar="colIndex"
+				       sortBy="#{entity[column.property]}"
+				       field="#{column.property}"
+				       headerText="#{column.header}">
+				<h:outputText value="#{entity[column.property]}" converter="#{column.converter}"/>  
+			</p:columns>
+			
+		</p:dataTable>
+
+		<p:remoteCommand name="dobleClick" action="consultar" process="@all"/>
+		
+		<p:toolbar> 
+			<f:facet name="left">
+				<p:menuButton id="menu-button-exporter" value="Exportar datos">
+					<p:menuitem>
+						<h:commandLink styleClass="ui-menuitem-link">  
+				            <p:graphicImage value="/resources/images/exports/excel.png" />
+				            <h:outputText value="EXCEL" styleClass="export-link" style="vertical-align: super; margin-left:10px;"/>  
+				            <p:dataExporter type="xls" target="dataTable" fileName="listado" />  
+				        </h:commandLink>
+					</p:menuitem>
+
+					<p:menuitem>
+						<h:commandLink styleClass="ui-menuitem-link">  
+				            <p:graphicImage value="/resources/images/exports/pdf.png" />
+				            <h:outputText value="PDF" styleClass="export-link" style="vertical-align: super; margin-left:10px;"/>
+				            <p:dataExporter type="pdf" target="dataTable" fileName="listado"/>  
+			        	</h:commandLink>
+			      	</p:menuitem>
+				</p:menuButton>
+			</f:facet>
+			
+			<f:facet name="right">
+				<p:menuButton id="subentities" model="#{breadcrumbBean.subentitiesModel}" disabled="#{!breadcrumbBean.subentitiesEnabled()}" value="Relaciones">
+				</p:menuButton>
+			</f:facet>
+		</p:toolbar>
+		
+		<p:remoteCommand name="redirectToSubRelation" action="redirectRelation"/>
+		<p:remoteCommand name="redirectByBreadcrumb"  action="redirectBreadcrumb"/>
+				
+		<p:ajaxStatus style="width:64px;height:64px;position:fixed;bottom:100px;right:100px;">  
+		    <f:facet name="start">  
+		        <h:graphicImage value="${request.contextPath}/spring/javax.faces.resource/images/preloader.gif" />  
+		    </f:facet>  
+		      
+		    <f:facet name="complete">  
+		        <h:outputText value="" />  
+		    </f:facet>  
+		</p:ajaxStatus>
+	</ui:define>	
+</ui:composition>

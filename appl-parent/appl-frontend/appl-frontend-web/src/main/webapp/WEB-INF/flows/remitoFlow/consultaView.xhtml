@@ -1,0 +1,107 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:security="http://www.springframework.org/security/tags"
+	xmlns:custom="http://ambar.org/facelets"
+	template="/WEB-INF/templates/template_crud.xhtml">
+	 
+	<ui:define name="title">
+		<h:outputText value="Consulta de Remitos" /> 
+	</ui:define>
+	
+	<ui:define name="toolbar_crud">
+		<ui:include src="/WEB-INF/templates/toolbars/toolbar_consulta.xhtml" />
+	</ui:define>
+	
+	<ui:define name="content_crud">	
+
+		<p:panel id="content_crud" styleClass="data-form">
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Nro Remito:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.id}" />
+				<h:outputText/>
+				<h:outputText/>					 
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Fecha de Emisión:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.fechaEmision}">
+					<f:convertDateTime pattern="dd/MM/yyyy"/> 
+				</h:outputText>
+				<h:outputText/>
+				<h:outputText/>					 
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Nro Cliente:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.idCliente}" />
+				<h:outputText value="Razón Social del Cliente:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.razonSocialCliente}" />					 
+			</p:panelGrid>
+			
+			<p:fieldset legend="Órdenes de Trabajo" styleClass="fieldset-grid">
+				<p:dataTable id="ordenesDeTrabajo" var="orden" value="#{selectedDTO.coleccionOrdenesTrabajo}" emptyMessage="No existen datos">
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Nro Orden" />
+						</f:facet>
+						<h:outputText value="#{orden.id}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Descripcion" />
+						</f:facet>
+						<h:outputText value="#{orden.descripcion}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Cantidad" />
+						</f:facet>
+						<h:outputText value="#{orden.cantidad}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Importe Total" />
+						</f:facet>
+						<h:outputText value="#{orden.importeTotal}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Cliente" />
+						</f:facet>
+						<h:outputText value="#{orden.razonSocialCliente}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Fecha de Ingreso" />
+						</f:facet>
+						<h:outputText value="#{orden.fechaInicio}" >
+							<f:convertDateTime pattern="dd/MM/yyyy"/> 
+						</h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Fecha de Entrega" />
+						</f:facet>
+						<h:outputText value="#{orden.fechaEntrega}" >
+							<f:convertDateTime pattern="dd/MM/yyyy"/> 
+						</h:outputText>
+					</p:column>
+				</p:dataTable>
+			</p:fieldset>
+
+		
+		</p:panel>				 
+	</ui:define>
+	
+	<ui:define name="messages_crud">
+		<ui:include src="/WEB-INF/templates/toolbars/msg_toolbar_edicion.xhtml" />
+	</ui:define>
+	
+</ui:composition>

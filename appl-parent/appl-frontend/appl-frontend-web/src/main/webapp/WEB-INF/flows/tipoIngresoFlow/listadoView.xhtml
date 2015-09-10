@@ -1,0 +1,20 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:security="http://www.springframework.org/security/tags"
+	xmlns:custom="http://ambar.org/facelets"
+	template="/WEB-INF/templates/template_listado.xhtml">
+	
+	<ui:define name="title">
+		<h:outputText value="Tipos de Ingreso" /> 
+	</ui:define>
+	 
+	<ui:define name="toolbar_listado">
+		<ui:include src="/WEB-INF/templates/toolbars/toolbar_listado.xhtml" />
+	</ui:define>
+</ui:composition>

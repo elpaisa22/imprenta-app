@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+      parent="parent-flow-listado, parent-flow, parent-flow-crud">
+      
+    <!-- FlowScope variables -->
+	<var name="selectedDTO" class="org.ambar.appl.dto.CuentaCorrienteDTO" />
+	<var name="nuevaEntidad" class="org.ambar.appl.dto.CuentaCorrienteDTO" />
+	
+	<on-start>
+		<set name="flowScope.edicionEnabled"  value="false" />
+		<set name="flowScope.nuevoEnabled"    value="false" />
+		<set name="flowScope.eliminarEnabled" value="false" />
+	</on-start>
+	
+
+    <action-state id="guardarEdicionAction">
+    	<set name="selectedDTO.idCliente" value="autoCompleteClienteBean.idFromSelected"/>
+    	<evaluate expression="cuentaCorrienteServices.update(selectedDTO, userContext)" result="transactionResult"/>
+    	<transition to="transactionHasErrors">
+    	</transition>
+    </action-state>
+     
+    <action-state id="guardarNuevoAction">
+    	<set name="nuevaEntidad.idCliente" value="autoCompleteClienteBean.idFromSelected"/> 
+    	<transition to="transactionHasErrors">
+    		<evaluate expression="cuentaCorrienteServices.insert(nuevaEntidad, userContext)" result="transactionResult"/>
+    	</transition>
+    </action-state>
+    
+    <action-state id="nuevoState">    	
+    	<evaluate expression="new org.ambar.appl.dto.CuentaCorrienteDTO()" result="nuevaEntidad"/>
+    	<transition to="nuevoView">
+    		<set name="flowScope.estadoEdicion" value="'NUEVO'"/>
+    	</transition>
+    </action-state>
+    
+    <action-state id="edicionState"> 
+    	<evaluate expression="cuentaCorrienteServices.getById(selected.id, userContext).getResult()" result="selectedDTO"/>   	
+    	<transition to="edicionView">    		
+    		<set name="flowScope.estadoEdicion" value="'EDICION'"/>
+    	</transition>
+    </action-state>
+    
+    <action-state id="consultaState">
+    	<evaluate expression="cuentaCorrienteServices.getById(selected.id, userContext).getResult()" result="selectedDTO"/>   	
+    	<transition to="consultaView">    		
+    		<set name="flowScope.estadoEdicion" value="'CONSULTA'"/>
+    	</transition>
+    </action-state>
+    
+    <action-state id="eliminarAction">
+    	<evaluate expression="cuentaCorrienteServices.remove(selected, userContext)" result="transactionResult"/>   	
+    	<transition to="transactionHasErrors"/>
+    </action-state>
+    
+    <view-state id="edicionView">
+    	<on-entry>
+    		<evaluate expression="autoCompleteClienteBean.loadFromId(selectedDTO.idCliente)"/>
+    	</on-entry>
+    </view-state>
+    
+    <view-state id="nuevoView">
+    	<on-entry>
+    		<set name="autoCompleteClienteBean.clienteSelected" value="null"/>
+    	</on-entry>    
+    </view-state>
+    
+    <!-- Recarga de objeto seleccionado para consulta y forward a consulta -->
+    <action-state id="reloadSelectedAndPerformConsultaAction">
+    	<evaluate expression="cuentaCorrienteServices.getById(selected.id,userContext).getResult()" result="selected" />
+    	<transition to="consultaView" />
+    </action-state>
+</flow>

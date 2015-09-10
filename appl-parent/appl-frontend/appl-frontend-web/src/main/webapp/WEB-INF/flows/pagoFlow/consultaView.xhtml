@@ -1,0 +1,213 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:security="http://www.springframework.org/security/tags"
+	xmlns:custom="http://ambar.org/facelets"
+	template="/WEB-INF/templates/template_crud.xhtml">
+	 
+	<ui:define name="title">
+		<h:outputText value="Consulta de Pago a Proveedor" /> 
+	</ui:define>
+	
+	<ui:define name="toolbar_crud">
+		<ui:include src="/WEB-INF/templates/toolbars/toolbar_consulta.xhtml" />
+	</ui:define>
+	
+	<ui:define name="content_crud">	
+
+		<p:panel id="content_crud" styleClass="data-form">
+
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Nro Pago:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.id}" />
+				<h:outputText/>
+				<h:outputText/>					 
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Proveedor:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.razonSocialProveedor}"/>
+				<h:outputText/>
+				<h:outputText/>
+			</p:panelGrid>
+			
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">				
+				<h:outputText value="Fecha:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.fecha}">
+					<f:convertDateTime pattern="dd/MM/yyyy"/> 
+				</h:outputText>
+				<h:outputText/>
+				<h:outputText/>
+			</p:panelGrid>
+			
+			<p:tabView id="detalle_pagos">
+				<p:tab title="Efectivo">
+					<p:panelGrid columns="4" styleClass="tabla-form">				
+						<h:outputText value="Monto Efectivo: " styleClass="label-form"/>
+						<h:outputText value="#{selectedDTO.montoEfectivo}" >
+							<f:convertNumber type="currency"/>
+						</h:outputText>
+						<h:outputText/>
+						<h:outputText/> 	 
+					</p:panelGrid>
+				</p:tab>
+
+				<p:tab title="Tarjeta Crédito">
+					<p:panelGrid columns="4" styleClass="tabla-form">				
+						<h:outputText value="Nro. Tarjeta Crédito:  " styleClass="label-form"/>
+						<h:outputText value="#{selectedDTO.numeroTarjetaCredito}"/>
+						<h:outputText/>
+						<h:outputText/> 	 
+					</p:panelGrid>
+					
+					<p:panelGrid columns="4" styleClass="tabla-form">				
+						<h:outputText value="Marca:  " styleClass="label-form"/>
+						<h:outputText value="#{selectedDTO.marcaTarjetaCredito}"/>
+						<h:outputText/>
+						<h:outputText/> 	 
+					</p:panelGrid>
+					
+					<p:panelGrid columns="4" styleClass="tabla-form">				
+						<h:outputText value="Banco:  " styleClass="label-form"/>
+						<h:outputText value="#{selectedDTO.descripcionBancoTarjetaCredito}"/>
+						<h:outputText/>
+						<h:outputText/> 	 
+					</p:panelGrid>	
+					
+					<p:panelGrid columns="4" styleClass="tabla-form">				
+						<h:outputText value="Monto Tarjeta Crédito: " styleClass="label-form"/>
+						<h:outputText value="#{selectedDTO.montoTarjetaCredito}" >
+							<f:convertNumber type="currency"/>
+						</h:outputText>
+						<h:outputText/>
+						<h:outputText/> 	 
+					</p:panelGrid>
+				</p:tab>
+				
+				<p:tab title="Tarjeta Débito">
+					<p:panelGrid columns="4" styleClass="tabla-form">				
+						<h:outputText value="Nro. Tarjeta Débito:  " styleClass="label-form"/>
+						<h:outputText value="#{selectedDTO.numeroTarjetaDebito}"/>
+						<h:outputText/>
+						<h:outputText/> 	 
+					</p:panelGrid>
+					
+					<p:panelGrid columns="4" styleClass="tabla-form">				
+						<h:outputText value="Marca:  " styleClass="label-form"/>
+						<h:outputText value="#{selectedDTO.marcaTarjetaDebito}"/>
+						<h:outputText/>
+						<h:outputText/> 	 
+					</p:panelGrid>
+					
+					<p:panelGrid columns="4" styleClass="tabla-form">				
+						<h:outputText value="Banco:  " styleClass="label-form"/>
+						<h:outputText value="#{selectedDTO.descripcionBancoTarjetaDebito}"/>
+						<h:outputText/>
+						<h:outputText/> 	 
+					</p:panelGrid>	
+					
+					<p:panelGrid columns="4" styleClass="tabla-form">				
+						<h:outputText value="Monto Tarjeta Débito: " styleClass="label-form"/>
+						<h:outputText value="#{selectedDTO.montoTarjetaDebito}" >
+							<f:convertNumber type="currency"/>
+						</h:outputText>
+						<h:outputText/>
+						<h:outputText/> 	 
+					</p:panelGrid>
+				</p:tab>
+				
+				<p:tab title="Cheque" id="tab_cheques">
+				
+					
+
+					<p:dataTable id="table_cheques" var="cheque" value="#{selectedDTO.coleccionCheques}"
+					             emptyMessage="No existen cheques."
+					             paginator="true" rows="10" paginatorPosition="bottom"
+				                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+				                 currentPageReportTemplate="(Registros: {startRecord} - {endRecord} de {totalRecords}, Página {currentPage}/{totalPages})">
+					    <f:facet name="header">
+					    	Cheques
+					    </f:facet>
+					    <p:column headerText="Nro. Cheque">
+					        <h:outputText value="#{cheque.id}" />
+					    </p:column>
+					    <p:column headerText="Fecha">
+					        <h:outputText value="#{cheque.fecha}">
+								<f:convertDateTime pattern="dd/MM/yyyy"/> 
+							</h:outputText>
+					    </p:column>
+					    <p:column headerText="Monto">
+					        <h:outputText value="#{cheque.monto}" >
+								<f:convertNumber type="currency"/>
+							</h:outputText>
+					    </p:column>
+					</p:dataTable>
+
+				</p:tab>
+			
+			</p:tabView>
+			
+			
+			<p:panel header="Detalle del Pago" toggleable="true">
+				<p:dataTable id="detalles" var="det"
+			             value="#{selectedDTO.coleccionDetallePago}"
+			             emptyMessage="No se encontraron detalles de la pago."
+			             rowKey="#{det.idCompra}"
+			             paginator="true" rows="10" paginatorPosition="bottom"
+						 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						 currentPageReportTemplate="(Registros: {startRecord} - {endRecord} de {totalRecords}, Página {currentPage}/{totalPages})">
+
+	
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Compra" />
+						</f:facet>
+						<h:outputText value="#{det.idCompra}" />
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Fecha" />
+						</f:facet>
+						<h:outputText value="#{det.fechaCompra}">
+							<f:convertDateTime pattern="dd/MM/yyyy"/>
+						</h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Total Compra" />
+						</f:facet>
+						<h:outputText value="#{det.importeCompra}">
+							<f:convertNumber type="currency"/>
+						</h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Importe Pagado" />
+						</f:facet>
+						<h:outputText value="#{det.montoPagado}">
+							<f:convertNumber type="currency"/>
+						</h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Saldo" />
+						</f:facet>
+						<h:outputText value="#{det.saldo}">
+							<f:convertNumber type="currency"/>
+						</h:outputText>
+					</p:column>
+				</p:dataTable>
+			
+			</p:panel>
+			
+		</p:panel>				 
+	</ui:define>
+	
+</ui:composition>

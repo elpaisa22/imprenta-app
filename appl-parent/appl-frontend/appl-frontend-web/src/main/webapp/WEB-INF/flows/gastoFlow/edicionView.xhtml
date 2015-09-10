@@ -1,0 +1,98 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:security="http://www.springframework.org/security/tags"
+	xmlns:custom="http://ambar.org/facelets"
+	template="/WEB-INF/templates/template_crud.xhtml">
+	
+	<ui:define name="title">
+		<h:outputText value="Edición de Gastos Varios" /> 
+	</ui:define>
+	 
+	<ui:define name="toolbar_crud">
+		<ui:include src="/WEB-INF/templates/toolbars/toolbar_edicion.xhtml" />
+	</ui:define>
+	
+	<ui:define name="content_crud">
+		
+		<p:panel id="content_crud" styleClass="data-form">
+
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="ID Gasto:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.id}"/>
+				<h:outputText/>
+				<h:outputText/>
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Fecha:  " styleClass="label-form"/>
+				<p:calendar label="Fecha" value="#{selectedDTO.fecha}" showOn="button" pattern="dd/MM/yyyy" locale="es" required="true"/>
+				<h:outputText/>
+				<h:outputText/>					 
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Tipo de Gasto:  " styleClass="label-form"/>
+				<p:autoComplete id="tipoGasto"
+				                value="#{autoCompleteTipoGastoBean.tipoGastoSelected}"
+				                completeMethod="#{autoCompleteTipoGastoBean.completeTipoGasto}"  
+	                            var="a" itemLabel="#{a.id}" itemValue="#{a}"
+	                            forceSelection="true"
+	                            converter="#{autoCompleteTipoGastoBean}"
+	                            required="true"
+	                            label="Tipo de Gasto"
+	                            dropdown="true">
+	                
+	                <p:column>
+	                	<f:facet name="header">
+								<h:outputText value="Codigo" />
+						</f:facet>
+	                    <h:outputText value="#{a.id}"/>  
+	                </p:column>
+	                <p:column>
+	                	<f:facet name="header">
+								<h:outputText value="Descripcion" />
+						</f:facet>
+                        <h:outputText value="#{a.descripcion}"/>
+	                </p:column>
+	            </p:autoComplete>
+				<p:watermark for="tipoGasto" value="Ingrese el Tipo de Gasto" />
+				<h:outputText/>				 
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Importe:  " styleClass="label-form"/>
+				<p:inputText id="fldImporte"
+				             value="#{selectedDTO.importe}"
+				             required="true" label="Importe">
+					<f:convertNumber minFractionDigits="2"/>
+					<f:ajax render="@this"/>
+				</p:inputText>
+				<h:outputText/>
+				<h:outputText/>					 
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Nombre:  " styleClass="label-form"/>
+				<p:inputText id="nombre" value="#{selectedDTO.nombre}" label="Nombre"/>
+				<p:watermark for="nombre" value="Ingrese el Nombre" />
+				<h:outputText/>
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Observaciones:  " styleClass="label-form"/>
+				<p:inputText id="observaciones" value="#{nuevaEntidad.observaciones}" label="Observaciones"/>
+				<p:watermark for="observaciones" value="Ingrese las Observaciones" />
+				<h:outputText/>
+			</p:panelGrid>
+		
+		</p:panel>
+			 
+	</ui:define>
+
+</ui:composition>

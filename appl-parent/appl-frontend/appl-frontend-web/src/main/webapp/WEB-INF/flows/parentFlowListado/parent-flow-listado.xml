@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	abstract="true">
+	
+	<!-- FlowScope variables -->
+    <var name ="listEntidad" class="org.ambar.core.dto.results.ResultListDTO" />
+    <var name ="textoBuscar" class="java.lang.String" />
+    <var name="fromState" class="java.lang.String" />
+     
+    <on-start>
+    	<set name="flowScope.selected" value="externalContext.sessionMap.lastSelected"/>
+    </on-start>
+    
+    <action-state id="listaState">
+    	<evaluate expression="breadcrumbBean.LoadFromParent(rEntityName)"/>
+    	<transition to="listadoState">
+    		<evaluate expression="dataTableBean.initSession()"/>
+    	</transition>
+		
+    </action-state>
+    
+    <action-state id="listadoState">
+    	<evaluate expression="dataTableBean.loadData(entitySelected)"/>
+    	<transition to="listadoView"/>
+    </action-state>
+    
+ 	<!-- States -->
+	<view-state id="listadoView">    
+	    <transition on="consultar" to="consultarDecision">
+	    	<set name="fromState" value="'listadoState'" />
+	    </transition>
+	    
+	    <transition on="eliminar" to="eliminarDecision"/>
+	    
+	    <transition on="editar" to="editarDecision">
+	    	<set name="fromState" value="'listadoState'" />
+	    </transition>
+	    
+	    <transition on="nuevo" to="nuevoState">
+	    	<set name="fromState" value="'listadoState'" />
+	    </transition>
+    </view-state>
+    
+    <!-- Acciones base -->
+    <decision-state id="consultarDecision">
+    	<if test="flowScope.selected == null" then="notSelectedMessage" else="consultaState" />
+    </decision-state>
+    
+    <decision-state id="eliminarDecision">
+    	<if test="flowScope.selected == null" then="notSelectedMessage" else="eliminarAction" />
+    </decision-state>
+    
+    <decision-state id="editarDecision">
+    	<if test="flowScope.selected == null" then="notSelectedMessage" else="edicionState" />
+    </decision-state>
+    
+    <decision-state id="relatedDecision">
+    	<if test="flowScope.selected == null" then="notSelectedMessage" else="relatedAction"/>
+    </decision-state>
+    
+    <action-state id="notSelectedMessage">
+		<evaluate expression="messagesHelper.addErrorMessages('Debe seleccionar un registro')" />
+	
+		<transition to="listadoView">
+			<render fragments="messagesError" />
+		</transition>
+    </action-state>
+    
+    <action-state id="relatedAction">
+    	<evaluate expression="breadcrumbBean.newEntitySelected(rEntityName, flowScope.selected.id, flowScope.selected)"/>
+    	<transition to="viewRedirectRelation">
+    		<evaluate expression="dataTableBean.goToRelation(flowScope.selected, rEntityName)"/>
+    	</transition>
+    </action-state>
+    
+    <view-state id="viewRedirectRelation" view="flowRedirect:#{rTarget}?entity=#{rEntityName}&amp;from=#{rFrom}" />
+    
+    <view-state id="viewRedirectBreadcrumb" view="flowRedirect:#{rTarget}?entity=#{rEntityName}&amp;from=#{rFrom}" />
+    
+    <global-transitions>
+		<transition on="redirectRelation" to="relatedDecision">			
+			<set name="rTarget" value="externalContext.sessionMap.target" type="string" />
+			<set name="rEntityName" value="externalContext.sessionMap.entityName" type="string" />
+			<set name="rFrom" value="externalContext.sessionMap.from" type="string" />
+		</transition>
+		
+		<transition on="redirectBreadcrumb" to="viewRedirectBreadcrumb">			
+			<set name="rTarget" value="externalContext.sessionMap.target" type="string" />
+			<set name="rEntityName" value="externalContext.sessionMap.entityName" type="string" />
+			<set name="rFrom" value="externalContext.sessionMap.from" type="string" />
+			<evaluate expression="breadcrumbBean.newEntitySelected(rEntityName)"/>
+		</transition>
+	</global-transitions>
+
+</flow>

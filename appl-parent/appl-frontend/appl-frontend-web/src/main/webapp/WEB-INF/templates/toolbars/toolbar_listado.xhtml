@@ -1,0 +1,39 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:security="http://www.springframework.org/security/tags"
+	xmlns:custom="http://ambar.org/facelets">
+	<p:toolbar>
+		<f:facet name="left">
+			<div class="entity-title">
+				<ui:insert name="title" />
+			</div> 
+		</f:facet>
+		<f:facet name="right">
+
+			<p:inputText value="#{dataTableBean.lazyDataModel.textoBuscar}" style="width:250px; height: 19px; margin-right: 10px" placeholder="Buscar en la grilla">
+				<p:ajax  oncomplete="PF('dataTable').filter();"/>
+			</p:inputText>
+
+	        <p:commandButton id="btnBuscar" value="Buscar" title="Buscar en la grilla" icon="fa fa-search" onclick="PF('dataTable').filter(); return false;" styleClass="btn-buscar ui-button-primary" update="dataTable"/>
+	        <p:separator/>
+			<p:commandButton value="Nuevo" title="Agregar un nuevo registro" action="nuevo" icon="fa fa-file-text" rendered="#{flowScope.nuevoEnabled}" immediate="true"/>
+			<p:commandButton value="Editar" title="Editar el registro seleccionado" action="editar" icon="fa fa-pencil"  rendered="#{flowScope.edicionEnabled}"/>
+			<p:commandButton value="Abrir" title="Abrir registro para consulta" action="consultar" icon="fa fa-folder-open"/>
+			<p:commandButton type="button" value="Eliminar" title="Eliminar el registro seleccionado" icon="fa fa-trash-o" onclick="PF('confirmationEliminar').show()" rendered="#{flowScope.eliminarEnabled}"/>			
+		</f:facet>
+	</p:toolbar>
+	
+	<p:hotkey bind="ctrl+a" action="nuevo"/>
+	<p:hotkey bind="ctrl+e" action="editar"/>
+	<p:hotkey bind="ctrl+z" action="eliminar"/>
+	
+	<p:confirmDialog message="¿Está seguro que desea eliminar el registro?" width="400" showEffect="fade" hideEffect="fade" header="Eliminar" severity="alert" widgetVar="confirmationEliminar">
+		<p:commandButton value="Si, estoy seguro" action="eliminar" oncomplete="PF('confirmationEliminar').hide()"/>
+		<p:commandButton value="No" onclick="PF('confirmationEliminar').hide()" type="button" />
+	</p:confirmDialog>
+</ui:composition>

@@ -1,0 +1,129 @@
+<navigationManager xmlns="http://www.ambar.org/navigation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.ambar.org/navigation NavigationManager.xsd">
+
+	<entitiesInformation>
+		<entity id="articulo" name="Artículo" browse-title="Articulo (:id / :descripcion)" image-big="" image-small="" service="articuloServices" crud="articuloFlow">
+		</entity>
+		<entity id="cliente" name="Clientes" browse-title="Clientes (:id, :razonSocial)" image-big="" image-small="" service="clienteServices" crud="clienteFlow">
+			<subentity id="factura" text="Facturas" filterCondition="idCliente = :id" />
+			<subentity id="cuentaCorriente" text="Cta Cte Cliente" filterCondition="idCliente = :id" />
+		</entity>
+		<entity id="proveedor" name="Proveedores" browse-title="Proveedor (:id / :razonSocial)" image-big="" image-small="" service="proveedorServices" crud="proveedorFlow">
+			<subentity id="cuentaCorrienteProveedor" text="Cta Cte Proveedor" filterCondition="idProveedor = :id" />
+		</entity>
+		<entity id="cuentaCorriente" name="Cta Cte Cliente" browse-title="Cta Cte Cliente (:id / :razonSocialCliente)" image-big="" image-small="" service="cuentaCorrienteServices" crud="cuentaCorrienteFlow">
+			<subentity id="movimientoCuentaCorriente" text="Movimientos de Cta Cte Cliente" filterCondition="idCuentaCorriente = :id" />
+		</entity>
+		<entity id="cuentaCorrienteProveedor" name="Cta Cte Proveedor" browse-title="Cta Cte Proveedor(:id / :razonSocialProveedor)" image-big="" image-small="" service="cuentaCorrienteProveedorServices" crud="cuentaCorrienteProveedorFlow">
+			<subentity id="movimientoCuentaCorrienteProveedor" text="Mvtos de Cta Cte Proveedor" filterCondition="idCuentaCorriente = :id" />
+		</entity>
+		<entity id="cuentaBancaria" name="Cta Bancaria" browse-title="Cta Bancaria (:id)" image-big="" image-small="" service="cuentaBancariaServices" crud="cuentaBancariaFlow">
+			<subentity id="movimientoCuentaBancaria" text="Movimientos de Cta Bancaria" filterCondition="idCuentaBancaria = :id" />
+		</entity>
+		<entity id="ordenTrabajo" name="Ordenes de Trabajo" browse-title="Ordenes de Trabajo (:id)" image-big="" image-small="" service="ordenTrabajoServices" crud="ordenTrabajoFlow">
+			<subentity id="factura" text="Facturas" filterCondition="id = :idFactura" />
+		</entity>
+		<entity id="factura" name="Facturas" browse-title="Facturas (:id)" image-big="" image-small="" service="facturaServiciosServices" crud="facturaServiciosFlow">
+			<subentity id="movimientoCuentaCorriente" text="Movimientos de Cuenta" filterCondition="idFactura = :id" />
+		</entity>
+		<entity id="remito" name="Remitos" browse-title="Remitos (:id)" image-big="" image-small="" service="remitoServices" crud="remitoFlow">
+			<subentity id="factura" text="Facturas" filterCondition="idRemito = :id" />
+		</entity>
+		<entity id="movimientoCuentaCorriente" name="Movimientos de Cta Cte Cliente" browse-title="Mvto de Cta Cte Cliente (:id)" image-big="" image-small="" service="movimientoCuentaCorrienteServices" crud="movimientoCuentaCorrienteFlow">
+			<subentity id="factura" text="Facturas" filterCondition="id = :idFactura" />
+			<subentity id="cobranza" text="Cobranzas" filterCondition="id = :idCobranza" />
+		</entity>
+		<entity id="movimientoCuentaCorrienteProveedor" name="Mvto de Cta Cte Cliente Proveedor" browse-title="Mvto de Cta Cte Proveedor(:id)" image-big="" image-small="" service="movimientoCuentaCorrienteProveedorServices" crud="movimientoCuentaCorrienteProveedorFlow">
+			<subentity id="compra" text="Compras" filterCondition="id = :idCompra" />
+			<subentity id="pago" text="Pagos" filterCondition="id = :idPago" />
+		</entity>
+		<entity id="movimientoCuentaBancaria" name="Movimientos de Cta Bancaria" browse-title="Mvto de Cta Bancaria (:id)" image-big="" image-small="" service="movimientoCuentaBancariaServices" crud="movimientoCuentaBancariaFlow">
+		</entity>
+		<entity id="cheque" name="Cheques" browse-title="Cheques (:id)" image-big="" image-small="" service="chequeServices" crud="chequeFlow">
+			<subentity id="cobranza" text="Cobranzas" filterCondition="id = :idCobranza" />
+			<subentity id="pago" text="Pagos" filterCondition="id = :idPago" />
+		</entity>
+		<entity id="chequeRecibido" name="Cheques Recibidos" browse-title="Cheque Recibido (:id)" image-big="" image-small="" service="chequeRecibidoServices" crud="chequeRecibidoFlow">
+			<subentity id="cobranza" text="Cobranzas" filterCondition="id = :idCobranza" />
+		</entity>
+		<entity id="chequePropio" name="Cheques Propios" browse-title="Cheque Propio (:id)" image-big="" image-small="" service="chequePropioServices" crud="chequePropioFlow">
+			<subentity id="pago" text="Pagos" filterCondition="id = :idPago" />
+		</entity>
+		<entity id="chequeEntregado" name="Cheques Entregados" browse-title="Cheque Entregado (:id)" image-big="" image-small="" service="chequeEntregadoServices" crud="chequeEntregadoFlow">
+			<subentity id="pago" text="Pagos" filterCondition="id = :idPago" />
+		</entity>
+		<entity id="cobranza" name="Cobranzas" browse-title="Cobranza (:id)" image-big="" image-small="" service="cobranzaServices" crud="cobranzaFlow">
+			<subentity id="movimientoCuentaCorriente" text="Mvto de Cta Cte Cliente" filterCondition="idCobranza = :id" />
+		</entity>
+		<entity id="pago" name="Pago a Proveedores" browse-title="Pago a Proveedor(:id)" image-big="" image-small="" service="pagoServices" crud="pagoFlow">
+		</entity>
+		<entity id="compra" name="Compras" browse-title="Compra (:id)" image-big="" image-small="" service="compraServices" crud="compraFlow">
+			<subentity id="movimientoCuentaCorrienteProveedor" text="Movimientos de Cuenta" filterCondition="idCompra = :id" />
+		</entity>
+		<entity id="gasto" name="Gastos Varios" browse-title="Gasto (:id)" image-big="" image-small="" service="gastoServices" crud="gastoFlow">
+		</entity>
+		<entity id="ingreso" name="Ingresos" browse-title="Ingreso (:id)" image-big="" image-small="" service="ingresoServices" crud="ingresoFlow">
+		</entity>
+		<entity id="numeradorComprobante" name="Numerador" browse-title="Numerador de Comp. (:id)" image-big="" image-small="" service="numeradorComprobanteServices" crud="numeradorComprobanteFlow">
+		</entity>
+		<entity id="marca" name="Marcas" browse-title="Marca (:id / :descripcion)" image-big="" image-small="" service="marcaServices" crud="marcaFlow">
+		</entity>
+		<entity id="rubro" name="Rubros" browse-title="Rubro (:id / :descripcion)" image-big="" image-small="" service="rubroServices" crud="rubroFlow">
+		</entity>
+		<entity id="tipoGasto" name="Tipos de Gasto" browse-title="Tipos de Gasto (:id / :descripcion)" image-big="" image-small="" service="tipoGastoServices" crud="tipoGastoFlow">
+		</entity>
+		<entity id="tipoIngreso" name="Tipos de Ingreso" browse-title="Tipos de Ingreso (:id / :descripcion)" image-big="" image-small="" service="tipoIngresoServices" crud="tipoIngresoFlow">
+		</entity>
+		<entity id="banco" name="Bancos" browse-title="Banco (:id / :descripcion)" image-big="" image-small="" service="bancoServices" crud="bancoFlow">
+		</entity>
+		<entity id="pais" name="Paises" browse-title="Pais (:id / :descripcion)" image-big="" image-small="" service="paisServices" crud="paisFlow">
+			<subentity id="provincia" text="Provincias" filterCondition="idPais = :id" />
+		</entity>
+		<entity id="provincia" name="Provincia" browse-title="Provincia (:idProvincia / :descripcion)" image-big="" image-small="" service="provinciaServices" crud="provinciaFlow">
+		</entity>
+	</entitiesInformation>
+
+	<navigation>
+		<module id="ventas" text="Ventas">
+			<item entity="cliente" text="Clientes" />
+			<item entity="cuentaCorriente" text="Cta Cte Cliente" />
+			<item entity="factura" text="Facturas" />
+			<item entity="cobranza" text="Cobranzas"/>
+		</module>
+
+		<module id="compras" text="Compras">
+			<item entity="proveedor" text="Proveedores" />
+			<item entity="cuentaCorrienteProveedor" text="Cta Cte Proveedor" />
+			<item entity="compra" text="Compras" />
+			<item entity="pago" text="Pago a Proveedores" />
+		</module>
+
+		<module id="cheque" text="Cheques">
+			<item entity="cheque" text="Todos los Cheques" />
+			<item entity="chequeRecibido" text="Cheques Recibidos" />
+			<item entity="chequePropio" text="Cheques Propios" />
+			<item entity="chequeEntregado" text="Cheques Entregados" />
+		</module>
+
+		<module id="caja" text="Caja">
+			<item entity="gasto" text="Gastos Varios" />
+			<item entity="ingreso" text="Ingresos" />
+			<item entity="cuentaBancaria" text="Cuenta Bancaria" />
+		</module>
+
+		<module id="informes" text="Informes">
+		</module>
+
+		<module id="parametros" text="Parámetros">
+			<item entity="banco" text="Bancos" />
+			<item entity="pais" text="Paises" />
+			<item entity="provincia" text="Provincias" />
+			<!--<item entity="marca" text="Marcas" /> -->
+			<!--<item entity="rubro" text="Rubros" /> -->
+			<item entity="tipoGasto" text="Tipos de Gasto" />
+			<item entity="tipoIngreso" text="Tipos de Ingreso" />
+			<item entity="numeradorComprobante" text="Numeradores" />
+		</module>
+	</navigation>
+</navigationManager>

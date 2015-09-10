@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+      parent="parent-flow-listado, parent-flow, parent-flow-crud">
+      
+    <!-- FlowScope variables -->
+	<var name="selectedDTO" class="org.ambar.appl.dto.RemitoDTO" />
+	<var name="nuevaEntidad" class="org.ambar.appl.dto.RemitoDTO" />
+	
+	<on-start>
+		<evaluate expression="false" result="flowScope.enableDialog"/>
+	</on-start>
+	
+    <action-state id="guardarEdicionAction">
+    	<set name="selectedDTO.idCliente" value="autoCompleteClienteBean.idFromSelected"/>    	
+    	<transition to="transactionHasErrors">
+    		<evaluate expression="remitoServices.update(selectedDTO, userContext)" result="transactionResult"/>
+    	</transition>
+    </action-state>
+     
+    <action-state id="guardarNuevoAction">
+    	<set name="nuevaEntidad.idCliente" value="autoCompleteClienteBean.idFromSelected"/>    	
+    	<transition to="transactionHasErrors">
+    		<evaluate expression="remitoServices.insert(nuevaEntidad, userContext)" result="transactionResult"/>
+    	</transition>
+    </action-state>
+    
+    <action-state id="nuevoState">    	
+    	<evaluate expression="new org.ambar.appl.dto.RemitoDTO()" result="nuevaEntidad"/>
+    	<transition to="nuevoView">
+    		<set name="flowScope.estadoEdicion" value="'NUEVO'"/>    		
+    	</transition>
+    </action-state>
+    
+    <action-state id="edicionState"> 
+    	<evaluate expression="remitoServices.getById(selected.id, userContext).getResult()" result="selectedDTO"/>   	
+    	<transition to="edicionView">
+    		<set name="flowScope.estadoEdicion" value="'EDICION'"/>
+    	</transition>
+    </action-state>
+    
+    <action-state id="consultaState">
+    	<evaluate expression="remitoServices.getById(selected.id, userContext).getResult()" result="selectedDTO"/>   	
+    	<transition to="consultaView">    		
+    		<set name="flowScope.estadoEdicion" value="'CONSULTA'"/>
+    	</transition>
+    </action-state>
+    
+    <action-state id="eliminarAction">
+    	<evaluate expression="remitoServices.remove(selected, userContext)" result="transactionResult"/>   	
+    	<transition to="transactionHasErrors"/>
+    </action-state>
+    
+    <view-state id="edicionView">
+    	<on-entry>
+    		<evaluate expression="autoCompleteClienteBean.loadFromId(selectedDTO.idCliente)"/>
+    		<set name="autoCompleteArticuloBean.articuloSelected" value="null"/>
+    	</on-entry>
+    	
+    	<transition on="cancelarAgregar" to="edicionView">
+    		<set name="flowScope.enableDialog" value="false"/>
+    	</transition>
+    </view-state>
+    
+    <view-state id="nuevoView">
+    	<on-entry>
+    		<set name="autoCompleteClienteBean.clienteSelected" value="null"/>
+    		<set name="autoCompleteArticuloBean.articuloSelected" value="null"/>
+    	</on-entry>    
+    	
+    </view-state>
+    
+    <!-- Recarga de objeto seleccionado para consulta y forward a consulta -->
+    <action-state id="reloadSelectedAndPerformConsultaAction">
+    	<evaluate expression="remitoServices.getById(selected.id,userContext).getResult()" result="selected" />
+    	<transition to="consultaView" />
+    </action-state>
+</flow>

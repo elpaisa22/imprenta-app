@@ -1,0 +1,44 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:security="http://www.springframework.org/security/tags"
+	xmlns:custom="http://ambar.org/facelets"
+	template="/WEB-INF/templates/template_crud_new.xhtml">
+	
+	<ui:define name="title">
+		<h:outputText value="Nuevo Banco" /> 
+	</ui:define>
+	 
+	<ui:define name="toolbar_crud">
+		<ui:include src="/WEB-INF/templates/toolbars/toolbar_edicion.xhtml" />
+	</ui:define>
+	
+	<ui:define name="content_crud">	
+
+		<p:panel id="content_crud" styleClass="data-form">
+
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Código:  " styleClass="label-form"/>
+				<p:inputText id="idTipo"
+				             value="#{nuevaEntidad.id}" required="true" label="Tipo del Código" onkeyup="this.value=this.value.toUpperCase();"
+				             maxlength="3"/>
+				<p:watermark for="idTipo" value="Ingrese el Código" />
+				<h:outputText/>
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Descripción:  " styleClass="label-form"/>
+				<p:inputText id="descripcion" value="#{nuevaEntidad.descripcion}" required="true" label="Descripción"/>
+				<p:watermark for="descripcion" value="Ingrese la Descripción" />
+				<h:outputText/>
+			</p:panelGrid>
+		
+		</p:panel>
+			 
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,121 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:security="http://www.springframework.org/security/tags"
+	xmlns:custom="http://ambar.org/facelets"
+	template="/WEB-INF/templates/template_crud_new.xhtml">
+	
+	<ui:define name="title">
+		<h:outputText value="Nueva de Órden de Trabajo" /> 
+	</ui:define>
+	 
+	<ui:define name="toolbar_crud">
+		<ui:include src="/WEB-INF/templates/toolbars/toolbar_edicion.xhtml" />
+	</ui:define>
+	
+	<ui:define name="content_crud">	
+		<div class="data-form">
+		
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Nro Orden:  " styleClass="label-form"/>
+				<h:outputText value="#{nuevaEntidad.id}" />
+				<h:outputText/>
+				<h:outputText/>					 
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Cliente:  " styleClass="label-form"/>
+				<p:autoComplete id="cliente" value="#{autoCompleteClienteBean.clienteSelected}" completeMethod="#{autoCompleteClienteBean.completeCliente}"  
+	                        var="c" itemLabel="#{c.razonSocial}" itemValue="#{c}" forceSelection="true" converter="#{autoCompleteClienteBean}"
+	                        required="true" label="Cliente">	                	  
+	                <p:column> 
+	                	<f:facet name="header">
+								<h:outputText value="Nro Cliente" />
+						</f:facet>
+	                    <h:outputText value="#{c.id}"/>   
+	                </p:column>
+	                <p:column>
+	                	<f:facet name="header">
+								<h:outputText value="Razon Social" />
+						</f:facet>
+	                	<h:outputText value="#{c.razonSocial}"/>
+	                </p:column>
+	                <p:column>
+	                	<f:facet name="header">
+								<h:outputText value="Tipo Documento" />
+						</f:facet>
+	                	<h:outputText value="#{c.tipoDocumento}"/>
+	                </p:column> 
+	                <p:column>
+	                	<f:facet name="header">
+								<h:outputText value="Nro Documento" />
+						</f:facet>
+	                	<h:outputText value="#{c.numeroDocumento}"/>
+	                </p:column>  
+	            </p:autoComplete>
+	            <p:watermark for="cliente" value="Ingrese el Nombre del Cliente" />
+	            <h:outputText/>
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Descripción:  " styleClass="label-form"/>
+				<p:inputText value="#{nuevaEntidad.descripcion}" />
+				<h:outputText value="Cantidad:  " styleClass="label-form"/>
+				<p:inputText value="#{nuevaEntidad.cantidad}" />					 
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Fecha Ingreso:  " styleClass="label-form"/>				
+				<p:calendar value="#{nuevaEntidad.fechaInicio}" showOn="button" pattern="dd/MM/yyyy" locale="es" required="true" label="Fecha Ingreso"/>
+				<h:outputText value="Fecha Pautada:  " styleClass="label-form"/>				
+				<p:calendar value="#{nuevaEntidad.fechaPautada}" showOn="button" pattern="dd/MM/yyyy" locale="es"/>					 
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Estado de la Órden:  " styleClass="label-form"/>
+				<p:selectOneMenu value="#{nuevaEntidad.estadoOrden}">  
+		            <f:selectItem itemLabel="Seleccione una opción" itemValue="" />  
+		            <f:selectItem itemLabel="EMITIDA" itemValue="EMITIDA" />  
+		            <f:selectItem itemLabel="COMPLETADA" itemValue="COMPLETADA" />  
+		            <f:selectItem itemLabel="FACTURADA" itemValue="FACTURADA" />
+		        </p:selectOneMenu>
+				<h:outputText value="Fecha Entrega:  " styleClass="label-form"/>								
+				<p:calendar value="#{nuevaEntidad.fechaEntrega}" showOn="button" pattern="dd/MM/yyyy" locale="es"/>			 
+			</p:panelGrid>			
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">				
+				<h:outputText value="Importe Total:  " styleClass="label-form"/>
+				<p:inputText value="#{nuevaEntidad.importeTotal}" styleClass="calculator"/>
+				<h:outputText/>
+				<h:outputText/>					 
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Ancho:  " styleClass="label-form"/>
+				<p:inputText value="#{nuevaEntidad.ancho}" />
+				<h:outputText value="Alto:  " styleClass="label-form"/>
+				<p:inputText value="#{nuevaEntidad.alto}" />
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Tipo de Material:  " styleClass="label-form"/>
+				<p:inputText value="#{nuevaEntidad.tipoMaterial}" />
+				<h:outputText/>
+				<h:outputText/>	
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Colores frontales:  " styleClass="label-form"/>
+				<p:spinner value="#{nuevaEntidad.coloresFrontales}" min="0"/>
+				<h:outputText value="Colores traseros:  " styleClass="label-form"/>
+				<p:spinner value="#{nuevaEntidad.coloresTraseros}" min="0"/>
+			</p:panelGrid>			
+		
+		</div>				 
+	</ui:define>
+</ui:composition>

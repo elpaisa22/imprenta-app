@@ -1,0 +1,150 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:security="http://www.springframework.org/security/tags"
+	xmlns:custom="http://ambar.org/facelets"
+	template="/WEB-INF/templates/template_crud_new.xhtml">
+	
+	<ui:define name="title">
+		<h:outputText value="Nuevo Cheque" /> 
+	</ui:define>
+	
+	<ui:define name="toolbar_crud">
+		<ui:include src="/WEB-INF/templates/toolbars/toolbar_edicion.xhtml" />
+	</ui:define>
+	 
+	<ui:define name="content_crud">	
+	
+		<p:panel id="content_crud" styleClass="data-form">
+
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Recibido de:  " styleClass="label-form"/>
+				<p:autoComplete id="cliente" value="#{autoCompleteClienteBean.clienteSelected}" completeMethod="#{autoCompleteClienteBean.completeCliente}"  
+	                        var="c" itemLabel="#{c.razonSocial}" itemValue="#{c}" forceSelection="true" converter="#{autoCompleteClienteBean}"
+	                        required="true" label="Cliente">	                	  
+	                <p:column> 
+	                	<f:facet name="header">
+								<h:outputText value="Nro Cliente" />
+						</f:facet>
+	                    <h:outputText value="#{c.id}"/>   
+	                </p:column>
+	                <p:column>
+	                	<f:facet name="header">
+								<h:outputText value="Razon Social" />
+						</f:facet>
+	                	<h:outputText value="#{c.razonSocial}"/>
+	                </p:column>
+	                <p:column>
+	                	<f:facet name="header">
+								<h:outputText value="Tipo Documento" />
+						</f:facet>
+	                	<h:outputText value="#{c.tipoDocumento}"/>
+	                </p:column> 
+	                <p:column>
+	                	<f:facet name="header">
+								<h:outputText value="Nro Documento" />
+						</f:facet>
+	                	<h:outputText value="#{c.numeroDocumento}"/>
+	                </p:column>  
+	            </p:autoComplete>
+	            <p:watermark for="cliente" value="Ingrese el Nombre del Cliente" />
+	            <h:outputText/>
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Banco:  " styleClass="label-form"/>
+				<p:autoComplete id="banco"
+				                value="#{autoCompleteBancoBean.bancoSelected}"
+				                completeMethod="#{autoCompleteBancoBean.completeBanco}"  
+	                            var="a" itemLabel="#{a.id}" itemValue="#{a}"
+	                            forceSelection="true" required="true" label="Banco"
+	                            converter="#{autoCompleteBancoBean}">
+	                
+	                <p:column>
+	                	<f:facet name="header">
+								<h:outputText value="Codigo" />
+						</f:facet>
+	                    <h:outputText value="#{a.id}"/>  
+	                </p:column>
+	                <p:column>
+	                	<f:facet name="header">
+								<h:outputText value="Descripcion" />
+						</f:facet>
+                        <h:outputText value="#{a.descripcion}"/>
+	                </p:column>
+	            </p:autoComplete>
+				<p:watermark for="banco" value="Ingrese el Banco" />
+				<h:outputText/>					 
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Sucursal:  " styleClass="label-form"/>
+				<p:inputText value="#{nuevaEntidad.sucursal}" />
+				<h:outputText/>
+				<h:outputText/>					 
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Cuenta:  " styleClass="label-form"/>
+				<p:inputText value="#{nuevaEntidad.cuenta}" />
+				<h:outputText/>
+				<h:outputText/>					 
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Fecha:  " styleClass="label-form"/>
+				<p:calendar label="Fecha" value="#{nuevaEntidad.fecha}" showOn="button" pattern="dd/MM/yyyy" locale="es" required="true"/>
+				<h:outputText/>
+				<h:outputText/>					 
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Vencimiento:  " styleClass="label-form"/>
+				<p:calendar label="Vencimiento" value="#{nuevaEntidad.fechaVencimiento}" showOn="button" pattern="dd/MM/yyyy" locale="es" required="true"/>
+				<h:outputText/>
+				<h:outputText/>					 
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Nro del Cheque:  " styleClass="label-form"/>
+				<p:inputText label="Nro del Cheque" value="#{nuevaEntidad.id}" />
+				<h:outputText/>
+				<h:outputText/>					 
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Emisor:  " styleClass="label-form"/>
+				<p:inputText value="#{nuevaEntidad.emisor}" />
+				<h:outputText/>
+				<h:outputText/>					 
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="CUIT:  " styleClass="label-form"/>
+				<p:inputMask value="#{nuevaEntidad.cuit}" mask="99-99999999-9" label="CUIT"/>
+				<h:outputText/>
+				<h:outputText/>					 
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Monto:  " styleClass="label-form"/>
+				<p:inputText id="fldCosto"
+				             value="#{nuevaEntidad.monto}"
+				             required="true" label="Monto">
+					<f:convertNumber minFractionDigits="2"/>
+					<f:ajax render="@this"/>
+				</p:inputText>
+				<h:outputText/>
+				<h:outputText/>					 
+			</p:panelGrid>
+					
+		</p:panel>
+				 
+	</ui:define>
+
+</ui:composition>

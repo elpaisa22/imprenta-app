@@ -1,0 +1,103 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:security="http://www.springframework.org/security/tags"
+	xmlns:custom="http://ambar.org/facelets"
+	template="/WEB-INF/templates/template_crud_new.xhtml">
+	
+	<ui:define name="title">
+		<h:outputText value="Nuevo Cliente" /> 
+	</ui:define>
+	 
+	<ui:define name="toolbar_crud">
+		<ui:include src="/WEB-INF/templates/toolbars/toolbar_edicion.xhtml" />
+	</ui:define>
+	
+	<ui:define name="content_crud">	
+	
+		<p:panel id="content_crud" styleClass="data-form">
+
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Nro Cliente:  " styleClass="label-form"/>
+				<h:outputText value="#{nuevaEntidad.id}" />
+				<h:outputText/>
+				<h:outputText/>					 
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">				
+				<h:outputText value="Razon Social:  " styleClass="label-form"/>
+				<p:inputText value="#{nuevaEntidad.razonSocial}" required="true" label="Razon Social"/>
+				<h:outputText value="Nombre de Fantasia:  " styleClass="label-form"/>
+				<p:inputText value="#{nuevaEntidad.nombreFantasia}"/>
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="IVA :  " styleClass="label-form"/>				
+				<p:selectOneMenu value="#{nuevaEntidad.condicionIVA}">  
+		            <f:selectItem itemLabel="Seleccione una opción" itemValue="" />  
+		            <f:selectItem itemLabel="Consumidor Final" itemValue="5" />  
+		            <f:selectItem itemLabel="Resp. Inscripto" itemValue="1" />  
+		            <f:selectItem itemLabel="Monotributista" itemValue="6" />    
+		            <f:selectItem itemLabel="Excento" itemValue="4" />		            
+		            <f:selectItem itemLabel="No Responsable" itemValue="3" />
+		            <f:selectItem itemLabel="No Categorizado" itemValue="7" />
+		        </p:selectOneMenu>  
+				<h:outputText/>
+				<h:outputText/>	 
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Tipo Documento:  " styleClass="label-form"/>				
+				<p:selectOneMenu value="#{nuevaEntidad.tipoDocumento}" required="true" label="Tipo Documento">  
+		            <f:selectItem itemLabel="Seleccione una opción" itemValue="" />  
+		            <f:selectItem itemLabel="DNI" itemValue="DNI" />  
+		            <f:selectItem itemLabel="CUIT" itemValue="CUIT" />  
+		            <f:selectItem itemLabel="CUIL" itemValue="CUIL" />  
+		        </p:selectOneMenu>  
+				<h:outputText value="Nro. Documento:  " styleClass="label-form"/>
+				<p:inputText value="#{nuevaEntidad.numeroDocumento}" required="true" label="Nro. Documento"/>	 
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Teléfono:  " styleClass="label-form"/>
+				<p:inputText value="#{nuevaEntidad.telefono}" />
+				<h:outputText value="E-mail:  " styleClass="label-form"/>
+				<p:inputText value="#{nuevaEntidad.email}" />	 
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Direccion:  " styleClass="label-form"/>
+				<p:inputText value="#{nuevaEntidad.direccion}" />
+				<h:outputText value="Ciudad:  " styleClass="label-form"/>
+				<p:inputText value="#{nuevaEntidad.ciudad}" />	 
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="País:  " styleClass="label-form"/>
+				<p:selectOneMenu value="#{nuevaEntidad.idPais}" valueChangeListener="#{abmClienteBean.paisChanged}">  
+		            <f:selectItem itemLabel="Seleccione una opción" itemValue="" />  
+		            <f:selectItems value="#{abmClienteBean.paises}"  
+                                   var="pais" itemLabel="#{pais.descripcion}"  
+                                   itemValue="#{pais.id}"/>
+                    <p:ajax event="valueChange" immediate="true" process="@this" update="provincia"/>  
+		        </p:selectOneMenu>
+
+				<h:outputText value="Provincia:  " styleClass="label-form"/>				
+				<p:selectOneMenu id="provincia" value="#{nuevaEntidad.idProvincia}">  
+		            <f:selectItem itemLabel="Seleccione una opción" itemValue="" />  
+		            <f:selectItems value="#{abmClienteBean.provincias}"  
+                                   var="prov" itemLabel="#{prov.descripcion}"  
+                                   itemValue="#{prov.idProvincia}"/>
+		        </p:selectOneMenu>
+			</p:panelGrid>
+			
+		</p:panel>
+				 
+	</ui:define>
+
+</ui:composition>

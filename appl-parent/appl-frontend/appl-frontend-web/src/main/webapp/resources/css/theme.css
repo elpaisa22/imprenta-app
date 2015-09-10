@@ -1,0 +1,17 @@
+
+.ui-icon:before {
+    /*color: #616161;*/
+	color: #fff;
+}
+
+.ui-state-hover .ui-icon:before {
+    color: #fff;
+}
+
+.ui-state-active.ui-state-focus .ui-icon:before {
+    color: #fff;
+}
+
+.ui-state-focus .ui-icon:before {
+    color: #fff;
+}

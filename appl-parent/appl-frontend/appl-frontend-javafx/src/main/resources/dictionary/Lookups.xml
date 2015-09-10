@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<lookups>
+	<lookup id="lkp_cliente" title="Buscador de Clientes" resultAttribute="id" descriptionAttribute="razonSocial" defaultService="clienteServices">
+		<attribute name="id" description="Nro Cliente" width="150" dataType="Number"/>
+		<attribute name="razonSocial" description="Razon Social" width="300" dataType="String"/>
+	</lookup>
+
+	<lookup id="lkp_factura" title="Buscador de Facturas" resultAttribute="id" defaultService="facturaServices">
+		<attribute name="id" description="Nro Factura" width="150" dataType="Number"/>
+		<attribute name="razonSocialCliente" description="Cliente" width="200" dataType="String"/>
+		<attribute name="estadoPago" description="Estado" width="100" dataType="Enum"/>
+		<attribute name="fechaEmision" description="Fecha de Emision" width="100" dataType="DateTime"/>
+	</lookup>
+
+	<lookup id="lkp_remito" title="Buscador de Remitos" resultAttribute="id" defaultService="remitoServices">
+		<attribute name="id" description="Nro Remito" width="150" dataType="Number"/>
+		<attribute name="razonSocialCliente" description="Razon Social" width="300" dataType="String"/>
+	</lookup>
+
+	<lookup id="lkp_tipoCodigosVarios" title="Buscador de Tipos de Codigos" resultAttribute="id" descriptionAttribute="descripcion" defaultService="tipoCodigosVariosServices">
+		<attribute name="id" description="Tipo" width="150" dataType="String"/>
+		<attribute name="descripcion" description="Descripcion" width="300" dataType="String"/>
+	</lookup>
+	
+	<lookup id="lkp_marca_codes" title="Buscador de Marcas" resultAttribute="valor" descriptionAttribute="descripcion" defaultService="codigosMarcaServices">
+		<attribute name="valor" description="Valor" width="150" dataType="String"/>
+		<attribute name="descripcion" description="Descripcion" width="300" dataType="String"/>
+	</lookup>
+	
+	<lookup id="lkp_rubro_codes" title="Buscador de Rubros" resultAttribute="valor" descriptionAttribute="descripcion" defaultService="codigosRubroServices">
+		<attribute name="valor" description="Valor" width="150" dataType="String"/>
+		<attribute name="descripcion" description="Descripcion" width="300" dataType="String"/>
+	</lookup>
+</lookups>

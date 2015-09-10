@@ -1,0 +1,8 @@
+.root {
+
+    /* Background color to use for selection of list cells etc. This is when
+     * the control doesn't have focus or the row of a previously selected item. */
+    -fx-selection-bar-non-focused: #0096C9;
+
+}
+

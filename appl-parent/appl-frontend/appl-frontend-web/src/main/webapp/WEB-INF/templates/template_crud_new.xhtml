@@ -1,0 +1,47 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:custom="http://ambar.org/facelets"
+	template="/WEB-INF/templates/template_main.xhtml">
+	
+	<ui:define name="content">
+		
+		<ui:include src="/WEB-INF/templates/viewActions/documentReadyJs.xhtml" />
+	
+		<p:breadCrumb id="breadcrumb-navigation" model="#{breadcrumbBean.breadcrumbModel}" />
+		
+		<ui:insert name="toolbar_crud"/>
+		
+		<p:messages id="messagesError" closable="true"/>
+
+		<ui:insert name="content_crud"/>
+		
+		<p:toolbar styleClass="tracking-info-bar">
+			<f:facet name="left">
+				<p:outputLabel>
+				</p:outputLabel>	
+			</f:facet>
+		</p:toolbar>
+		
+		<p:remoteCommand name="redirectToSubRelation" action="redirectRelation"/>
+		<p:remoteCommand name="redirectByBreadcrumb"  action="redirectBreadcrumb"/>
+
+		<p:ajaxStatus style="width:64px;height:64px;position:fixed;bottom:100px;right:100px;">  
+		    <f:facet name="start">  
+		        <h:graphicImage value="${request.contextPath}/spring/javax.faces.resource/images/preloader.gif" />  
+		    </f:facet>  
+		      
+		    <f:facet name="complete">  
+		        <h:outputText value="" />  
+		    </f:facet>  
+		</p:ajaxStatus> 
+	</ui:define>
+	
+	
+
+</ui:composition>

@@ -1,0 +1,43 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:security="http://www.springframework.org/security/tags"
+	xmlns:custom="http://ambar.org/facelets"
+	template="/WEB-INF/templates/template_crud.xhtml">
+	
+	<ui:define name="title">
+		<h:outputText value="Edición de Tipo de Gasto" /> 
+	</ui:define>
+	 
+	<ui:define name="toolbar_crud">
+		<ui:include src="/WEB-INF/templates/toolbars/toolbar_edicion.xhtml" />
+	</ui:define>
+	
+	<ui:define name="content_crud">
+		
+		<p:panel id="content_crud" styleClass="data-form">
+
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Codigo:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.id}"/>
+				<h:outputText/>
+				<h:outputText/>
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Descripción:  " styleClass="label-form"/>
+				<p:inputText id="descripcion" value="#{selectedDTO.descripcion}" required="true" label="Descripción"/>
+				<p:watermark for="descripcion" value="Ingrese la Descripción" />
+				<h:outputText/>
+			</p:panelGrid>
+		
+		</p:panel>
+			 
+	</ui:define>
+
+</ui:composition>

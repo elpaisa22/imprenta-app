@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<entities xmlns="http://www.ambar.org/entities" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.ambar.org/entities EntitiesMetaData.xsd">
+
+	<entity id="cliente">
+		<attribute id="id" visibleName="Nro. Cliente" order="1" fieldType="primary-key" width="85" mask="" dataType="Number" />
+		<attribute id="razonSocial" visibleName="Nombre Cliente" order="2" fieldType="field" dataType="String" width="170" />
+		<attribute id="tipoDocumento" visibleName="Tipo Doc." order="3" dataType="Enum" enumType="org.ambar.appl.commons.enums.TipoDocumentoValues" width="75" fieldType="field"/>
+		<attribute id="numeroDocumento" visibleName="Nro. Doc." order="3" dataType="String" width="100" fieldType="field"/>
+		<attribute id="condicionIVA" visibleName="Cond. IVA" gridVisible="false"  order="3" dataType="Enum" width="75" fieldType="field"/>
+		<attribute id="telefono" visibleName="Telefono" order="5" dataType="String" width="110" fieldType="field" gridVisible="false"/>
+		<attribute id="direccion" visibleName="Direccion" order="6" dataType="String" width="130" fieldType="field" gridVisible="false"/>
+		<attribute id="ciudad" visibleName="Ciudad" order="7" dataType="String" width="130" fieldType="field"/>
+		<attribute id="provincia" visibleName="Provincia" order="8" dataType="String" width="100" fieldType="field"/>
+		<attribute id="pais" visibleName="Pais" order="9" dataType="String" width="100" fieldType="field"/>
+		<attribute id="email" visibleName="E-Mail" order="10" dataType="String" width="200" fieldType="field"/>
+	</entity>
+
+	<entity id="ordenTrabajo">
+		<attribute id="id" visibleName="Nro. Orden" order="1" fieldType="primary-key" width="100" mask="" dataType="Number" />
+		<attribute id="descripcion" visibleName="Descripción" order="2" fieldType="field" dataType="String" width="250" />
+		<attribute id="idCliente" visibleName="Nro Cliente" order="3" fieldType="field" dataType="Number" lookupName="lkp_cliente" width="120" />
+		<attribute id="razonSocialCliente" visibleName="Nombre Cliente" fieldType="field" dataType="String" width="200" />
+		<attribute id="fechaInicio" visibleName="Fecha Ingreso" order="4" fieldType="field" dataType="DateTime" width="100" />
+		<attribute id="estadoOrden" visibleName="Estado" order="5" fieldType="field" dataType="Enum" enumType="org.ambar.appl.commons.enums.EstadoOrdenTrabajoValues" width="100" />
+		<attribute id="fechaPautada" visibleName="Fecha Pautada" order="4" fieldType="field" dataType="DateTime" width="120" />
+		<attribute id="importeTotal" visibleName="Importe Total" order="6" fieldType="field" dataType="Money" width="100" />
+		<attribute id="idFactura" visibleName="Nro. de Factura" order="7" fieldType="field" dataType="Number" width="120" />
+		<attribute id="idRemito" visibleName="Nro. de Remito" order="8" fieldType="field" dataType="Number" width="120" />
+	</entity>
+
+	<entity id="factura">
+		<attribute id="id" visibleName="Nro. Factura" order="1" fieldType="primary-key" width="100" mask="" dataType="Number" />
+		<attribute id="fechaEmision" visibleName="Fecha Emisión" order="2" fieldType="field" dataType="DateTime" width="100" />
+		<attribute id="descripcionCondicionVenta" visibleName="Condición" order="4" fieldType="field" dataType="String" width="100" />
+		<attribute id="razonSocialCliente" visibleName="Cliente" order="5" fieldType="field" dataType="String" width="150" />
+		<attribute id="idRemito" visibleName="Nro. de Remito" order="6" fieldType="field" dataType="String" lookupName="lkp_remito" width="100" />
+		<attribute id="descripcionEstadoPago" visibleName="Estado del Pago" order="8" fieldType="field" dataType="String" width="100" />
+	</entity>
+
+	<entity id="remito">
+		<attribute id="id" visibleName="Nro. Remito" order="1" fieldType="primary-key" width="100" mask="" dataType="Number" />
+		<attribute id="fechaEmision" visibleName="Fecha Emisión" order="2" fieldType="field" dataType="DateTime" width="100" />
+		<attribute id="idCliente" visibleName="Nro Cliente" order="3" fieldType="field" dataType="Number" lookupName="lkp_cliente" width="120" />
+		<attribute id="razonSocialCliente" visibleName="Cliente" fieldType="field" dataType="String" width="150" />
+	</entity>
+
+	<entity id="movimiento">
+		<attribute id="id" visibleName="Nro. Pago" order="1" fieldType="primary-key" width="100" mask="" dataType="Number" />
+		<attribute id="montoEfectivo" visibleName="Monto Efectivo" order="3" fieldType="field" dataType="Money" width="100" />
+		<attribute id="idFactura" visibleName="Nro Factura" order="4" fieldType="field" dataType="Number" lookupName="lkp_factura" width="100" />
+		<attribute id="idCliente" visibleName="Nro Cliente" order="6" fieldType="field" dataType="Number" lookupName="lkp_cliente" width="120" />
+		<attribute id="razonSocialCliente" visibleName="Cliente" fieldType="field" dataType="String" width="150" />
+		<attribute id="fecha" visibleName="Fecha" order="7" fieldType="field" dataType="DateTime" width="100" />
+	</entity>
+
+	<entity id="cheque">
+		<attribute id="id" visibleName="Nro. Cheque" order="1" fieldType="primary-key" width="100" mask="" dataType="Number" />
+		<attribute id="fecha" visibleName="Fecha" order="2" fieldType="field" dataType="DateTime" width="100" />
+		<attribute id="monto" visibleName="Monto" order="4" fieldType="field" dataType="Money" width="100" />
+		<attribute id="idCliente" visibleName="Nro Cliente" order="6" fieldType="field" dataType="Number" lookupName="lkp_cliente" width="120" />
+		<attribute id="razonSocialCliente" visibleName="Cliente" fieldType="field" dataType="String" width="200" />
+		<attribute id="cuenta" visibleName="Cuenta" order="8" fieldType="field" dataType="String" width="100" />
+		<attribute id="banco" visibleName="Banco" order="10" fieldType="field" dataType="String" width="100" />
+		<attribute id="sucursal" visibleName="Sucursal" order="12" fieldType="field" dataType="String" width="100" />
+	</entity>
+
+	<entity id="articulo">
+		<attribute id="id" visibleName="Código de Artículo" order="1" fieldType="primary-key" width="100" mask="" dataType="String" />
+		<attribute id="descripcion" visibleName="Descripción" order="2" fieldType="field" dataType="String" width="150" />
+		<attribute id="marca" visibleName="Marca" order="3" fieldType="field" dataType="String" lookupName="lkp_marca_codes" width="150" />
+		<attribute id="descripcionMarca" visibleName="Descripcion Marca" fieldType="field" dataType="String" width="150" />
+		<attribute id="rubro" visibleName="Rubro" order="4" fieldType="field" dataType="String" lookupName="lkp_rubro_codes" width="150" />
+		<attribute id="descripcionRubro" visibleName="Descripcion Rubro" fieldType="field" dataType="String" width="150" />
+		<attribute id="precioBruto" visibleName="Precio Bruto (con IVA)" order="6" fieldType="field" dataType="Money" width="100" searchEnabled="false"/>
+		<attribute id="precioNeto"  visibleName="Precio Neto (sin IVA)"  order="6" fieldType="field" dataType="Money" width="100" searchEnabled="false"/>
+		<attribute id="stock" visibleName="Stock" order="5" fieldType="field" dataType="Integer" width="100" />
+		<attribute id="stockMinimo" visibleName="Stock Minimo" order="6" fieldType="field" dataType="Integer" width="100" />
+	</entity>
+
+	<entity id="tipoCodigosVarios">
+		<attribute id="id" visibleName="Tipo de Código" order="1" fieldType="primary-key" width="200" mask="" dataType="String" />
+		<attribute id="descripcion" visibleName="Descripción" order="2" fieldType="field" dataType="String" width="250" />
+	</entity>
+
+	<entity id="valorCodigosVarios">
+	    <attribute id="idTipoCodigo" visibleName="Tipo de Código" editable="false" order="1" fieldType="field" width="150" mask="" dataType="String" searchEnabled="false" lookupName="lkp_tipoCodigosVarios"/>
+		<attribute id="descripcionTipoCodigo" visibleName="Descripción de Codigo" fieldType="field" width="200" mask="" dataType="String" searchEnabled="false"/>
+		<attribute id="valor" visibleName="Valor" order="2" fieldType="field" width="150" mask="" dataType="String" />
+		<attribute id="descripcion" visibleName="Descripción" order="3" fieldType="field" dataType="String" width="200" />
+	</entity>
+</entities>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+      xmlns:p="http://www.springframework.org/schema/p" xmlns:tx="http://www.springframework.org/schema/tx"
+      xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+   	<!-- BE providers -->
+	<bean id="ordenTrabajoProvider" class="org.ambar.appl.be.providers.OrdenTrabajoForTestingProvider"/>
+	<bean id="clienteForTestingProvider" class="org.ambar.appl.be.providers.ClienteForTestingProvider"/>
+	<bean id="facturaProvider" class="org.ambar.appl.be.providers.FacturaForTestingProvider"/>
+	<bean id="remitoProvider" class="org.ambar.appl.be.providers.RemitoForTestingProvider"/>
+	<bean id="movimientoCuentaCorrienteProvider" class="org.ambar.appl.be.providers.MovimientoCuentaCorrienteForTestingProvider"/>
+	<bean id="chequeProvider" class="org.ambar.appl.be.providers.ChequeForTestingProvider"/>
+	<bean id="articuloProvider" class="org.ambar.appl.be.providers.ArticuloForTestingProvider"/>
+	
+   	<!-- DTO providers -->
+	<bean id="ordenTrabajoDTOProvider" class="org.ambar.appl.dto.providers.OrdenTrabajoDTOForTestingProvider"/>
+	<bean id="clienteDTOForTestingProvider" class="org.ambar.appl.dto.providers.ClienteDTOForTestingProvider"/>
+	<bean id="facturaDTOForTestingProvider" class="org.ambar.appl.dto.providers.FacturaDTOForTestingProvider"/>
+	<bean id="remitoDTOForTestingProvider" class="org.ambar.appl.dto.providers.RemitoDTOForTestingProvider"/>
+	<bean id="movimientoCuentaCorrienteDTOForTestingProvider" class="org.ambar.appl.dto.providers.MovimientoCuentaCorrienteDTOForTestingProvider"/>
+	<bean id="chequeDTOForTestingProvider" class="org.ambar.appl.dto.providers.ChequeDTOForTestingProvider"/>
+	<bean id="articuloDTOForTestingProvider" class="org.ambar.appl.dto.providers.ArticuloDTOForTestingProvider"/>
+
+</beans>

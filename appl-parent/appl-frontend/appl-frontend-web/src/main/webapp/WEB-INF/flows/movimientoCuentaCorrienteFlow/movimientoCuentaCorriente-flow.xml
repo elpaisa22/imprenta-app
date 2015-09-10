@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+      parent="parent-flow-listado, parent-flow, parent-flow-crud">
+      
+    <!-- FlowScope variables -->
+	<var name="selectedDTO" class="org.ambar.appl.dto.MovimientoCuentaCorrienteDTO" />
+	<var name="nuevaEntidad" class="org.ambar.appl.dto.MovimientoCuentaCorrienteDTO" />
+	
+	<on-start>
+		<set name="flowScope.nuevoEnabled" value="false" />
+		<set name="flowScope.edicionEnabled" value="false" />
+	</on-start>
+
+    <action-state id="guardarEdicionAction">
+    	<set name="selectedDTO.idFactura" value="autoCompleteFacturaBean.idFromSelected"/>      	
+    	<transition to="transactionHasErrors">
+    		<set name="selectedDTO.idCheque" value="autoCompleteChequeBean.idFromSelected"/>    		  	
+    		<evaluate expression="movimientoCuentaCorrienteServices.update(selectedDTO, userContext)" result="transactionResult"/>
+    	</transition>
+    </action-state>
+     
+    <action-state id="guardarNuevoAction">    	
+    	<set name="selectedDTO.idFactura" value="autoCompleteFacturaBean.idFromSelected"/>
+    	<transition to="transactionHasErrors">
+    		<set name="selectedDTO.idCheque" value="autoCompleteChequeBean.idFromSelected"/>    		
+    		<evaluate expression="movimientoCuentaCorrienteServices.insert(nuevaEntidad, userContext)" result="transactionResult"/>
+    	</transition>
+    </action-state>
+    
+    <action-state id="nuevoState">    	
+    	<evaluate expression="new org.ambar.appl.dto.MovimientoCuentaCorrienteDTO()" result="nuevaEntidad"/>
+    	<transition to="nuevoView">
+    		<set name="flowScope.estadoEdicion" value="'NUEVO'"/>    		
+    	</transition>
+    </action-state>
+    
+    <action-state id="edicionState"> 
+    	<evaluate expression="movimientoCuentaCorrienteServices.getById(selected.id, userContext).getResult()" result="selectedDTO"/>   	
+    	<transition to="edicionView">    		
+    		<set name="flowScope.estadoEdicion" value="'EDICION'"/>
+    	</transition>
+    </action-state>
+    
+    <action-state id="consultaState">
+    	<evaluate expression="movimientoCuentaCorrienteServices.getById(selected.id, userContext).getResult()" result="selectedDTO"/>   	
+    	<transition to="consultaView">    		
+    		<set name="flowScope.estadoEdicion" value="'CONSULTA'"/>
+    	</transition>
+    </action-state>
+    
+    <action-state id="eliminarAction">
+    	<evaluate expression="movimientoCuentaCorrienteServices.remove(selected, userContext)" result="transactionResult"/>   	
+    	<transition to="transactionHasErrors"/>
+    </action-state>
+    
+    <view-state id="nuevoView">
+    	<on-entry>
+    		<set name="autoCompleteChequeBean.chequeSelected" value="null"/>
+    		<set name="autoCompleteFacturaBean.facturaSelected" value="null"/>
+    	</on-entry>
+    </view-state>
+    
+     <view-state id="edicionView">
+    	<on-entry>
+    		<evaluate expression="autoCompleteChequeBean.loadFromId(selectedDTO.idCheque)"/>
+    		<evaluate expression="autoCompleteFacturaBean.loadFromId(selectedDTO.idFactura)"/>
+    	</on-entry>
+    </view-state>
+    
+    <!-- Recarga de objeto seleccionado para consulta y forward a consulta -->
+    <action-state id="reloadSelectedAndPerformConsultaAction">
+    	<evaluate expression="movimientoCuentaCorrienteServices.getById(selected.id,userContext).getResult()" result="selected" />
+    	<transition to="consultaView" />
+    </action-state>
+</flow>

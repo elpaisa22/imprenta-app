@@ -1,0 +1,247 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:security="http://www.springframework.org/security/tags"
+	xmlns:custom="http://ambar.org/facelets"
+	template="/WEB-INF/templates/template_crud.xhtml">
+	
+	<ui:define name="title">
+		<h:outputText value="Edicion de Compra" /> 
+	</ui:define>
+	 
+	<ui:define name="toolbar_crud">
+		<ui:include src="/WEB-INF/templates/toolbars/toolbar_edicion.xhtml" />
+	</ui:define>
+	
+	<ui:define name="content_crud">	
+
+		<p:panel id="content_crud" styleClass="data-form">
+
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Nro Compra:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.id}" />
+				<h:outputText/>
+				<h:outputText/>					 
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Fecha:  " styleClass="label-form"/>
+				<p:calendar value="#{selectedDTO.fecha}" showOn="button" pattern="dd/MM/yyyy" locale="es" disabled="true"/>
+				<h:outputText value="Condición de Venta:  " styleClass="label-form"/>
+				<p:selectOneMenu value="#{selectedDTO.condicionVenta}"
+				                 required="true" label="Condición de Venta">  
+		            <f:selectItem itemLabel="Seleccione una opción" itemValue="" />  
+		            <f:selectItem itemLabel="Contado" itemValue="CONTADO" />  
+		            <f:selectItem itemLabel="Cuenta Corriente" itemValue="CUENTA_CORRIENTE" />
+		        </p:selectOneMenu>					 
+			</p:panelGrid>			
+						
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Estado de Pago:  " styleClass="label-form"/>
+				<p:selectOneMenu value="#{selectedDTO.estadoPago}" disabled="true">  
+		            <f:selectItem itemLabel="Seleccione una opción" itemValue="" />  
+		            <f:selectItem itemLabel="Pendiente" itemValue="PENDIENTE" />  
+		            <f:selectItem itemLabel="Parcial" itemValue="PARCIAL" />
+		            <f:selectItem itemLabel="Pagada" itemValue="PAGADA" />
+		        </p:selectOneMenu>
+		        <h:outputText/>
+		        <h:outputText/>					 
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Proveedor:  " styleClass="label-form"/>
+				<p:autoComplete id="proveedor" value="#{autoCompleteProveedorBean.proveedorSelected}" completeMethod="#{autoCompleteProveedorBean.completeProveedor}"  
+	                        var="c" itemLabel="#{c.razonSocial}" itemValue="#{c}" forceSelection="true" converter="#{autoCompleteProveedorBean}"
+	                        required="true" label="Proveedor">	                	  
+	                <p:column> 
+	                	<f:facet name="header">
+								<h:outputText value="Nro Proveedor" />
+						</f:facet>
+	                    <h:outputText value="#{c.id}"/>   
+	                </p:column>
+	                <p:column>
+	                	<f:facet name="header">
+								<h:outputText value="Razon Social" />
+						</f:facet>
+	                	<h:outputText value="#{c.razonSocial}"/>
+	                </p:column>
+	                <p:column>
+	                	<f:facet name="header">
+								<h:outputText value="CUIT" />
+						</f:facet>
+	                	<h:outputText value="#{c.cuit}"/>
+	                </p:column> 
+	            </p:autoComplete>
+				<p:watermark for="proveedor" value="Ingrese el Nombre del Proveedor" />
+				<h:outputText/>					 
+			</p:panelGrid>
+			
+			<p:separator/>
+			
+			
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Agregar descripción:" styleClass="label-form"/>
+				<p:inputText id="fld_descServicio" value="#{abmCompraBean.descripcionServicio}">
+					<p:ajax event="keyup" delay="10" update="btnAgregarDetalleServicio" global="false"/>
+				</p:inputText>
+	            <p:watermark for="fld_descServicio" value="Ingrese una descripción" />
+				<p:commandButton id="btnAgregarDetalleServicio"
+								 value="Agregar"
+				                 icon="fa fa-plus-circle"
+				                 title="Agrega el artículo seleccionado"
+				                 disabled="#{abmCompraBean.descripcionServicio == null || abmCompraBean.descripcionServicio.equals('')}"
+				                 actionListener="#{abmCompraBean.agregarDetalle(selectedDTO, abmCompraBean.descripcionServicio)}"
+				                 update="@form"
+				                 process="@this fld_descServicio detalles"
+				                 partialSubmit="true"/>
+			</p:panelGrid>
+			
+			
+			<p:panelGrid columns="4" styleClass="tabla-form" rendered="false">
+				<h:outputText value="Agregar artículo  " styleClass="label-form"/>
+				
+
+				<p:autoComplete id="articulo"
+				                value="#{autoCompleteArticuloBean.articuloSelected}"
+				                completeMethod="#{autoCompleteArticuloBean.completeArticulo}"  
+	                            var="a" itemLabel="#{a.id}" itemValue="#{a}"
+	                            forceSelection="true"
+	                            converter="#{autoCompleteArticuloBean}">
+	                
+	                <p:ajax event="change"     update="btnAgregarDetalle lblDescArticulo"/>
+	                <p:ajax event="itemSelect" update="btnAgregarDetalle lblDescArticulo"/>
+	                           	                	  
+	                <p:column>
+	                	<f:facet name="header">
+								<h:outputText value="Cod Articulo" />
+						</f:facet>
+	                    <h:outputText value="#{a.id}"/>  
+	                </p:column>
+	                <p:column>
+	                	<f:facet name="header">
+								<h:outputText value="Descripcion" />
+						</f:facet>
+                        <h:outputText value="#{a.descripcion}"/>
+	                </p:column>
+	                <p:column>
+	                   	<f:facet name="header">
+								<h:outputText value="Marca" />
+						</f:facet>
+	                  	<h:outputText value="#{a.descripcionMarca}"/>
+	                </p:column>
+	                <p:column>
+	                	<f:facet name="header">
+								<h:outputText value="Precio Bruto (con IVA)" />
+						</f:facet>
+						<h:outputText value="#{a.precioBruto}">
+							<f:convertNumber maxFractionDigits="2"/>
+						</h:outputText>
+	                </p:column>  
+	            </p:autoComplete>
+	            
+	            <p:outputLabel id="lblDescArticulo" value="#{autoCompleteArticuloBean.articuloSelected.descripcionMarca} / #{autoCompleteArticuloBean.articuloSelected.descripcion}"/>
+
+				<p:commandButton id="btnAgregarDetalle"
+								 value="Agregar"
+				                 icon="ui-icon-circle-plus"
+				                 title="Agrega el artículo seleccionado"
+				                 disabled="#{(autoCompleteArticuloBean.articuloSelected == null)}"
+				                 actionListener="#{abmCompraBean.agregarDetalle(selectedDTO, autoCompleteArticuloBean.articuloSelected)}"
+				                 update="@form"
+				                 process="@this lblDescArticulo detalles"
+				                 partialSubmit="true"/>
+				
+				<p:watermark for="articulo" value="Ingrese el código del artículo" />
+			</p:panelGrid>
+
+
+			<p:panel header="Detalle"
+			         toggleable="false"
+			         closable="false">
+
+			         <p:dataTable id="detalles" var="det" value="#{selectedDTO.coleccionDetalleCompra}" emptyMessage="No existen datos">
+						<p:column rendered="#{det.idArticulo != null}">
+							<f:facet name="header">
+								<h:outputText value="Cod Articulo" />
+							</f:facet>
+							<h:outputText value="#{det.idArticulo}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Descripción" />
+							</f:facet>
+							<h:outputText value="#{det.descripcionArticulo}" rendered="#{det.idArticulo != null}"/>
+							<p:inputText value="#{det.descripcion}" rendered="#{det.idArticulo == null}" immediate="true"/>
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Precio Unitario" />
+							</f:facet>
+							<h:outputText value="#{det.precioUnitario}" rendered="#{det.idArticulo != null}">
+								<f:convertNumber minFractionDigits="2"/>
+							</h:outputText>
+							<p:inputText value="#{det.precioUnitario}" rendered="#{det.idArticulo == null}"
+							             onchange="recalcularImportes();">
+								<f:convertNumber minFractionDigits="2"/>
+								<f:ajax render="@this"/>
+							</p:inputText>
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Cantidad" />
+							</f:facet>
+							<p:spinner value="#{det.cantidad}" min="0" onchange="recalcularImportes();"/>
+						</p:column>
+						<p:column rendered="false">
+							<f:facet name="header">
+								<h:outputText value="% Descuento" />
+							</f:facet>
+							<h:outputText value="#{det.descuento}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Monto Total" />
+							</f:facet>
+							<h:outputText value="#{det.montoTotal}" >
+								<f:convertNumber minFractionDigits="2"/>
+							</h:outputText>
+						</p:column>
+						<p:column style="text-align: center;">
+							<f:facet name="header">
+								<h:outputText value="Eliminar" />
+							</f:facet>
+							<p:commandButton icon="ui-icon-trash"
+											 title="Eliminar detalle"
+							                 actionListener="#{abmCompraBean.eliminarDetalle(selectedDTO, det)}"
+				                             update="@form"
+				                             process="@this detalles"
+				                             partialSubmit="true" />
+						</p:column>
+					</p:dataTable>
+			</p:panel>
+			
+			<p:spacer height="20"/>
+
+			<p:panelGrid id="lblImporteTotal" columns="4" styleClass="tabla-form">
+				<h:outputText value="Importe Total:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.importeTotal}" style="font-size: 1.5em;">
+					<f:convertNumber minFractionDigits="2"/>
+				</h:outputText>
+				<h:outputText/>
+				<h:outputText/>
+			</p:panelGrid>
+
+			
+			<p:remoteCommand name="recalcularImportes"
+			                 process="@this detalles lblImporteTotal"
+			                 partialSubmit="true"
+			                 actionListener="#{abmCompraBean.actualizarImportes(selectedDTO)}"
+			                 update="@form"/>
+
+		</p:panel>				 
+	</ui:define>	
+</ui:composition>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:webflow="http://www.springframework.org/schema/webflow-config"
+       xmlns:faces="http://www.springframework.org/schema/faces"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/webflow-config http://www.springframework.org/schema/webflow-config/spring-webflow-config.xsd
+           http://www.springframework.org/schema/faces http://www.springframework.org/schema/faces/spring-faces.xsd">
+
+	<!-- Executes flows: the central entry point into the Spring Web Flow system -->
+	<webflow:flow-executor id="flowExecutor">
+		<webflow:flow-execution-listeners>
+			<webflow:listener ref="facesContextListener"/>
+			<webflow:listener ref="securityFlowExecutionListener" />			  
+		</webflow:flow-execution-listeners>
+
+		<webflow:flow-execution-repository max-executions="10" />
+		
+		<webflow:flow-execution-attributes>
+			<webflow:redirect-in-same-state value="false"/>
+		</webflow:flow-execution-attributes>
+	</webflow:flow-executor>
+	
+	<!-- The registry of executable flow definitions -->
+	<webflow:flow-registry id="flowRegistry" flow-builder-services="facesFlowBuilderServices" base-path="/WEB-INF/flows">
+		<webflow:flow-location-pattern value="/**/*-flow.xml" />
+		<webflow:flow-location path="/parentFlow/parent-flow.xml" id="parent-flow"/>
+		<webflow:flow-location path="/parentFlowListado/parent-flow-listado.xml" id="parent-flow-listado"/>
+		<webflow:flow-location path="/parentFlowCrud/parent-flow-crud.xml" id="parent-flow-crud"/>
+	</webflow:flow-registry>
+
+	<!-- Configures the Spring Web Flow JSF integration -->
+	<faces:flow-builder-services id="facesFlowBuilderServices" development="true" />
+
+	<!-- Installs a listener that creates and releases the FacesContext for each request. -->
+	<bean id="facesContextListener" class="org.springframework.faces.webflow.FlowFacesContextLifecycleListener"/>
+	
+	<!-- Installs a listener to apply Spring Security authorities -->
+	<bean id="securityFlowExecutionListener" class="org.springframework.webflow.security.SecurityFlowExecutionListener" />
+	
+	<bean id="messagesHelper" class="org.ambar.appl.frontend.helpers.MessageHelper"/>
+	
+</beans>

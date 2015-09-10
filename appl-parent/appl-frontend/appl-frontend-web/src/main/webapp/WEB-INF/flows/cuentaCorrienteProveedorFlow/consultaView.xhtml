@@ -1,0 +1,84 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:security="http://www.springframework.org/security/tags"
+	xmlns:custom="http://ambar.org/facelets"
+	template="/WEB-INF/templates/template_crud.xhtml">
+	 
+	<ui:define name="title">
+		<h:outputText value="Consulta de Cta Cte Proveedor" /> 
+	</ui:define>
+	
+	<ui:define name="toolbar_crud">
+		<ui:include src="/WEB-INF/templates/toolbars/toolbar_consulta.xhtml" />
+	</ui:define>
+	
+	<ui:define name="content_crud">	
+
+		<p:panel id="content_crud" styleClass="data-form">
+
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Nro Cuenta Corriente:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.id}" />
+				<h:outputText/>
+				<h:outputText/>					 
+			</p:panelGrid>
+
+			<p:panelGrid columns="4" styleClass="tabla-form">
+				<h:outputText value="Nro Proveedor:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.idProveedor}" />
+				<h:outputText value="Razón Social del Proveedor:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.razonSocialProveedor}" />					 
+			</p:panelGrid>
+
+			<p:panelGrid columns="4" styleClass="tabla-form">				
+				<h:outputText value="Saldo:  " styleClass="label-form"/>
+				<h:outputText value="#{selectedDTO.saldo}">
+					<f:convertNumber type="currency"/>
+				</h:outputText>
+				<h:outputText/>
+				<h:outputText/>					 
+			</p:panelGrid>
+			
+			<br/>
+			
+			<p:dataTable value="#{selectedDTO.coleccionMovimientos}"
+						 var="mov" 
+			             emptyMessage="No existen movimientos."
+			             selectionMode="single"
+			             rowKey="#{mov.id}"
+			             selection="#{flowScope.selectedMovimiento}"
+			             paginator="true" rows="10" paginatorPosition="bottom"
+				         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+				         currentPageReportTemplate="(Registros: {startRecord} - {endRecord} de {totalRecords}, Página {currentPage}/{totalPages})">
+					<f:facet name="header">
+				    	Movimientos de Cuenta
+				    </f:facet>
+				    <p:column headerText="Tipo" sortBy="#{mov.descripcion}">
+					        <h:outputText value="#{mov.descripcion}" />
+					    </p:column>
+				    <p:column headerText="Fecha" sortBy="#{mov.fecha}">
+				        <h:outputText value="#{mov.fecha}">
+							<f:convertDateTime pattern="dd/MM/yyyy"/> 
+						</h:outputText>
+				    </p:column>
+				    <p:column headerText="Importe" sortBy="#{mov.importeMovimiento}">
+				        <h:outputText value="#{mov.importeMovimiento}" >
+							<f:convertNumber type="currency"/>
+						</h:outputText>
+				    </p:column>
+				    <p:column headerText="Saldo" sortBy="#{mov.saldo}">
+				        <h:outputText value="#{mov.saldo}" >
+							<f:convertNumber type="currency"/>
+						</h:outputText>
+				    </p:column>
+			</p:dataTable>
+		</p:panel>				 
+	</ui:define>
+	
+</ui:composition>

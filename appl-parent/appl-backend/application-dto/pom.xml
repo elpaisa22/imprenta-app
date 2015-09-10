@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<artifactId>appl-backend</artifactId>
+		<groupId>org.ambar.appl</groupId>
+		<version>0.1.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>application-dto</artifactId>
+	<name>Módulo de la Aplicacion - DTO</name>
+	<url>http://maven.apache.org</url>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.ambar.core</groupId>
+			<artifactId>ambar-core-api</artifactId>
+			<version>${ambar.core.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.ambar.appl</groupId>
+			<artifactId>appl-commons</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+
+</project>

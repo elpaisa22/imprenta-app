@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+      parent="parent-flow-listado, parent-flow, parent-flow-crud">
+      
+    <!-- FlowScope variables -->
+	<var name="selectedDTO" class="org.ambar.appl.dto.CompraDTO" />
+	<var name="nuevaEntidad" class="org.ambar.appl.dto.CompraDTO" />
+	
+	<on-start>
+		<evaluate expression="false" result="flowScope.enableDialog"/>
+	</on-start>
+	
+    <action-state id="guardarEdicionAction">
+    	<set name="selectedDTO.idProveedor" value="autoCompleteProveedorBean.idFromSelected"/>    	
+    	<transition to="transactionHasErrors">
+    		<evaluate expression="compraServices.update(selectedDTO, userContext)" result="transactionResult"/>
+    	</transition>
+    </action-state>
+     
+    <action-state id="guardarNuevoAction">
+    	<set name="nuevaEntidad.idProveedor" value="autoCompleteProveedorBean.idFromSelected"/>    	
+    	<transition to="modoPagoFacturaDecision"/>
+    </action-state>
+    
+    <decision-state id="modoPagoFacturaDecision">
+    	<if test="nuevaEntidad.condicionVenta == 'CONTADO'" then="pagoContadoAction" else="guardarNuevoFinalAction"/>
+    </decision-state>
+    
+    <action-state id="pagoContadoAction">
+    	<set name="nuevaEntidad.pago" value="new org.ambar.appl.dto.PagoDTO()"/>
+    	<transition to="pagoContadoView">
+    		<evaluate expression="abmPagoBean.init()"/>
+    	</transition>
+    </action-state>
+    
+    <view-state id="pagoContadoView">
+    	<transition on="grabar" to="guardarNuevoFinalAction"/>
+    	<transition on="cancelar" to="nuevoView"/>    	
+    </view-state>
+    
+    <action-state id="guardarNuevoFinalAction">
+    	<evaluate expression="compraServices.insert(nuevaEntidad, userContext)" result="transactionResult"/>
+    	<transition to="transactionHasErrors"/>
+    </action-state>
+    
+    <action-state id="nuevoState">    	
+    	<evaluate expression="new org.ambar.appl.dto.CompraDTO()" result="nuevaEntidad"/>
+    	<transition to="nuevoView">
+    		<evaluate expression="autoCompleteProveedorBean.loadFromId(nuevaEntidad.idProveedor)"/>
+    		<set name="flowScope.estadoEdicion" value="'NUEVO'"/>    		
+    	</transition>
+    </action-state>
+    
+    <action-state id="edicionState"> 
+    	<evaluate expression="compraServices.getById(selected.id, userContext).getResult()" result="selectedDTO"/>   	
+    	<transition to="edicionView">
+    		<set name="flowScope.estadoEdicion" value="'EDICION'"/>
+    	</transition>
+    </action-state>
+    
+    <action-state id="consultaState">
+    	<evaluate expression="compraServices.getById(selected.id, userContext).getResult()" result="selectedDTO"/>   	
+    	<transition to="consultaView">    		
+    		<set name="flowScope.estadoEdicion" value="'CONSULTA'"/>
+    	</transition>
+    </action-state>
+    
+    <action-state id="eliminarAction">
+    	<evaluate expression="compraServices.remove(selected, userContext)" result="transactionResult"/>   	
+    	<transition to="transactionHasErrors"/>
+    </action-state>
+    
+    <view-state id="edicionView">
+    	<on-entry>
+    		<evaluate expression="autoCompleteProveedorBean.loadFromId(selectedDTO.idProveedor)"/>
+    		<set name="autoCompleteArticuloBean.articuloSelected" value="null"/>
+    	</on-entry>
+    	
+    	<transition on="cancelarAgregar" to="edicionView">
+    		<set name="flowScope.enableDialog" value="false"/>
+    	</transition>
+    </view-state>
+    
+    <view-state id="nuevoView">
+    	<on-entry>
+    		<set name="autoCompleteArticuloBean.articuloSelected" value="null"/>
+    	</on-entry>
+    </view-state>
+    
+    <!-- Recarga de objeto seleccionado para consulta y forward a consulta -->
+    <action-state id="reloadSelectedAndPerformConsultaAction">
+    	<evaluate expression="compraServices.getById(selected.id,userContext).getResult()" result="selected" />
+    	<transition to="consultaView" />
+    </action-state>
+</flow>
