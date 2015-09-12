@@ -63,7 +63,6 @@ public class DetalleCompra implements Persistible<Long> {
 	 * @return Retorna el valor del atributo compra.
 	 */
 	@ManyToOne
-	@Basic(optional = false)
 	@JoinColumn(name = "IDCOMPRA")
 	@NotNull
 	public Compra getCompra() {

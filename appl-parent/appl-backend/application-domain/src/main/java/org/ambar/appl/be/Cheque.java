@@ -155,7 +155,6 @@ public class Cheque implements Persistible<Long>, Trackingable, Versionable {
 	 * @return Retorna el valor del atributo cobranza.
 	 */
 	@ManyToOne
-	@Basic(optional = true)
 	@JoinColumn(name = "IDCOBRANZA")
 	public Cobranza getCobranza() {
 		return cobranza;
@@ -172,7 +171,6 @@ public class Cheque implements Persistible<Long>, Trackingable, Versionable {
 	 * @return Retorna el valor del atributo pago.
 	 */
 	@ManyToOne
-	@Basic(optional = true)
 	@JoinColumn(name = "IDPAGO")
 	public Pago getPago() {
 		return pago;

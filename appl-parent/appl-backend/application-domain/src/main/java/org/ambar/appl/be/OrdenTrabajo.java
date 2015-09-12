@@ -354,7 +354,6 @@ public class OrdenTrabajo implements Persistible<Long>, Trackingable, Versionabl
 	/**
 	 * @return Retorna el valor del atributo remito.
 	 */
-	@Basic(optional = true)
 	@JoinColumn(name = "IDREMITO")
 	@ManyToOne
 	public Remito getRemito() {

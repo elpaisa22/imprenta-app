@@ -132,7 +132,6 @@ public class MovimientoCuentaCorriente implements Persistible<Long>, Trackingabl
 	/**
 	 * @return Retorna el valor del atributo cuentaCorriente.
 	 */
-	@Basic(optional = false)
 	@JoinColumn(name = "IDCUENTACORRIENTE")
 	@NotNull(message = "{org.ambar.appl.be.MovimientoCuentaCorriente.cuentaCorriente.NotNull}")
 	@ManyToOne

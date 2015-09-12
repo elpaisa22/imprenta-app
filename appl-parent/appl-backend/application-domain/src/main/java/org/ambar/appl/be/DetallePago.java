@@ -60,8 +60,8 @@ public class DetallePago implements Persistible<Long> {
 	 * @return Retorna el valor del atributo pago.
 	 */
 	@ManyToOne
-	@Basic(optional = false)
 	@JoinColumn(name = "IDCOBRANZA")
+	@NotNull
 	public Pago getPago() {
 		return pago;
 	}
@@ -77,7 +77,6 @@ public class DetallePago implements Persistible<Long> {
 	 * @return Retorna el valor del atributo compra.
 	 */
 	@ManyToOne
-	@Basic(optional = false)
 	@JoinColumn(name = "IDFACTURA")
 	@NotNull
 	public Compra getCompra() {

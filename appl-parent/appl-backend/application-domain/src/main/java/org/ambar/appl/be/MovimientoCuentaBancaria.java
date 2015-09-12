@@ -70,7 +70,6 @@ public class MovimientoCuentaBancaria implements Persistible<Long>, Trackingable
 	/**
 	 * @return Retorna el valor del atributo cuentaBancaria.
 	 */
-	@Basic(optional = false)
 	@JoinColumn(name = "IDCUENTACORRIENTE")
 	@NotNull(message = "{org.ambar.appl.be.MovimientoCuentaBancaria.cuentaBancaria.NotNull}")
 	@ManyToOne

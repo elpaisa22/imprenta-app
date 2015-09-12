@@ -59,8 +59,8 @@ public class DetalleCobranza implements Persistible<Long> {
 	 * @return Retorna el valor del atributo cobranza.
 	 */
 	@ManyToOne
-	@Basic(optional = false)
 	@JoinColumn(name = "IDCOBRANZA")
+	@NotNull
 	public Cobranza getCobranza() {
 		return cobranza;
 	}

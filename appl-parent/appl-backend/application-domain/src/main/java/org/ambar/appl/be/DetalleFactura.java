@@ -64,7 +64,6 @@ public class DetalleFactura implements Persistible<Long> {
 	 * @return Retorna el valor del atributo factura.
 	 */
 	@ManyToOne
-	@Basic(optional = false)
 	@JoinColumn(name = "IDFACTURA")
 	@NotNull
 	public Factura getFactura() {
