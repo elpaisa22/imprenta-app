@@ -11,7 +11,7 @@
 		<class>org.ambar.appl.be.Cheque</class>
 		<class>org.ambar.appl.be.DetalleFactura</class>
 		<class>org.ambar.appl.be.Remito</class>
-		<class>org.ambar.appl.be.Movimiento</class>
+		<class>org.ambar.appl.be.MovimientoCuentaBancaria</class>
 		<class>org.ambar.appl.be.CuentaCorriente</class>
 		<class>org.ambar.appl.be.Articulo</class>
 		<class>org.ambar.appl.be.Proveedor</class>

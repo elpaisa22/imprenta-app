@@ -11,4 +11,6 @@
 	        </entity-listeners>
 	    </persistence-unit-defaults>        
 	</persistence-unit-metadata>
+	
+	<embeddable class="org.ambar.core.be.TrackInfo"/>
 </entity-mappings>
