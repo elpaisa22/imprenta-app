@@ -18,84 +18,74 @@
 		<ui:include src="/WEB-INF/templates/toolbars/toolbar_edicion.xhtml" />
 	</ui:define>
 	
-	<ui:define name="content_crud">	
+	<ui:define name="content_crud">
 	
-		<p:panel id="content_crud" styleClass="data-form">
+		<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+			<p:outputLabel  value="Nro Cliente:  "/>
+			<p:inputText value="#{selectedDTO.id}" disabled="true"/>
+		</p:panelGrid>
+		
+		<p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">				
+			<p:outputLabel value="Razon Social:  "/>
+			<p:inputText value="#{selectedDTO.razonSocial}" required="true" label="Razon Social"/>
+			<p:outputLabel value="Nombre de Fantasia:  "/>
+			<p:inputText value="#{selectedDTO.nombreFantasia}"/>	 
+		
+			<p:outputLabel value="IVA :  " />				
+			<p:selectOneMenu value="#{selectedDTO.condicionIVA}">  
+	            <f:selectItem itemLabel="Seleccione una opción" itemValue="" />  
+	            <f:selectItem itemLabel="Consumidor Final" itemValue="5" />  
+	            <f:selectItem itemLabel="Resp. Inscripto" itemValue="1" />  
+	            <f:selectItem itemLabel="Monotributista" itemValue="6" />    
+	            <f:selectItem itemLabel="Excento" itemValue="4" />		            
+	            <f:selectItem itemLabel="No Responsable" itemValue="3" />
+	            <f:selectItem itemLabel="No Categorizado" itemValue="7" />
+	        </p:selectOneMenu>  
+		</p:panelGrid>
+		
+		<p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">	
+			<p:outputLabel value="Tipo Documento:  "/>				
+			<p:selectOneMenu value="#{selectedDTO.tipoDocumento}" required="true" label="Tipo Documento">  
+	            <f:selectItem itemLabel="Seleccione una opción" itemValue="" />  
+	            <f:selectItem itemLabel="DNI" itemValue="DNI" />  
+	            <f:selectItem itemLabel="CUIT" itemValue="CUIT" />  
+	            <f:selectItem itemLabel="CUIL" itemValue="CUIL" />  
+	        </p:selectOneMenu>  
+			<p:outputLabel value="Nro. Documento:  "/>
+			<p:inputText value="#{selectedDTO.numeroDocumento}" required="true" label="Nro. Documento"/>	 
 
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Nro Cliente:  " styleClass="label-form"/>
-				<h:outputText value="#{selectedDTO.id}" />
-				<h:outputText/>
-				<h:outputText/>					 
-			</p:panelGrid>
-			
-			<p:panelGrid columns="4" styleClass="tabla-form">				
-				<h:outputText value="Razon Social:  " styleClass="label-form"/>
-				<p:inputText value="#{selectedDTO.razonSocial}" required="true" label="Razon Social"/>
-				<h:outputText value="Nombre de Fantasia:  " styleClass="label-form"/>
-				<p:inputText value="#{selectedDTO.nombreFantasia}"/>	 
-			</p:panelGrid>
-			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="IVA :  " styleClass="label-form"/>				
-				<p:selectOneMenu value="#{selectedDTO.condicionIVA}">  
-		            <f:selectItem itemLabel="Seleccione una opción" itemValue="" />  
-		            <f:selectItem itemLabel="Consumidor Final" itemValue="5" />  
-		            <f:selectItem itemLabel="Resp. Inscripto" itemValue="1" />  
-		            <f:selectItem itemLabel="Monotributista" itemValue="6" />    
-		            <f:selectItem itemLabel="Excento" itemValue="4" />		            
-		            <f:selectItem itemLabel="No Responsable" itemValue="3" />
-		            <f:selectItem itemLabel="No Categorizado" itemValue="7" />
-		        </p:selectOneMenu>  
-				<h:outputText/>
-				<h:outputText/>	 
-			</p:panelGrid>
-			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Tipo Documento:  " styleClass="label-form"/>				
-				<p:selectOneMenu value="#{selectedDTO.tipoDocumento}" required="true" label="Tipo Documento">  
-		            <f:selectItem itemLabel="Seleccione una opción" itemValue="" />  
-		            <f:selectItem itemLabel="DNI" itemValue="DNI" />  
-		            <f:selectItem itemLabel="CUIT" itemValue="CUIT" />  
-		            <f:selectItem itemLabel="CUIL" itemValue="CUIL" />  
-		        </p:selectOneMenu>  
-				<h:outputText value="Nro. Documento:  " styleClass="label-form"/>
-				<p:inputText value="#{selectedDTO.numeroDocumento}" required="true" label="Nro. Documento"/>	 
-			</p:panelGrid>
-			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Teléfono:  " styleClass="label-form"/>
-				<p:inputText value="#{selectedDTO.telefono}" />
-				<h:outputText value="E-mail:  " styleClass="label-form"/>
-				<p:inputText value="#{selectedDTO.email}" />	 
-			</p:panelGrid>
-			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Direccion:  " styleClass="label-form"/>
-				<p:inputText value="#{selectedDTO.direccion}" />
-				<h:outputText value="Ciudad:  " styleClass="label-form"/>
-				<p:inputText value="#{selectedDTO.ciudad}" />	 
-			</p:panelGrid>
-			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="País:  " styleClass="label-form"/>
-				<p:selectOneMenu value="#{selectedDTO.idPais}" valueChangeListener="#{abmClienteBean.paisChanged}">  
-		            <f:selectItem itemLabel="Seleccione una opción" itemValue="" />  
-		            <f:selectItems value="#{abmClienteBean.paises}"  
-                                   var="pais" itemLabel="#{pais.descripcion}"  
-                                   itemValue="#{pais.id}"/>  
-                    <p:ajax event="valueChange" immediate="true" process="@this" update="provincia"/>
-		        </p:selectOneMenu>
-				<h:outputText value="Provincia:  " styleClass="label-form"/>				
-				<p:selectOneMenu id="provincia" value="#{selectedDTO.idProvincia}">  
-		            <f:selectItem itemLabel="Seleccione una opción" itemValue="" />  
-		            <f:selectItems value="#{abmClienteBean.provincias}"  
-                                   var="prov" itemLabel="#{prov.descripcion}"  
-                                   itemValue="#{prov.idProvincia}"/>
-		        </p:selectOneMenu>
-			</p:panelGrid>
+			<p:outputLabel value="Teléfono:  "/>
+			<p:inputText value="#{selectedDTO.telefono}" />
+			<p:outputLabel value="E-mail:  "/>
+			<p:inputText value="#{selectedDTO.email}" />	 
+		</p:panelGrid>
+		
+		<p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">	
+			<p:outputLabel value="Direccion:  "/>
+			<p:inputText value="#{selectedDTO.direccion}" />
+			<p:outputLabel value="Ciudad:  "/>
+			<p:inputText value="#{selectedDTO.ciudad}" />	 
+		</p:panelGrid>
+		
+		<p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">	
+			<p:outputLabel value="País:  "/>
+			<p:selectOneMenu value="#{selectedDTO.idPais}" valueChangeListener="#{abmClienteBean.paisChanged}">  
+	            <f:selectItem itemLabel="Seleccione una opción" itemValue="" />  
+	            <f:selectItems value="#{abmClienteBean.paises}"  
+                                  var="pais" itemLabel="#{pais.descripcion}"  
+                                  itemValue="#{pais.id}"/>  
+                   <p:ajax event="valueChange" immediate="true" process="@this" update="provincia"/>
+	        </p:selectOneMenu>
+			<p:outputLabel value="Provincia:  "/>				
+			<p:selectOneMenu id="provincia" value="#{selectedDTO.idProvincia}">  
+	            <f:selectItem itemLabel="Seleccione una opción" itemValue="" />  
+	            <f:selectItems value="#{abmClienteBean.provincias}"  
+                                  var="prov" itemLabel="#{prov.descripcion}"  
+                                  itemValue="#{prov.idProvincia}"/>
+	        </p:selectOneMenu>
+		</p:panelGrid>
 
-		</p:panel>
+
 
 	</ui:define>
 

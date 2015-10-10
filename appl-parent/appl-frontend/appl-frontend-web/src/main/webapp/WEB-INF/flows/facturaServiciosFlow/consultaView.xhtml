@@ -19,38 +19,39 @@
 	
 	<ui:define name="content_crud">	
 		
-		<p:panel id="content_crud" styleClass="data-form">
 
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Nro Factura:  " styleClass="label-form"/>
+			<p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+				<p:outputLabel value="Nro Factura:  " styleClass="label-form"/>
 				<h:outputText value="#{selectedDTO.id}" converter="idFacturaConverter" />
-				<h:outputText value="Tipo de Factura" styleClass="label-form"/>
+				<p:outputLabel value="Tipo de Factura" styleClass="label-form"/>
 				<h:outputText value="#{selectedDTO.descripcionTipoFactura}" />				 
 			</p:panelGrid>
 			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Fecha de Emisión:  " styleClass="label-form"/>					
+			<p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+				<p:outputLabel value="Fecha de Emisión:  " styleClass="label-form"/>					
 				<h:outputText value="#{selectedDTO.fechaEmision}">
 					<f:convertDateTime pattern="dd/MM/yyyy"/> 
 				</h:outputText>
-				<h:outputText value="Condición de Venta:  " styleClass="label-form"/>
+				<p:outputLabel value="Condición de Venta:  " styleClass="label-form"/>
 				<h:outputText value="#{selectedDTO.descripcionCondicionVenta}" />					 
 			</p:panelGrid>			
 						
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Nro. de Remito:  " styleClass="label-form"/>
+			<p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+				<p:outputLabel value="Nro. de Remito:  " styleClass="label-form"/>
 				<h:outputText value="#{selectedDTO.idRemito}" />
-				<h:outputText value="Estado de Pago:  " styleClass="label-form"/>
+				<p:outputLabel value="Estado de Pago:  " styleClass="label-form"/>
 				<h:outputText value="#{selectedDTO.descripcionEstadoPago}" />					 
 			</p:panelGrid>
 			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Nro Cliente:  " styleClass="label-form"/>
+			<p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+				<p:outputLabel value="Nro Cliente:  " styleClass="label-form"/>
 				<h:outputText value="#{selectedDTO.idCliente}" />
-				<h:outputText value="Razón Social del Cliente:  " styleClass="label-form"/>
+				<p:outputLabel value="Razón Social del Cliente:  " styleClass="label-form"/>
 				<h:outputText value="#{selectedDTO.razonSocialCliente}" />					 
 			</p:panelGrid>			
 				
+			<p:spacer height="20"/>
+
 			<p:panel header="Detalle"
 			         toggleable="false"
 			         closable="false">
@@ -95,25 +96,24 @@
 					</p:dataTable>			
 			</p:panel>
 			
-			<p:spacer height="20"/>
-
-			<p:panelGrid id="lblImporteTotal" columns="4" styleClass="tabla-form">
-				<h:outputText value="Sub Total:  " styleClass="label-form" rendered="#{selectedDTO.tipoFactura == 'B'}"/>
+			<p:spacer height="10"/>
+			
+			<p:panelGrid id="lblImporteTotal" columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+				<p:outputLabel value="Sub Total:  " styleClass="label-form" rendered="#{selectedDTO.tipoFactura == 'B'}"/>
 				<h:outputText value="#{selectedDTO.importeSubTotal}" style="font-size: 1.5em;" rendered="#{selectedDTO.tipoFactura == 'B'}">
 					<f:convertNumber type="currency"/>
 				</h:outputText>
-				<h:outputText value="Importe IVA:  " styleClass="label-form" rendered="#{selectedDTO.tipoFactura == 'B'}"/>
+				<p:outputLabel value="Importe IVA:  " styleClass="label-form" rendered="#{selectedDTO.tipoFactura == 'B'}"/>
 				<h:outputText value="#{selectedDTO.importeIVA}" style="font-size: 1.5em;" rendered="#{selectedDTO.tipoFactura == 'B'}">
 					<f:convertNumber type="currency"/>
 				</h:outputText>
 				<h:outputText/>
 				<h:outputText/>
-				<h:outputText value="Importe Total:  " styleClass="label-form"/>
+				<p:outputLabel value="Importe Total:  " styleClass="label-form"/>
 				<h:outputText value="#{selectedDTO.importeTotal}" style="font-size: 1.5em;">
 					<f:convertNumber type="currency"/>
 				</h:outputText>
 			</p:panelGrid>
 			
-		</p:panel>				 
 	</ui:define>	
 </ui:composition>

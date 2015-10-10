@@ -1,17 +1,34 @@
-
-.ui-icon:before {
-    /*color: #616161;*/
-	color: #fff;
+.ui-messages-error,.ui-messages-info, .ui-messages-warning, .ui-messages-fatal  {
+	padding-bottom: 20px !important;
+	font-size: 14px !important;
 }
 
-.ui-state-hover .ui-icon:before {
-    color: #fff;
+.ui-panelgrid {
+	border: none !important;
 }
 
-.ui-state-active.ui-state-focus .ui-icon:before {
-    color: #fff;
+.ui-selectonemenu, .ui-selectcheckboxmenu {
+	padding: 0px !important;
 }
 
-.ui-state-focus .ui-icon:before {
-    color: #fff;
+.ui-selectonemenu .ui-selectonemenu-trigger,
+.ui-selectcheckboxmenu .ui-selectcheckboxmenu-trigger {
+	border-bottom: none !important;
+}
+
+.ui-selectonemenu .ui-selectonemenu-trigger.ui-state-focus,
+.ui-selectcheckboxmenu .ui-selectcheckboxmenu-trigger.ui-state-focus {
+	border-bottom: none !important;
+}
+
+.ui-outputlabel {
+	font-weight: bold !important;
+}
+
+.ui-fluid .ui-calendar, .ui-fluid .ui-calendar input {
+	width: 85% !important;
+}
+
+.ui-grid .ui-grid-row {
+	height: 45px;
 }

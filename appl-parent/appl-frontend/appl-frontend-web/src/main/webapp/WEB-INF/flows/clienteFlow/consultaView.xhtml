@@ -20,60 +20,51 @@
 	
 	<ui:define name="content_crud">	
 
-		<p:panel id="content_crud" styleClass="data-form">
-
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Nro Cliente:  " styleClass="label-form"/>
+			<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+				<p:outputLabel value="Nro Cliente:  " styleClass="label-form"/>
 				<h:outputText value="#{selectedDTO.id}" />
-				<h:outputText/>
-				<h:outputText/>					 
 			</p:panelGrid>
 			
-			<p:panelGrid columns="4" styleClass="tabla-form">				
-				<h:outputText value="Razon Social:  " styleClass="label-form"/>
+			<p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">				
+				<p:outputLabel value="Razon Social:  " styleClass="label-form"/>
 				<h:outputText value="#{selectedDTO.razonSocial}" />
-				<h:outputText value="Nombre de Fantasia:  " styleClass="label-form"/>
+				<p:outputLabel value="Nombre de Fantasia:  " styleClass="label-form"/>
 				<h:outputText value="#{selectedDTO.nombreFantasia}" />
 			</p:panelGrid>
 			
-			<p:panelGrid columns="4" styleClass="tabla-form">				
-				<h:outputText value="IVA :  " styleClass="label-form"/>
+			<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">				
+				<p:outputLabel value="IVA :  " styleClass="label-form"/>
 				<h:outputText value="#{selectedDTO.descripcionCondicionIVA}" />
-				<h:outputText/>
-				<h:outputText/>	 
 			</p:panelGrid>
 			
-			
-			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Tipo Documento:  " styleClass="label-form"/>
+			<p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+				<p:outputLabel value="Tipo Documento:  " styleClass="label-form"/>
 				<h:outputText value="#{selectedDTO.tipoDocumento}" />
-				<h:outputText value="Nro. Documento:  " styleClass="label-form"/>
+				<p:outputLabel value="Nro. Documento:  " styleClass="label-form"/>
 				<h:outputText value="#{selectedDTO.numeroDocumento}" />	 
 			</p:panelGrid>
 			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Teléfono:  " styleClass="label-form"/>
+			<p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+				<p:outputLabel value="Teléfono:  " styleClass="label-form"/>
 				<h:outputText value="#{selectedDTO.telefono}" />
-				<h:outputText value="E-mail:  " styleClass="label-form"/>
+				<p:outputLabel value="E-mail:  " styleClass="label-form"/>
 				<h:outputText value="#{selectedDTO.email}" />	 
 			</p:panelGrid>
 			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Direccion:  " styleClass="label-form"/>
+			<p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+				<p:outputLabel value="Direccion:  " styleClass="label-form"/>
 				<h:outputText value="#{selectedDTO.direccion}" />
-				<h:outputText value="Ciudad:  " styleClass="label-form"/>
+				<p:outputLabel value="Ciudad:  " styleClass="label-form"/>
 				<h:outputText value="#{selectedDTO.ciudad}" />	 
 			</p:panelGrid>
 			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="País:  " styleClass="label-form"/>
+			<p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+				<p:outputLabel value="País:  " styleClass="label-form"/>
 				<h:outputText value="#{selectedDTO.descripcionPais}" />
-				<h:outputText value="Provincia:  " styleClass="label-form"/>
+				<p:outputLabel value="Provincia:  " styleClass="label-form"/>
 				<h:outputText value="#{selectedDTO.descripcionProvincia}" />					 
 			</p:panelGrid>
 
-		</p:panel>				 
 	</ui:define>
 	
 </ui:composition>

@@ -24,97 +24,95 @@
 		      visibility: hidden;
 		    }
 		</style>
+		
+		<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+			<p:outputLabel value="Importe total:  " styleClass="label-form"/>
+			<h:outputText value="#{nuevaEntidad.importeTotal}">
+				<f:convertNumber type="currency"/>
+			</h:outputText>
 
-		<p:panel id="content_crud" styleClass="data-form">
+			<p:outputLabel value="Disponible:  " styleClass="label-form"/>
+			<h:outputText id="fld_saldoImporte" value="#{abmCobranzaBean.saldoImporte}">
+				<f:convertNumber type="currency"/>
+			</h:outputText>
+		</p:panelGrid>
+		
+		<p:panelGrid columns="1" columnClasses="ui-grid-col-3" layout="grid" styleClass="ui-panelgrid-blank">
+			<p:commandButton id="btnCalculoAutomatico"
+							 value="Cálculo Automático"
+			                 icon="fa fa-cogs"
+			                 title="Calcula automaticamente la distribucion del pago"
+			                 async="false"
+			                 actionListener="#{abmCobranzaBean.calculoAutomatico(nuevaEntidad.importeTotal)}"
+			                 process="@this detalles"
+			                 update="detalles @this fld_saldoImporte"
+			                 partialSubmit="true"/>
+		</p:panelGrid>
+
+		<p:spacer height="10"/>
+
+		<p:dataTable id="detalles" var="det"
+		             value="#{abmCobranzaBean.detalleFacturas}"
+		             selection="#{abmCobranzaBean.detalleFacturasSelected}"
+		             emptyMessage="No se encontraron facturas con deuda."
+		             rowKey="#{det.idFactura}"
+		             paginator="true" rows="10" paginatorPosition="bottom"
+					 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					 currentPageReportTemplate="(Registros: {startRecord} - {endRecord} de {totalRecords}, Página {currentPage}/{totalPages})">
+
+			<p:ajax event="rowSelectCheckbox" listener="#{abmCobranzaBean.onRowSelect}" process="@form" update=":form-main:detalles :form-main:fld_saldoImporte"/>
+	        <p:ajax event="rowUnselectCheckbox" listener="#{abmCobranzaBean.onRowUnselect}" process="@form" update=":form-main:detalles :form-main:fld_saldoImporte"/>
+
+			<p:column selectionMode="multiple" style="width:35px;text-align:center"/>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Factura" />
+				</f:facet>
+				<h:outputText value="#{det.idFactura}" converter="idFacturaConverter"/>
+			</p:column>
 			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Importe total:  " styleClass="label-form"/>
-				<h:outputText value="#{nuevaEntidad.importeTotal}">
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Fecha Emisión" />
+				</f:facet>
+				<h:outputText value="#{det.fechaEmisionFactura}">
+					<f:convertDateTime pattern="dd/MM/yyyy"/>
+				</h:outputText>
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Estado" />
+				</f:facet>
+				<h:outputText value="#{det.descripcionEstadoPagoFactura}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Adeudado" />
+				</f:facet>
+				<h:outputText value="#{det.saldoFactura}">
 					<f:convertNumber type="currency"/>
 				</h:outputText>
-				<h:outputText/>
-				<p:commandButton id="btnCalculoAutomatico"
-									 value="Cálculo Automático"
-					                 icon="fa fa-cogs"
-					                 title="Calcula automaticamente la distribucion del pago"
-					                 async="false"
-					                 actionListener="#{abmCobranzaBean.calculoAutomatico(nuevaEntidad.importeTotal)}"
-					                 process="@this detalles"
-					                 update="detalles @this fld_saldoImporte"
-					                 partialSubmit="true"/>
-			</p:panelGrid>
-			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Disponible:  " styleClass="label-form"/>
-				<h:outputText id="fld_saldoImporte" value="#{abmCobranzaBean.saldoImporte}">
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Importe a Pagar" />
+				</f:facet>
+				<p:inputText value="#{det.montoPagado}" >
+					<f:convertNumber minFractionDigits="2"/>
+					<p:ajax listener="#{abmCobranzaBean.montoPagadoChanged(det)}" process="@form" update=":form-main:detalles :form-main:fld_saldoImporte" />
+				</p:inputText>
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Restante" />
+				</f:facet>
+				<h:outputText value="#{det.saldo}">
 					<f:convertNumber type="currency"/>
 				</h:outputText>
-				<h:outputText/>
-				<h:outputText/>
-			</p:panelGrid>
-
-			<p:dataTable id="detalles" var="det"
-			             value="#{abmCobranzaBean.detalleFacturas}"
-			             selection="#{abmCobranzaBean.detalleFacturasSelected}"
-			             emptyMessage="No se encontraron facturas con deuda."
-			             rowKey="#{det.idFactura}"
-			             paginator="true" rows="10" paginatorPosition="bottom"
-						 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-						 currentPageReportTemplate="(Registros: {startRecord} - {endRecord} de {totalRecords}, Página {currentPage}/{totalPages})">
-
-				<p:ajax event="rowSelectCheckbox" listener="#{abmCobranzaBean.onRowSelect}" process="@form" update=":form-main:detalles :form-main:fld_saldoImporte"/>
-		        <p:ajax event="rowUnselectCheckbox" listener="#{abmCobranzaBean.onRowUnselect}" process="@form" update=":form-main:detalles :form-main:fld_saldoImporte"/>
-
-				<p:column selectionMode="multiple" style="width:16px;text-align:center"/>
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="Factura" />
-					</f:facet>
-					<h:outputText value="#{det.idFactura}" converter="idFacturaConverter"/>
-				</p:column>
-				
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="Fecha Emisión" />
-					</f:facet>
-					<h:outputText value="#{det.fechaEmisionFactura}">
-						<f:convertDateTime pattern="dd/MM/yyyy"/>
-					</h:outputText>
-				</p:column>
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="Estado" />
-					</f:facet>
-					<h:outputText value="#{det.descripcionEstadoPagoFactura}" />
-				</p:column>
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="Adeudado" />
-					</f:facet>
-					<h:outputText value="#{det.saldoFactura}">
-						<f:convertNumber type="currency"/>
-					</h:outputText>
-				</p:column>
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="Importe a Pagar" />
-					</f:facet>
-					<p:inputText value="#{det.montoPagado}" >
-						<f:convertNumber minFractionDigits="2"/>
-						<p:ajax listener="#{abmCobranzaBean.montoPagadoChanged(det)}" process="@form" update=":form-main:detalles :form-main:fld_saldoImporte" />
-					</p:inputText>
-				</p:column>
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="Restante" />
-					</f:facet>
-					<h:outputText value="#{det.saldo}">
-						<f:convertNumber type="currency"/>
-					</h:outputText>
-				</p:column>
-			</p:dataTable>
+			</p:column>
+		</p:dataTable>
 			
-		</p:panel>				 
+				 
 	</ui:define>
 	
 </ui:composition>
