@@ -21,33 +21,29 @@
 		
 		<p:panel id="content_crud" styleClass="data-form">
 
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Nro Compra:  " styleClass="label-form"/>
+			<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+				<p:outputLabel value="Nro Compra:  " styleClass="label-form"/>
 				<h:outputText value="#{selectedDTO.id}" />
-				<h:outputText/>
-				<h:outputText/>				 
 			</p:panelGrid>
 			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Fecha:  " styleClass="label-form"/>					
+			<p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+				<p:outputLabel value="Fecha:  " styleClass="label-form"/>					
 				<h:outputText value="#{selectedDTO.fecha}">
 					<f:convertDateTime pattern="dd/MM/yyyy"/> 
 				</h:outputText>
-				<h:outputText value="Condición de Venta:  " styleClass="label-form"/>
+				<p:outputLabel value="Condición de Venta:  " styleClass="label-form"/>
 				<h:outputText value="#{selectedDTO.descripcionCondicionVenta}" />					 
 			</p:panelGrid>			
 						
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Estado de Pago:  " styleClass="label-form"/>
+			<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+				<p:outputLabel value="Estado de Pago:  " styleClass="label-form"/>
 				<h:outputText value="#{selectedDTO.descripcionEstadoPago}" />
-				<h:outputText/>
-				<h:outputText/>					 
 			</p:panelGrid>
 			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Nro Proveedor:  " styleClass="label-form"/>
+			<p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+				<p:outputLabel value="Nro Proveedor:  " styleClass="label-form"/>
 				<h:outputText value="#{selectedDTO.idProveedor}" />
-				<h:outputText value="Razón Social del Proveedor:  " styleClass="label-form"/>
+				<p:outputLabel value="Razón Social del Proveedor:  " styleClass="label-form"/>
 				<h:outputText value="#{selectedDTO.razonSocialProveedor}" />					 
 			</p:panelGrid>			
 				
@@ -101,13 +97,11 @@
 			
 			<p:spacer height="20"/>
 
-			<p:panelGrid id="lblImporteTotal" columns="4" styleClass="tabla-form">
-				<h:outputText value="Importe Total:  " styleClass="label-form"/>
+			<p:panelGrid id="lblImporteTotal" columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+				<p:outputLabel value="Importe Total:  " styleClass="label-form"/>
 				<h:outputText value="#{selectedDTO.importeTotal}" style="font-size: 1.5em;">
 					<f:convertNumber type="currency"/>
 				</h:outputText>
-				<h:outputText/>
-				<h:outputText/>
 			</p:panelGrid>
 			
 		</p:panel>				 

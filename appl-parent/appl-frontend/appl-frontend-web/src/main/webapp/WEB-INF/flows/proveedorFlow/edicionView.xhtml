@@ -22,22 +22,18 @@
 	
 		<p:panel id="content_crud" styleClass="data-form">
 
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Nro Proveedor:  " styleClass="label-form"/>
+			<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+				<p:outputLabel value="Nro Proveedor:  " styleClass="label-form"/>
 				<h:outputText value="#{selectedDTO.id}" />
-				<h:outputText/>
-				<h:outputText/>					 
 			</p:panelGrid>
 			
-			<p:panelGrid columns="4" styleClass="tabla-form">				
-				<h:outputText value="Razon Social:  " styleClass="label-form"/>
+			<p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">				
+				<p:outputLabel value="Razon Social:  " styleClass="label-form"/>
 				<p:inputText value="#{selectedDTO.razonSocial}" required="true" label="Razon Social"/>
-				<h:outputText value="Contacto:  " styleClass="label-form"/>
+				<p:outputLabel value="Contacto:  " styleClass="label-form"/>
 				<p:inputText value="#{selectedDTO.contacto}"/>	 
-			</p:panelGrid>
-			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="IVA :  " styleClass="label-form"/>				
+
+				<p:outputLabel value="IVA :  " styleClass="label-form"/>				
 				<p:selectOneMenu value="#{selectedDTO.condicionIVA}">  
 		            <f:selectItem itemLabel="Seleccione una opción" itemValue="" />
 		            <f:selectItem itemLabel="Consumidor Final" itemValue="5" />  
@@ -47,38 +43,30 @@
 		            <f:selectItem itemLabel="No Responsable" itemValue="3" />
 		            <f:selectItem itemLabel="No Categorizado" itemValue="7" />
 		        </p:selectOneMenu>  
-				<h:outputText/>
-				<h:outputText/>	 
 			</p:panelGrid>
 			
 			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Teléfono:  " styleClass="label-form"/>
+			<p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+				<p:outputLabel value="Teléfono:  " styleClass="label-form"/>
 				<p:inputText value="#{selectedDTO.telefono}" />
-				<h:outputText value="E-mail:  " styleClass="label-form"/>
+				<p:outputLabel value="E-mail:  " styleClass="label-form"/>
 				<p:inputText value="#{selectedDTO.email}" />	 
-			</p:panelGrid>
-			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Celular:  " styleClass="label-form"/>
+
+				<p:outputLabel value="Celular:  " styleClass="label-form"/>
 				<p:inputText value="#{selectedDTO.celular}" />
-				<h:outputText value="Cuit:  " styleClass="label-form"/>
+				<p:outputLabel value="Cuit:  " styleClass="label-form"/>
 				<p:inputText value="#{selectedDTO.cuit}" />	 
-			</p:panelGrid>
-			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Direccion:  " styleClass="label-form"/>
+
+				<p:outputLabel value="Direccion:  " styleClass="label-form"/>
 				<p:inputText value="#{selectedDTO.direccion}" />
-				<h:outputText value="Ciudad:  " styleClass="label-form"/>
+				<p:outputLabel value="Ciudad:  " styleClass="label-form"/>
 				<p:inputText value="#{selectedDTO.ciudad}" />
-				<h:outputText value="Cod Postal:  " styleClass="label-form"/>
+				<p:outputLabel value="Cod Postal:  " styleClass="label-form"/>
 				<p:inputText value="#{selectedDTO.codigoPostal}" />
-				<h:outputText/>
-				<h:outputText/>	 
 			</p:panelGrid>
 			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="País:  " styleClass="label-form"/>
+			<p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+				<p:outputLabel value="País:  " styleClass="label-form"/>
 				<p:selectOneMenu value="#{selectedDTO.idPais}" valueChangeListener="#{abmProveedorBean.paisChanged}">  
 		            <f:selectItem itemLabel="Seleccione una opción" itemValue="" />  
 		            <f:selectItems value="#{abmProveedorBean.paises}"  
@@ -86,7 +74,7 @@
                                    itemValue="#{pais.id}"/>  
                     <p:ajax event="valueChange" immediate="true" process="@this" update="provincia"/>
 		        </p:selectOneMenu>
-				<h:outputText value="Provincia:  " styleClass="label-form"/>				
+				<p:outputLabel value="Provincia:  " styleClass="label-form"/>				
 				<p:selectOneMenu id="provincia" value="#{selectedDTO.idProvincia}">  
 		            <f:selectItem itemLabel="Seleccione una opción" itemValue="" />  
 		            <f:selectItems value="#{abmProveedorBean.provincias}"  
