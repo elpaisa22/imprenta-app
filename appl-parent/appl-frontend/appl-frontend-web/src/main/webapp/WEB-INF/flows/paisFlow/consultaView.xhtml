@@ -20,23 +20,14 @@
 	
 	<ui:define name="content_crud">	
 
-		<p:panel id="content_crud" styleClass="data-form">
+		<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+			<p:outputLabel value="Codigo:  "/>
+			<h:outputText value="#{selectedDTO.id}"/>
 
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Codigo:  " styleClass="label-form"/>
-				<h:outputText value="#{selectedDTO.id}"/>
-				<h:outputText/>
-				<h:outputText/>
-			</p:panelGrid>
-			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Descripción:  " styleClass="label-form"/>
-				<h:outputText value="#{selectedDTO.descripcion}"/>
-				<h:outputText/>
-				<h:outputText/>
-			</p:panelGrid>
-			
-		</p:panel>				 
+			<p:outputLabel value="Descripción:  "/>
+			<h:outputText value="#{selectedDTO.descripcion}"/>
+		</p:panelGrid>
+
 	</ui:define>
 	
 </ui:composition>

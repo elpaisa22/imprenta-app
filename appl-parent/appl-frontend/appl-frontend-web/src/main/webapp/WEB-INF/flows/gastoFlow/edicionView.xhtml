@@ -20,79 +20,53 @@
 	
 	<ui:define name="content_crud">
 		
-		<p:panel id="content_crud" styleClass="data-form">
+		<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+			<p:outputLabel value="ID Gasto:  " styleClass="label-form"/>
+			<h:outputText value="#{selectedDTO.id}"/>
 
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="ID Gasto:  " styleClass="label-form"/>
-				<h:outputText value="#{selectedDTO.id}"/>
-				<h:outputText/>
-				<h:outputText/>
-			</p:panelGrid>
-			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Fecha:  " styleClass="label-form"/>
-				<p:calendar label="Fecha" value="#{selectedDTO.fecha}" showOn="button" pattern="dd/MM/yyyy" locale="es" required="true"/>
-				<h:outputText/>
-				<h:outputText/>					 
-			</p:panelGrid>
-			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Tipo de Gasto:  " styleClass="label-form"/>
-				<p:autoComplete id="tipoGasto"
-				                value="#{autoCompleteTipoGastoBean.tipoGastoSelected}"
-				                completeMethod="#{autoCompleteTipoGastoBean.completeTipoGasto}"  
-	                            var="a" itemLabel="#{a.id}" itemValue="#{a}"
-	                            forceSelection="true"
-	                            converter="#{autoCompleteTipoGastoBean}"
-	                            required="true"
-	                            label="Tipo de Gasto"
-	                            dropdown="true">
-	                
-	                <p:column>
-	                	<f:facet name="header">
-								<h:outputText value="Codigo" />
-						</f:facet>
-	                    <h:outputText value="#{a.id}"/>  
-	                </p:column>
-	                <p:column>
-	                	<f:facet name="header">
-								<h:outputText value="Descripcion" />
-						</f:facet>
-                        <h:outputText value="#{a.descripcion}"/>
-	                </p:column>
-	            </p:autoComplete>
-				<p:watermark for="tipoGasto" value="Ingrese el Tipo de Gasto" />
-				<h:outputText/>				 
-			</p:panelGrid>
-			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Importe:  " styleClass="label-form"/>
-				<p:inputText id="fldImporte"
-				             value="#{selectedDTO.importe}"
-				             required="true" label="Importe">
-					<f:convertNumber minFractionDigits="2"/>
-					<f:ajax render="@this"/>
-				</p:inputText>
-				<h:outputText/>
-				<h:outputText/>					 
-			</p:panelGrid>
-			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Nombre:  " styleClass="label-form"/>
-				<p:inputText id="nombre" value="#{selectedDTO.nombre}" label="Nombre"/>
-				<p:watermark for="nombre" value="Ingrese el Nombre" />
-				<h:outputText/>
-			</p:panelGrid>
-			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Observaciones:  " styleClass="label-form"/>
-				<p:inputText id="observaciones" value="#{nuevaEntidad.observaciones}" label="Observaciones"/>
-				<p:watermark for="observaciones" value="Ingrese las Observaciones" />
-				<h:outputText/>
-			</p:panelGrid>
-		
-		</p:panel>
-			 
+			<p:outputLabel value="Fecha:  " styleClass="label-form"/>
+			<p:calendar label="Fecha" value="#{selectedDTO.fecha}" showOn="button" pattern="dd/MM/yyyy" locale="es" required="true"/>
+
+			<p:outputLabel value="Tipo de Gasto:  " styleClass="label-form"/>
+			<p:autoComplete id="tipoGasto"
+			                value="#{autoCompleteTipoGastoBean.tipoGastoSelected}"
+			                completeMethod="#{autoCompleteTipoGastoBean.completeTipoGasto}"  
+	                           var="a" itemLabel="#{a.id}" itemValue="#{a}"
+	                           forceSelection="true"
+	                           converter="#{autoCompleteTipoGastoBean}"
+	                           required="true"
+	                           label="Tipo de Gasto"
+	                           placeholder="Ingrese el Tipo de Gasto">
+	               
+	               <p:column>
+	               	<f:facet name="header">
+							<h:outputText value="Codigo" />
+					</f:facet>
+	                   <h:outputText value="#{a.id}"/>  
+	               </p:column>
+	               <p:column>
+	               	<f:facet name="header">
+							<h:outputText value="Descripcion" />
+					</f:facet>
+	                      <h:outputText value="#{a.descripcion}"/>
+	               </p:column>
+	           </p:autoComplete>
+
+			<p:outputLabel value="Importe:  " styleClass="label-form"/>
+			<p:inputText id="fldImporte"
+			             value="#{selectedDTO.importe}"
+			             required="true" label="Importe">
+				<f:convertNumber minFractionDigits="2"/>
+				<f:ajax render="@this"/>
+			</p:inputText>
+
+			<p:outputLabel value="Nombre:  " styleClass="label-form"/>
+			<p:inputText id="nombre" value="#{selectedDTO.nombre}" label="Nombre" placeholder="Ingrese el Nombre"/>
+
+			<p:outputLabel value="Observaciones:  " styleClass="label-form"/>
+			<p:inputText id="observaciones" value="#{nuevaEntidad.observaciones}" label="Observaciones" placeholder="Ingrese las Observaciones"/>
+		</p:panelGrid>
+
 	</ui:define>
 
 </ui:composition>

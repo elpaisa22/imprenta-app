@@ -3,6 +3,18 @@
 	font-size: 14px !important;
 }
 
+.ui-messages-error {
+	background-color: #f2dede !important;
+}
+
+.ui-messages-info {
+	background-color: #d9edf7 !important;
+}
+
+.ui-messages-warning {
+	background-color: #ffff80!important;
+}
+
 .ui-panelgrid {
 	border: none !important;
 }

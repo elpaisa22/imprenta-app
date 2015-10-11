@@ -20,25 +20,16 @@
 	
 	<ui:define name="content_crud">	
 
-		<p:panel id="content_crud" styleClass="data-form">
+		<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+			<p:outputLabel value="Nro Movimiento:  "/>
+			<h:outputText value="#{selectedDTO.id}" />
 
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Nro Movimiento:  " styleClass="label-form"/>
-				<h:outputText value="#{selectedDTO.id}" />
-				<h:outputText/>
-				<h:outputText/>					 
-			</p:panelGrid>
-			
-			<p:panelGrid columns="4" styleClass="tabla-form">				
-				<h:outputText value="Fecha:  " styleClass="label-form"/>
-				<h:outputText value="#{selectedDTO.fecha}">
-					<f:convertDateTime pattern="dd/MM/yyyy"/> 
-				</h:outputText>
-				<h:outputText/>
-				<h:outputText/>	
-			</p:panelGrid>
-		
-		</p:panel>				 
+			<p:outputLabel value="Fecha:  "/>
+			<h:outputText value="#{selectedDTO.fecha}">
+				<f:convertDateTime pattern="dd/MM/yyyy"/> 
+			</h:outputText>
+		</p:panelGrid>
+
 	</ui:define>
 	
 </ui:composition>

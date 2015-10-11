@@ -20,33 +20,17 @@
 	
 	<ui:define name="content_crud">
 		
-		<p:panel id="content_crud" styleClass="data-form">
+		<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+			<p:outputLabel value="Pais:  "/>
+			<h:outputText value="#{selectedDTO.descripcionPais}"/>
 
+			<p:outputLabel value="Codigo:  "/>
+			<h:outputText value="#{selectedDTO.idProvincia}"/>
 
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Pais:  " styleClass="label-form"/>
-				<h:outputText value="#{selectedDTO.descripcionPais}"/>
-				<h:outputText/>				 
-				<h:outputText/>				 
-			</p:panelGrid>
-
-
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Codigo:  " styleClass="label-form"/>
-				<h:outputText value="#{selectedDTO.idProvincia}"/>
-				<h:outputText/>
-				<h:outputText/>
-			</p:panelGrid>
-			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Descripción:  " styleClass="label-form"/>
-				<p:inputText id="descripcion" value="#{selectedDTO.descripcion}" required="true" label="Descripción"/>
-				<p:watermark for="descripcion" value="Ingrese la Descripción" />
-				<h:outputText/>
-			</p:panelGrid>
+			<p:outputLabel value="Descripción:  "/>
+			<p:inputText id="descripcion" value="#{selectedDTO.descripcion}" required="true" label="Descripción" placeholder="Ingrese la Descripción"/>
+		</p:panelGrid>
 		
-		</p:panel>
-			 
 	</ui:define>
 
 </ui:composition>

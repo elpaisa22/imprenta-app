@@ -19,52 +19,40 @@
 	
 	<ui:define name="content_crud">	
 
-		<p:panel id="content_crud" styleClass="data-form">
-		
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Pais:  " styleClass="label-form"/>
-				<p:autoComplete id="pais"
-				                value="#{autoCompletePaisBean.paisSelected}"
-				                completeMethod="#{autoCompletePaisBean.completePais}"  
-	                            var="a" itemLabel="#{a.id}" itemValue="#{a}"
-	                            forceSelection="true" required="true" label="Pais"
-	                            converter="#{autoCompletePaisBean}">
-	                
-	                <p:column>
-	                	<f:facet name="header">
-								<h:outputText value="Codigo" />
-						</f:facet>
-	                    <h:outputText value="#{a.id}"/>  
-	                </p:column>
-	                <p:column>
-	                	<f:facet name="header">
-								<h:outputText value="Descripcion" />
-						</f:facet>
-                        <h:outputText value="#{a.descripcion}"/>
-	                </p:column>
-	            </p:autoComplete>
-				<p:watermark for="pais" value="Ingrese el Pais" />
-				<h:outputText/>				 
-			</p:panelGrid>
+		<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+			<p:outputLabel value="Pais:  "/>
+			<p:autoComplete id="pais"
+			                value="#{autoCompletePaisBean.paisSelected}"
+			                completeMethod="#{autoCompletePaisBean.completePais}"  
+                            var="a" itemLabel="#{a.id}" itemValue="#{a}"
+                            forceSelection="true" required="true" label="Pais"
+                            converter="#{autoCompletePaisBean}"
+                            placeholder="Ingrese el Pais">
+                
+                <p:column>
+                	<f:facet name="header">
+							<h:outputText value="Codigo" />
+					</f:facet>
+                    <h:outputText value="#{a.id}"/>  
+                </p:column>
+                <p:column>
+                	<f:facet name="header">
+							<h:outputText value="Descripcion" />
+					</f:facet>
+                       <h:outputText value="#{a.descripcion}"/>
+                </p:column>
+            </p:autoComplete>
 
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Código:  " styleClass="label-form"/>
-				<p:inputText id="idTipo"
-				             value="#{nuevaEntidad.idProvincia}" required="true" label="Tipo del Código" onkeyup="this.value=this.value.toUpperCase();"
-				             maxlength="3"/>
-				<p:watermark for="idTipo" value="Ingrese el Código" />
-				<h:outputText/>
-			</p:panelGrid>
-			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Descripción:  " styleClass="label-form"/>
-				<p:inputText id="descripcion" value="#{nuevaEntidad.descripcion}" required="true" label="Descripción"/>
-				<p:watermark for="descripcion" value="Ingrese la Descripción" />
-				<h:outputText/>
-			</p:panelGrid>
+			<p:outputLabel value="Código:  "/>
+			<p:inputText id="idTipo"
+			             value="#{nuevaEntidad.idProvincia}" required="true" label="Tipo del Código" onkeyup="this.value=this.value.toUpperCase();"
+			             maxlength="3"
+			             placeholder="Ingrese el Código"/>
+
+			<p:outputLabel value="Descripción:  "/>
+			<p:inputText id="descripcion" value="#{nuevaEntidad.descripcion}" required="true" label="Descripción" placeholder="Ingrese la Descripción"/>
+		</p:panelGrid>
 		
-		</p:panel>
-			 
 	</ui:define>
 
 </ui:composition>

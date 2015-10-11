@@ -18,7 +18,7 @@
 				</div>  
 			</f:facet>		
 			<f:facet name="right">
-				<p:commandButton value="Continuar" title="Continuar para elegir el detalle de la cobranza" action="continuar" icon="fa fa-check" update="content_crud messagesError" process="@this content_crud"/>
+				<p:commandButton value="Continuar" title="Continuar para elegir el detalle de la cobranza" action="continuar" icon="fa fa-check" update="proveedor detalle_pagos messagesError" process="@this proveedor detalle_pagos"/>
 				<p:commandButton value="Cancelar"  title="Cancelar la operación"   action="cancelar"  icon="fa fa-times"  immediate="true"/>
 			</f:facet>
 		</p:toolbar>
@@ -26,10 +26,8 @@
 	
 	<ui:define name="content_crud">	
 	
-		<p:panel id="content_crud" styleClass="data-form">
-
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Proveedor:  " styleClass="label-form"/>
+			<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+				<p:outputLabel value="Proveedor:  "/>
 				<p:autoComplete id="proveedor"
 				                value="#{autoCompleteProveedorBean.proveedorSelected}"
 				                completeMethod="#{autoCompleteProveedorBean.completeProveedor}"  
@@ -61,23 +59,20 @@
 	                </p:column>  
 	            </p:autoComplete>
 				<p:watermark for="proveedor" value="Ingrese el Nombre del Proveedor" />
-				<h:outputText/>
+			</p:panelGrid>
 
-				<h:outputText value="Saldo adeudado:" styleClass="label-form"/>
+			<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+				<p:outputLabel value="Saldo adeudado:"/>
 				<h:outputText id="fld_saldoCuenta" value="#{autoCompleteProveedorBean.proveedorSelected.saldoCuentaCorriente}">
 					<f:convertNumber type="currency"/>
 				</h:outputText>
-				<h:outputText/>
-				<h:outputText/>
 
-				<h:outputText value="Fecha:  " styleClass="label-form"/>
+				<p:outputLabel value="Fecha:  "/>
 				<h:outputText value="#{nuevaEntidad.fecha}" >
 					<f:convertDateTime pattern="dd/MM/yyyy"/> 
 				</h:outputText>
-				<h:outputText/>
-				<h:outputText/>
 				
-				<h:outputText value="Importe total:  " styleClass="label-form"/>
+				<p:outputLabel value="Importe total:  "/>
 				<h:outputText id="fld_importeTotal" value="#{nuevaEntidad.importeTotal}">
 					<f:convertNumber type="currency"/>
 				</h:outputText>
@@ -85,92 +80,62 @@
 			
 			<p:tabView id="detalle_pagos">
 				<p:tab title="Efectivo">
-					<p:panelGrid columns="4" styleClass="tabla-form">				
-						<h:outputText value="Monto Efectivo: " styleClass="label-form"/>
+					<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">				
+						<p:outputLabel value="Monto Efectivo: "/>
 						<p:inputText id="fld_MontoEfectivo"
 						             value="#{nuevaEntidad.montoEfectivo}" label="Monto Efectivo" onchange="recalcularMontoTotal()">
 							<f:convertNumber minFractionDigits="2"/>
 							<f:ajax render="@this"/>
 						</p:inputText>
-						<h:outputText/>
-						<h:outputText/> 	 
 					</p:panelGrid>
 				</p:tab>
 				<p:tab title="Tarjeta Crédito">
-					<p:panelGrid columns="4" styleClass="tabla-form">				
-						<h:outputText value="Nro. Tarjeta Crédito:  " styleClass="label-form"/>
+					<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">				
+						<p:outputLabel value="Nro. Tarjeta Crédito:  "/>
 						<p:inputMask value="#{nuevaEntidad.numeroTarjetaCredito}" mask="9999-9999-9999-9999"/>
-						<h:outputText/>
-						<h:outputText/> 	 
-					</p:panelGrid>
-					
-					<p:panelGrid columns="4" styleClass="tabla-form">				
-						<h:outputText value="Marca:  " styleClass="label-form"/>
+
+						<p:outputLabel value="Marca:  "/>
 						<p:inputText value="#{nuevaEntidad.marcaTarjetaCredito}"/>
-						<h:outputText/>
-						<h:outputText/> 	 
-					</p:panelGrid>
-					
-					<p:panelGrid columns="4" styleClass="tabla-form">				
-						<h:outputText value="Banco:  " styleClass="label-form"/>
+
+						<p:outputLabel value="Banco:  "/>
 						<p:selectOneMenu id="bancoTarjetaCredito" value="#{nuevaEntidad.idBancoTarjetaCredito}"
 			                             effect="fade" var="t" filter="true" filterMatchMode="contains"
 			                             label="Banco de la Tarjeta Credito">
 				            <f:selectItem itemLabel="Seleccione una opción" itemValue="#{null}" />
 				            <f:selectItems value="#{abmPagoBean.listaBancos}" var="banco" itemLabel="#{banco.descripcion}" itemValue="#{banco.id}" />
 				        </p:selectOneMenu>
-						<h:outputText/>
-						<h:outputText/> 	 
-					</p:panelGrid>	
-					
-					<p:panelGrid columns="4" styleClass="tabla-form">				
-						<h:outputText value="Monto Tarjeta Crédito: " styleClass="label-form"/>
+						
+						<p:outputLabel value="Monto Tarjeta Crédito: "/>
 						<p:inputText id="fld_MontoTarjetaCredito"
 						             value="#{nuevaEntidad.montoTarjetaCredito}" label="Monto Tarjeta Crédito" onchange="recalcularMontoTotal()">
 							<f:convertNumber minFractionDigits="2"/>
 							<f:ajax render="@this"/>
 						</p:inputText>
-						<h:outputText/>
-						<h:outputText/> 	 
 					</p:panelGrid>
 				</p:tab>
 				
 				<p:tab title="Tarjeta Débito">
-					<p:panelGrid columns="4" styleClass="tabla-form">				
-						<h:outputText value="Nro. Tarjeta Débito:  " styleClass="label-form"/>
+					<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">				
+						<p:outputLabel value="Nro. Tarjeta Débito:  "/>
 						<p:inputMask value="#{nuevaEntidad.numeroTarjetaDebito}" mask="9999-9999-9999-9999"/>
-						<h:outputText/>
-						<h:outputText/> 	 
-					</p:panelGrid>
-					
-					<p:panelGrid columns="4" styleClass="tabla-form">				
-						<h:outputText value="Marca:  " styleClass="label-form"/>
+
+						<p:outputLabel value="Marca:  "/>
 						<p:inputText value="#{nuevaEntidad.marcaTarjetaDebito}"/>
-						<h:outputText/>
-						<h:outputText/> 	 
-					</p:panelGrid>
-					
-					<p:panelGrid columns="4" styleClass="tabla-form">				
-						<h:outputText value="Banco:  " styleClass="label-form"/>
+
+						<p:outputLabel value="Banco:  "/>
 						<p:selectOneMenu id="bancoTarjetaDebito" value="#{nuevaEntidad.idBancoTarjetaDebito}"
 			                             effect="fade" var="t" filter="true" filterMatchMode="contains"
 			                             label="Banco de la Tarjeta Debito">
 				            <f:selectItem itemLabel="Seleccione una opción" itemValue="#{null}" />
 				            <f:selectItems value="#{abmPagoBean.listaBancos}" var="banco" itemLabel="#{banco.descripcion}" itemValue="#{banco.id}" />
 				        </p:selectOneMenu>
-						<h:outputText/>
-						<h:outputText/> 	 
-					</p:panelGrid>	
-					
-					<p:panelGrid columns="4" styleClass="tabla-form">				
-						<h:outputText value="Monto Tarjeta Débito: " styleClass="label-form"/>
+
+						<p:outputLabel value="Monto Tarjeta Débito: "/>
 						<p:inputText id="fld_MontoTarjetaDebito"
 						             value="#{nuevaEntidad.montoTarjetaDebito}" label="Monto Tarjeta Débito" onchange="recalcularMontoTotal()">
 							<f:convertNumber minFractionDigits="2"/>
 							<f:ajax render="@this"/>
 						</p:inputText>
-						<h:outputText/>
-						<h:outputText/> 	 
 					</p:panelGrid>
 				</p:tab>
 				
@@ -201,7 +166,7 @@
 								<f:convertNumber type="currency"/>
 							</h:outputText>
 					    </p:column>
-					    <p:column style="text-align: center; width: 50px;">
+					    <p:column style="text-align: center; width: 70px;">
 							<f:facet name="header">
 								<h:outputText value="Editar" />
 							</f:facet>
@@ -215,7 +180,7 @@
 				            	<f:setPropertyActionListener value="#{cheque}" target="#{abmPagoBean.cheque}" />
 				            </p:commandButton>
 						</p:column>
-					    <p:column style="text-align: center; width: 50px;">
+					    <p:column style="text-align: center; width: 70px;">
 							<f:facet name="header">
 								<h:outputText value="Eliminar" />
 							</f:facet>
@@ -230,17 +195,20 @@
 					</p:dataTable>
 					
 					<p:separator/>
-					
-					<p:commandButton id="btnAgregarCheque"
-									 value="Agregar cheque"
-					                 icon="ui-icon-circle-plus"
-					                 title="Agrega un cheque a la cobranza"
-					                 actionListener="#{abmPagoBean.crearCheque()}"
-					                 oncomplete="PF('window_cheque').show();"
-					                 async="false"
-					                 process="@this"
-					                 update=":form-main:detalle_cheque"
-					                 partialSubmit="true"/>
+
+					<p:panelGrid columns="1" columnClasses="ui-grid-col-2" layout="grid" styleClass="ui-panelgrid-blank">
+						<p:commandButton id="btnAgregarCheque"
+										 value="Agregar cheque"
+						                 icon="ui-icon-circle-plus"
+						                 title="Agrega un cheque a la cobranza"
+						                 actionListener="#{abmPagoBean.crearCheque()}"
+						                 oncomplete="PF('window_cheque').show();"
+						                 async="false"
+						                 process="@this"
+						                 update=":form-main:detalle_cheque"
+						                 partialSubmit="true"/>
+					</p:panelGrid>
+
 				</p:tab>
 			
 			</p:tabView>
@@ -253,7 +221,6 @@
 			                          form-main:detalle_pagos:table_cheques"
 			                 actionListener="#{abmPagoBean.recalcularTotal(nuevaEntidad)}"
 			                 update="fld_importeTotal"/>
-		</p:panel>
 		
 		
 		<p:dialog widgetVar="window_cheque" modal="true" resizable="false" width="600" header="Cheque" hideEffect="fade">
@@ -261,29 +228,29 @@
 
 				<p:messages id="clientvalidations"/>
 	
-				<p:panelGrid columns="2" styleClass="tabla-form" columnClasses="label-popup, field-popup">
-					<h:outputText value="Banco:  " styleClass="label-form"/>
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-3,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+					<p:outputLabel value="Banco:  "/>
 					<p:selectOneMenu id="banco" value="#{abmPagoBean.cheque.idBanco}"
 			                         effect="fade" var="t" filter="true" filterMatchMode="contains"
 			                         required="true" label="Banco">
 			            <f:selectItem itemLabel="Seleccione una opción" itemValue="#{null}" />
 			            <f:selectItems value="#{abmPagoBean.listaBancos}" var="banco" itemLabel="#{banco.descripcion}" itemValue="#{banco.id}" />
 			        </p:selectOneMenu>
-					<h:outputText value="Sucursal:  " styleClass="label-form"/>
+					<p:outputLabel value="Sucursal:  "/>
 					<p:inputText value="#{abmPagoBean.cheque.sucursal}" />
-					<h:outputText value="Cuenta:  " styleClass="label-form"/>
+					<p:outputLabel value="Cuenta:  "/>
 					<p:inputText value="#{abmPagoBean.cheque.cuenta}" />
-					<h:outputText value="Fecha:  " styleClass="label-form"/>
+					<p:outputLabel value="Fecha:  "/>
 					<p:calendar label="Fecha" value="#{abmPagoBean.cheque.fecha}" showOn="button" pattern="dd/MM/yyyy" locale="es" required="true"/>
-					<h:outputText value="Vencimiento:  " styleClass="label-form"/>
+					<p:outputLabel value="Vencimiento:  "/>
 					<p:calendar label="Vencimiento" value="#{abmPagoBean.cheque.fechaVencimiento}" showOn="button" pattern="dd/MM/yyyy" locale="es" required="true"/>
-					<h:outputText value="Nro del Cheque:  " styleClass="label-form"/>
+					<p:outputLabel value="Nro del Cheque:  "/>
 					<p:inputText label="Nro del Cheque" value="#{abmPagoBean.cheque.id}" required="true" />
-					<h:outputText value="Emisor:  " styleClass="label-form"/>
+					<p:outputLabel value="Emisor:  "/>
 					<p:inputText value="#{abmPagoBean.cheque.emisor}" />
-					<h:outputText value="CUIT:  " styleClass="label-form"/>
+					<p:outputLabel value="CUIT:  "/>
 					<p:inputMask value="#{abmPagoBean.cheque.cuit}" mask="99-99999999-9" label="CUIT"/>
-					<h:outputText value="Monto:  " styleClass="label-form"/>
+					<p:outputLabel value="Monto:  "/>
 					<p:inputText id="fldCosto"
 					             value="#{abmPagoBean.cheque.monto}"
 					             required="true" label="Monto">
@@ -296,15 +263,17 @@
 			</p:outputPanel>
 			
 			<f:facet name="footer">
-				<p:commandButton value="Guardar" icon="fa fa-save"
-								 actionListener="#{nuevaEntidad.agregarCheque(abmPagoBean.cheque)}"
-				                 process="@this detalle_cheque detalle_pagos"
-				                 update="clientvalidations form-main:detalle_pagos:table_cheques detalle_cheque"
-				                 oncomplete="if (args &amp;&amp; !args.validationFailed) {PF('window_cheque').hide(); recalcularMontoTotal();}"
-				                 partialSubmit="true"
-				                 validateClient="true"
-				                 async="false"/>
-				<p:commandButton type="button" ajax="false" value="Cancelar" onclick="PF('window_cheque').hide()" icon="fa fa-ban"/>
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-3,ui-grid-col-3" layout="grid" styleClass="ui-panelgrid-blank">
+					<p:commandButton value="Guardar" icon="fa fa-save"
+									 actionListener="#{nuevaEntidad.agregarCheque(abmPagoBean.cheque)}"
+					                 process="@this detalle_cheque detalle_pagos"
+					                 update="clientvalidations form-main:detalle_pagos:table_cheques detalle_cheque"
+					                 oncomplete="if (args &amp;&amp; !args.validationFailed) {PF('window_cheque').hide(); recalcularMontoTotal();}"
+					                 partialSubmit="true"
+					                 validateClient="true"
+					                 async="false"/>
+					<p:commandButton type="button" ajax="false" value="Cancelar" onclick="PF('window_cheque').hide()" icon="fa fa-ban"/>
+				</p:panelGrid>
 			</f:facet>
 
 		</p:dialog>

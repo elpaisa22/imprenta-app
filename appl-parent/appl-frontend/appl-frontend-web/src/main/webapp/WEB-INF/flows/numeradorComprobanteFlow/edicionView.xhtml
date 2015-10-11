@@ -20,31 +20,17 @@
 	
 	<ui:define name="content_crud">	
 	
-		<p:panel id="content_crud" styleClass="data-form">
-		
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Comprobante:  " styleClass="label-form"/>
-				<h:outputText value="#{selectedDTO.descripcionComprobante}" />
-				<h:outputText/>
-				<h:outputText/>					 
-			</p:panelGrid>
-			
-			<p:panelGrid columns="4" styleClass="tabla-form">				
-				<h:outputText value="Prefijo:  " styleClass="label-form"/>
-				<p:spinner id="prefijo" value="#{selectedDTO.prefijo}" label="Prefijo" required="true"/>
-				<p:watermark for="prefijo" value="Ingrese el prefijo" />
-				<h:outputText/>
-			</p:panelGrid>
-			
-			<p:panelGrid columns="4" styleClass="tabla-form">				
-				<h:outputText value="Número: " styleClass="label-form"/>
-				<p:spinner id="numero" value="#{selectedDTO.numero}" label="Número"/>
-				<p:watermark for="numero" value="Ingrese el número" />
-				<h:outputText/> 	 
-			</p:panelGrid>			
-			
-		</p:panel>
+		<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+			<p:outputLabel value="Comprobante:  " styleClass="label-form"/>
+			<h:outputText value="#{selectedDTO.descripcionComprobante}" />
 
+			<p:outputLabel value="Prefijo:  " styleClass="label-form"/>
+			<p:spinner id="prefijo" value="#{selectedDTO.prefijo}" label="Prefijo" required="true" placeholder="Ingrese el prefijo"/>
+
+			<p:outputLabel value="Número: " styleClass="label-form"/>
+			<p:spinner id="numero" value="#{selectedDTO.numero}" label="Número" placeholder="Ingrese el número"/>
+		</p:panelGrid>			
+			
 	</ui:define>
 
 </ui:composition>
