@@ -19,106 +19,81 @@
 	
 	<ui:define name="content_crud">	
 
-		<p:panel id="content_crud" styleClass="data-form">
+		<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+			<p:outputLabel value="ID Ingreso:  "/>
+			<h:outputText value="#{nuevaEntidad.id}"/>
 
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="ID Ingreso:  " styleClass="label-form"/>
-				<h:outputText value="#{nuevaEntidad.id}"/>
-				<h:outputText/>
-				<h:outputText/>
-			</p:panelGrid>
-			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Fecha:  " styleClass="label-form"/>
-				<p:calendar label="Fecha" value="#{nuevaEntidad.fecha}" showOn="button" pattern="dd/MM/yyyy" locale="es" required="true"/>
-				<h:outputText/>
-				<h:outputText/>					 
-			</p:panelGrid>
-			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Tipo de Ingreso:  " styleClass="label-form"/>
-				<p:autoComplete id="tipoIngreso"
-				                value="#{autoCompleteTipoIngresoBean.tipoIngresoSelected}"
-				                completeMethod="#{autoCompleteTipoIngresoBean.completeTipoIngreso}"  
-	                            var="a" itemLabel="#{a.id}" itemValue="#{a}"
-	                            forceSelection="true"
-	                            converter="#{autoCompleteTipoIngresoBean}"
-	                            required="true"
-	                            label="Tipo de Ingreso"
-	                            dropdown="true">
-	                
-	                <p:column>
-	                	<f:facet name="header">
-								<h:outputText value="Codigo" />
-						</f:facet>
-	                    <h:outputText value="#{a.id}"/>  
-	                </p:column>
-	                <p:column>
-	                	<f:facet name="header">
-								<h:outputText value="Descripcion" />
-						</f:facet>
-                        <h:outputText value="#{a.descripcion}"/>
-	                </p:column>
-	            </p:autoComplete>
-				<p:watermark for="tipoIngreso" value="Ingrese el Tipo de Ingreso" />
-				<h:outputText/>				 
-			</p:panelGrid>
-			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Importe:  " styleClass="label-form"/>
-				<p:inputText id="fldImporte"
-				             value="#{nuevaEntidad.importe}"
-				             required="true" label="Importe">
-					<f:convertNumber minFractionDigits="2"/>
-					<f:ajax render="@this"/>
-				</p:inputText>
-				<h:outputText/>
-				<h:outputText/>					 
-			</p:panelGrid>
-			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Cliente:  " styleClass="label-form"/>
-				<p:autoComplete id="cliente" value="#{autoCompleteClienteBean.clienteSelected}" completeMethod="#{autoCompleteClienteBean.completeCliente}"  
-	                        var="c" itemLabel="#{c.razonSocial}" itemValue="#{c}" forceSelection="true" converter="#{autoCompleteClienteBean}"
-	                        label="Cliente">	                	  
-	                <p:column> 
-	                	<f:facet name="header">
-								<h:outputText value="Nro Cliente" />
-						</f:facet>
-	                    <h:outputText value="#{c.id}"/>   
-	                </p:column>
-	                <p:column>
-	                	<f:facet name="header">
-								<h:outputText value="Razon Social" />
-						</f:facet>
-	                	<h:outputText value="#{c.razonSocial}"/>
-	                </p:column>
-	                <p:column>
-	                	<f:facet name="header">
-								<h:outputText value="Tipo Documento" />
-						</f:facet>
-	                	<h:outputText value="#{c.tipoDocumento}"/>
-	                </p:column> 
-	                <p:column>
-	                	<f:facet name="header">
-								<h:outputText value="Nro Documento" />
-						</f:facet>
-	                	<h:outputText value="#{c.numeroDocumento}"/>
-	                </p:column>  
-	            </p:autoComplete>
-				<p:watermark for="cliente" value="Ingrese el Nombre del Cliente" />
-				<h:outputText/>					 
-			</p:panelGrid>
-			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Observaciones:  " styleClass="label-form"/>
-				<p:inputText id="observaciones" value="#{nuevaEntidad.observaciones}" label="Observaciones"/>
-				<p:watermark for="observaciones" value="Ingrese las Observaciones" />
-				<h:outputText/>
-			</p:panelGrid>
+			<p:outputLabel value="Fecha:  "/>
+			<p:calendar label="Fecha" value="#{nuevaEntidad.fecha}" showOn="button" pattern="dd/MM/yyyy" locale="es" required="true"/>
+
+			<p:outputLabel value="Tipo de Ingreso:  "/>
+			<p:autoComplete id="tipoIngreso"
+			                value="#{autoCompleteTipoIngresoBean.tipoIngresoSelected}"
+			                completeMethod="#{autoCompleteTipoIngresoBean.completeTipoIngreso}"  
+	                           var="a" itemLabel="#{a.id}" itemValue="#{a}"
+	                           forceSelection="true"
+	                           converter="#{autoCompleteTipoIngresoBean}"
+	                           required="true"
+	                           label="Tipo de Ingreso"
+	                           placeholder="Ingrese el Tipo de Ingreso">
+	               
+	               <p:column>
+	               	<f:facet name="header">
+							<h:outputText value="Codigo" />
+					</f:facet>
+	                   <h:outputText value="#{a.id}"/>  
+	               </p:column>
+	               <p:column>
+	               	<f:facet name="header">
+							<h:outputText value="Descripcion" />
+					</f:facet>
+	                      <h:outputText value="#{a.descripcion}"/>
+	               </p:column>
+	           </p:autoComplete>
+
+			<p:outputLabel value="Importe:  "/>
+			<p:inputText id="fldImporte"
+			             value="#{nuevaEntidad.importe}"
+			             required="true" label="Importe">
+				<f:convertNumber minFractionDigits="2"/>
+				<f:ajax render="@this"/>
+			</p:inputText>
+
+			<p:outputLabel value="Cliente:  "/>
+			<p:autoComplete id="cliente" value="#{autoCompleteClienteBean.clienteSelected}" completeMethod="#{autoCompleteClienteBean.completeCliente}"  
+	                       var="c" itemLabel="#{c.razonSocial}" itemValue="#{c}" forceSelection="true" converter="#{autoCompleteClienteBean}"
+	                       label="Cliente"
+	                       placeholder="Ingrese el Nombre del Cliente">	                	  
+	               <p:column> 
+	               	<f:facet name="header">
+							<h:outputText value="Nro Cliente" />
+					</f:facet>
+	                   <h:outputText value="#{c.id}"/>   
+	               </p:column>
+	               <p:column>
+	               	<f:facet name="header">
+							<h:outputText value="Razon Social" />
+					</f:facet>
+	               	<h:outputText value="#{c.razonSocial}"/>
+	               </p:column>
+	               <p:column>
+	               	<f:facet name="header">
+							<h:outputText value="Tipo Documento" />
+					</f:facet>
+	               	<h:outputText value="#{c.tipoDocumento}"/>
+	               </p:column> 
+	               <p:column>
+	               	<f:facet name="header">
+							<h:outputText value="Nro Documento" />
+					</f:facet>
+	               	<h:outputText value="#{c.numeroDocumento}"/>
+	               </p:column>  
+	           </p:autoComplete>
+
+			<p:outputLabel value="Observaciones:  "/>
+			<p:inputText id="observaciones" value="#{nuevaEntidad.observaciones}" label="Observaciones" placeholder="Ingrese las Observaciones"/>
+		</p:panelGrid>
 		
-		</p:panel>
-			 
 	</ui:define>
 
 </ui:composition>

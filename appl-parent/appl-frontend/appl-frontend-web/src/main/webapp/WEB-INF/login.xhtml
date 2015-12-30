@@ -25,70 +25,111 @@
         </f:facet>
 		
 		<f:facet name="middle">
-            <h:outputStylesheet name="bootstrap/css/bootstrap.css" />
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" />
-            <h:outputScript name="bootstrap/js/bootstrap.js" />
+			<!-- <h:outputStylesheet name="bootstrap/css/bootstrap.css" /> -->
+			<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" /> -->
+
+			<h:outputStylesheet library="css"    name="animate.css" />
+
+			<!-- <h:outputStylesheet library="css"    name="inputswitch.css" /> -->
+			<!-- <h:outputStylesheet library="css"    name="perfect-scrollbar.css" /> -->
+            <h:outputStylesheet library="css"    name="ripple-effect.css" />
+            
+			<!-- <h:outputScript     library="js" name="perfect-scrollbar.js" /> -->
+			<!-- <h:outputScript     library="js" name="ripple-effect.js" /> -->
+			<!-- <h:outputScript     library="layout" name="rio-layout.js" /> -->
+
             <h:outputStylesheet library="layout" name="core-layout.css" />
-            <h:outputStylesheet library="layout" name="spark-layout.css" />
+            <h:outputStylesheet library="layout" name="rio-layout.css" />
+            <h:outputStylesheet library="layout" name="rio-font.css" />
+            
         </f:facet>
+        
+		<!-- <f:facet name="last"> -->
+		<!--  <h:outputScript     library="js" name="inputswitch.js" /> -->
+		<!-- </f:facet> -->
 		
 	</h:head>
 
-	<h:body>
-		
+	<h:body styleClass="loginbodyblue">
+
 		<form class="form-signin" action="${request.contextPath}/spring/loginProcess" method="post">
 
-			<div id="layout-portlets-cover">
-				<div
-					class="other-pages-box Container40 Responsive50 MarAuto Fnone TexAlCenter ShadowGray MarTop10"
-					style="margin-top: 5%; background-image: url(${request.contextPath}/spring/javax.faces.resource/primefaces-spark/images/loginpageillust.svg); background-repeat: no-repeat; background-position: center; background-size: cover;">
-					<div class="Container90 Fnone MarAuto TexAlCenter">
-						<div class="EmptyBox50"></div>
-						<img src="${request.contextPath}/spring/javax.faces.resource/primefaces-spark/images/LOGO.svg"
-							 class="MarAuto MarTop20 MarBot10"/>
+			<div class="Wid90 DispBlock MarAuto MarTopPerc5 TexAlCenter">
+				<div class="Wid33 MarAuto WidAutoOnMobile">
+					<img src="${request.contextPath}/spring/javax.faces.resource/primefaces-rio/images/logo.svg"
+					     style="width: 40%; max-width: 200px;" />
+					<div class="EmptyBox30"></div>
 
-					    <div class="EmptyBox20"></div>
-
-						<p:inputText id="j_username" placeholder="Nombre de usuario" styleClass="Container80 Fnone MarAuto Fs18"/>
-
-						<div class="EmptyBox10"></div>
-
-						<p:password id="j_password" placeholder="Contraseña" styleClass="Container80 Fnone MarAuto Fs18"/>
-	                    
+					<div class="Card ShadowEffect">
 						<div class="EmptyBox20"></div>
-	                    <div class="Container85 Fnone MarAuto softgray">
-	                        <div class="EmptyBox5"></div>
-	                        <!-- aca va el checkbox -->
-	                    </div>
-	                    <div class="EmptyBox30">
-	                    	<c:if test="${param.login_error  == '1'}">
-	                    		<span style="color: red">${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}</span>
-	                    	</c:if>
-	                    </div>
+						<div class="Wid100 OvHidden BigTopic Fs30">
+							<i class="icon-users Fs40"></i> Ingreso al Sistema
+						</div>
+						<div class="EmptyBox20"></div>
+						<div class="Wid100">
+							<p:inputText id="j_username" placeholder="Nombre de usuario" styleClass="Wid80 TexAlCenter Fs18"/>
+						</div>
+						<div class="EmptyBox10"></div>
+						<div class="Wid100">
+							<p:password id="j_password" placeholder="Contraseña" styleClass="Wid80 TexAlCenter Fs18"/>
+						</div>
+						<div class="EmptyBox30"></div>
+        					<p:selectBooleanCheckbox id="j_remember-me" itemLabel="Recordar mis datos"/>
+						<div class="EmptyBox30"></div>
+						<div class="Wid100">
+							<button id="btnLogin" name="btnLogin" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left Wid60 Fs18 White RaisedButton" type="submit">
+								<span class="ui-button-icon-left ui-icon ui-c fa fa-sign-in"></span><span
+									class="ui-button-text ui-c">Inicial Sesión</span>
+							</button>
+						</div>
+						<div class="EmptyBox5"></div>
 						
-						<button id="btnLogin" name="btnLogin" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" type="submit">
-				        	<span class="ui-button-text ui-c">Iniciar Sesión</span>
-				        </button>
-				        <script type="text/javascript">
-				        	PrimeFaces.cw("CommandButton","widget_btnLogin",{id:"btnLogin",widgetVar:"widget_btnLogin"});
-						</script>
-						
-	                    <div class="EmptyBox10"></div>
-	                    <div class="Seperator"></div>
-	                    <div class="EmptyBox10"></div>
+						<!-- 
+						<div class="Wid100">
+							<button id="j_idt17" name="j_idt17" type="button"
+								class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left RedButton Wid60 Fs18 White RaisedButton"
+								onclick="window.open('/rio/login.xhtml','_self')" role="button"
+								aria-disabled="false">
+								<span class="ui-button-icon-left ui-icon ui-c fa fa-lock"></span><span
+									class="ui-button-text ui-c">Forgot Password ?</span>
+							</button>
+						</div>
+						 -->
 
-						<p:commandButton type="button" value="Olvidó su contraseña?" styleClass="Fs16 RedButton"/>
+						<div class="EmptyBox20"></div>
+						<div class="Separator"></div>
+						<div class="EmptyBox10"></div>
 						
-						<p:commandButton type="button" value="Cantactar al administrador?" styleClass="Fs16 OrangeButton"/>
-						
-	                    <div class="EmptyBox50"></div>
-	                </div>
-	            </div>
-	        </div>
-	
+						<!-- 
+						<div class="Wid100">
+							<button id="j_idt19" name="j_idt19" type="button"
+								class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left GreenButton Wid60 Fs18 White RaisedButton"
+								onclick="window.open('/rio/login.xhtml','_self')" role="button"
+								aria-disabled="false">
+								<span class="ui-button-icon-left ui-icon ui-c fa fa-key"></span><span
+									class="ui-button-text ui-c">Access Request ?</span>
+							</button>
+						</div>
+						 -->
+						 <c:if test="${param.login_error  == '1'}">
+							<span style="color: red">${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}</span>
+						</c:if>
+						 
+						<div class="EmptyBox20"></div>
+					</div>
+
+					<div class="Wid100 TexAlCenter MarTop20 Fs14 FontRobotoRegular WhiteBlue">
+						<i class="fa fa-copyright"></i> PrimeFaces RIO Theme And Layout <br/>
+							All rights reserved. 
+					</div>
+
+
+				</div>
+			</div>
+
 		</form>
-					
-	
+
+
 	</h:body>
 </f:view>
 </html>

@@ -16,7 +16,7 @@
 	
 	<context-param>
 		<param-name>primefaces.THEME</param-name>
-		<param-value>spark</param-value>
+		<param-value>rio</param-value>
 	</context-param>
 
 	<context-param>

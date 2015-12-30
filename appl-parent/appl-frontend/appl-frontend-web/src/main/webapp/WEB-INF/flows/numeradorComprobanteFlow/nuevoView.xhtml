@@ -20,35 +20,24 @@
 	
 	<ui:define name="content_crud">	
 	
-		<p:panel id="content_crud" styleClass="data-form">
+		<p:panelGrid columns="3" columnClasses="ui-grid-col-2,ui-grid-col-4, ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+			<p:outputLabel value="Comprobante:  "/>
+			<p:selectOneMenu id="idComprobante" value="#{nuevaEntidad.id}" label="Comprobante" required="true">  
+	            <f:selectItem itemLabel="Seleccione una opción" itemValue="#{null}" />  
+	            <f:selectItem itemLabel="Factura A" itemValue="1" />  
+	            <f:selectItem itemLabel="Factura B" itemValue="6" />    
+	        </p:selectOneMenu>
+			<p:watermark for="idComprobante" value="Ingrese el comprobante" />
 
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Comprobante:  " styleClass="label-form"/>
-				<p:selectOneMenu id="idComprobante" value="#{nuevaEntidad.id}" label="Comprobante" required="true">  
-		            <f:selectItem itemLabel="Seleccione una opción" itemValue="#{null}" />  
-		            <f:selectItem itemLabel="Factura A" itemValue="1" />  
-		            <f:selectItem itemLabel="Factura B" itemValue="6" />    
-		        </p:selectOneMenu>
-				<p:watermark for="idComprobante" value="Ingrese el comprobante" />
-				<h:outputText/>					 
-			</p:panelGrid>
-			
-			<p:panelGrid columns="4" styleClass="tabla-form">				
-				<h:outputText value="Prefijo:  " styleClass="label-form"/>
-				<p:spinner id="prefijo" value="#{nuevaEntidad.prefijo}" label="Prefijo" required="true"/>
-				<p:watermark for="prefijo" value="Ingrese el prefijo" />
-				<h:outputText/>
-			</p:panelGrid>
-			
-			<p:panelGrid columns="4" styleClass="tabla-form">				
-				<h:outputText value="Número: " styleClass="label-form"/>
-				<p:spinner id="numero" value="#{nuevaEntidad.numero}" label="Número" required="true"/>
-				<p:watermark for="numero" value="Ingrese el número" />
-				<h:outputText/> 	 
-			</p:panelGrid>
+			<p:outputLabel value="Prefijo:  "/>
+			<p:spinner id="prefijo" value="#{nuevaEntidad.prefijo}" label="Prefijo" required="true"/>
+			<p:watermark for="prefijo" value="Ingrese el prefijo" />
+
+			<p:outputLabel value="Número: "/>
+			<p:spinner id="numero" value="#{nuevaEntidad.numero}" label="Número" required="true"/>
+			<p:watermark for="numero" value="Ingrese el número" />
+		</p:panelGrid>
 		
-		</p:panel>
-		 
 	</ui:define>
 
 </ui:composition>

@@ -20,23 +20,19 @@
 	
 	<ui:define name="content_crud">	
 	
-		<p:panel id="content_crud" styleClass="data-form">
-
-			<p:panelGrid columns="4" styleClass="tabla-form">
+			<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
 				<h:outputText value="Nro Cliente:  " styleClass="label-form"/>
-				<h:outputText value="#{nuevaEntidad.id}" />
-				<h:outputText/>
-				<h:outputText/>					 
+				<p:inputText value="#{nuevaEntidad.id}" disabled="true"/>
 			</p:panelGrid>
 			
-			<p:panelGrid columns="4" styleClass="tabla-form">				
+			<p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">				
 				<h:outputText value="Razon Social:  " styleClass="label-form"/>
 				<p:inputText value="#{nuevaEntidad.razonSocial}" required="true" label="Razon Social"/>
 				<h:outputText value="Nombre de Fantasia:  " styleClass="label-form"/>
 				<p:inputText value="#{nuevaEntidad.nombreFantasia}"/>
 			</p:panelGrid>
 			
-			<p:panelGrid columns="4" styleClass="tabla-form">
+			<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
 				<h:outputText value="IVA :  " styleClass="label-form"/>				
 				<p:selectOneMenu value="#{nuevaEntidad.condicionIVA}">  
 		            <f:selectItem itemLabel="Seleccione una opción" itemValue="" />  
@@ -47,11 +43,9 @@
 		            <f:selectItem itemLabel="No Responsable" itemValue="3" />
 		            <f:selectItem itemLabel="No Categorizado" itemValue="7" />
 		        </p:selectOneMenu>  
-				<h:outputText/>
-				<h:outputText/>	 
 			</p:panelGrid>
 			
-			<p:panelGrid columns="4" styleClass="tabla-form">
+			<p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
 				<h:outputText value="Tipo Documento:  " styleClass="label-form"/>				
 				<p:selectOneMenu value="#{nuevaEntidad.tipoDocumento}" required="true" label="Tipo Documento">  
 		            <f:selectItem itemLabel="Seleccione una opción" itemValue="" />  
@@ -63,21 +57,21 @@
 				<p:inputText value="#{nuevaEntidad.numeroDocumento}" required="true" label="Nro. Documento"/>	 
 			</p:panelGrid>
 			
-			<p:panelGrid columns="4" styleClass="tabla-form">
+			<p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
 				<h:outputText value="Teléfono:  " styleClass="label-form"/>
 				<p:inputText value="#{nuevaEntidad.telefono}" />
 				<h:outputText value="E-mail:  " styleClass="label-form"/>
 				<p:inputText value="#{nuevaEntidad.email}" />	 
 			</p:panelGrid>
 			
-			<p:panelGrid columns="4" styleClass="tabla-form">
+			<p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
 				<h:outputText value="Direccion:  " styleClass="label-form"/>
 				<p:inputText value="#{nuevaEntidad.direccion}" />
 				<h:outputText value="Ciudad:  " styleClass="label-form"/>
 				<p:inputText value="#{nuevaEntidad.ciudad}" />	 
 			</p:panelGrid>
 			
-			<p:panelGrid columns="4" styleClass="tabla-form">
+			<p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
 				<h:outputText value="País:  " styleClass="label-form"/>
 				<p:selectOneMenu value="#{nuevaEntidad.idPais}" valueChangeListener="#{abmClienteBean.paisChanged}">  
 		            <f:selectItem itemLabel="Seleccione una opción" itemValue="" />  
@@ -96,8 +90,6 @@
 		        </p:selectOneMenu>
 			</p:panelGrid>
 			
-		</p:panel>
-				 
 	</ui:define>
 
 </ui:composition>

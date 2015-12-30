@@ -20,72 +20,56 @@
 	
 	<ui:define name="content_crud">	
 
-		<p:panel id="content_crud" styleClass="data-form">
+		<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+			<p:outputLabel value="Nro Cuenta Bancaria:  "/>
+			<h:outputText value="#{selectedDTO.id}" />
 
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Nro Cuenta Bancaria:  " styleClass="label-form"/>
-				<h:outputText value="#{selectedDTO.id}" />
-				<h:outputText/>
-				<h:outputText/>					 
-			</p:panelGrid>
-			
-			<p:panelGrid columns="4" styleClass="tabla-form">				
-				<h:outputText value="Banco:  " styleClass="label-form"/>
-				<h:outputText value="#{selectedDTO.descripcionBanco}"/>
-				<h:outputText/>
-				<h:outputText/>					 
-			</p:panelGrid>
-			
-			<p:panelGrid columns="4" styleClass="tabla-form">				
-				<h:outputText value="Sucursal:  " styleClass="label-form"/>
-				<h:outputText value="#{selectedDTO.sucursal}"/>
-				<h:outputText/>
-				<h:outputText/>					 
-			</p:panelGrid>
+			<p:outputLabel value="Banco:  "/>
+			<h:outputText value="#{selectedDTO.descripcionBanco}"/>
 
-			<p:panelGrid columns="4" styleClass="tabla-form">				
-				<h:outputText value="Saldo:  " styleClass="label-form"/>
-				<h:outputText value="#{selectedDTO.saldo}">
-					<f:convertNumber type="currency"/>
-				</h:outputText>
-				<h:outputText/>
-				<h:outputText/>					 
-			</p:panelGrid>
-			
-			<br/>
-			
-			<p:dataTable value="#{selectedDTO.coleccionMovimientos}"
-						 var="mov" 
-			             emptyMessage="No existen movimientos."
-			             selectionMode="single"
-			             rowKey="#{mov.id}"
-			             selection="#{flowScope.selectedMovimiento}"
-			             paginator="true" rows="10" paginatorPosition="bottom"
-				         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-				         currentPageReportTemplate="(Registros: {startRecord} - {endRecord} de {totalRecords}, Página {currentPage}/{totalPages})">
-					<f:facet name="header">
-				    	Movimientos de Cuenta
-				    </f:facet>
-				    <p:column headerText="Tipo" sortBy="#{mov.descripcion}">
-					        <h:outputText value="#{mov.descripcion}" />
-					    </p:column>
-				    <p:column headerText="Fecha" sortBy="#{mov.fecha}">
-				        <h:outputText value="#{mov.fecha}">
-							<f:convertDateTime pattern="dd/MM/yyyy"/> 
-						</h:outputText>
+			<p:outputLabel value="Sucursal:  "/>
+			<h:outputText value="#{selectedDTO.sucursal}"/>
+
+			<p:outputLabel value="Saldo:  "/>
+			<h:outputText value="#{selectedDTO.saldo}">
+				<f:convertNumber type="currency"/>
+			</h:outputText>
+		</p:panelGrid>
+		
+		<br/>
+		
+		<p:dataTable value="#{selectedDTO.coleccionMovimientos}"
+					 var="mov" 
+		             emptyMessage="No existen movimientos."
+		             selectionMode="single"
+		             rowKey="#{mov.id}"
+		             selection="#{flowScope.selectedMovimiento}"
+		             paginator="true" rows="10" paginatorPosition="bottom"
+			         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+			         currentPageReportTemplate="(Registros: {startRecord} - {endRecord} de {totalRecords}, Página {currentPage}/{totalPages})">
+				<f:facet name="header">
+			    	Movimientos de Cuenta
+			    </f:facet>
+			    <p:column headerText="Tipo" sortBy="#{mov.descripcion}">
+				        <h:outputText value="#{mov.descripcion}" />
 				    </p:column>
-				    <p:column headerText="Importe" sortBy="#{mov.importeMovimiento}">
-				        <h:outputText value="#{mov.importe}" >
-							<f:convertNumber type="currency"/>
-						</h:outputText>
-				    </p:column>
-				    <p:column headerText="Saldo" sortBy="#{mov.saldo}">
-				        <h:outputText value="#{mov.saldo}" >
-							<f:convertNumber type="currency"/>
-						</h:outputText>
-				    </p:column>
-			</p:dataTable>
-		</p:panel>				 
+			    <p:column headerText="Fecha" sortBy="#{mov.fecha}">
+			        <h:outputText value="#{mov.fecha}">
+						<f:convertDateTime pattern="dd/MM/yyyy"/> 
+					</h:outputText>
+			    </p:column>
+			    <p:column headerText="Importe" sortBy="#{mov.importeMovimiento}">
+			        <h:outputText value="#{mov.importe}" >
+						<f:convertNumber type="currency"/>
+					</h:outputText>
+			    </p:column>
+			    <p:column headerText="Saldo" sortBy="#{mov.saldo}">
+			        <h:outputText value="#{mov.saldo}" >
+						<f:convertNumber type="currency"/>
+					</h:outputText>
+			    </p:column>
+		</p:dataTable>
+
 	</ui:define>
 	
 </ui:composition>

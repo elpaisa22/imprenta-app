@@ -9,7 +9,9 @@ body{height:100%; width:100%;}
 
 /* CORE LAYOUT STANDART STYLES ********************************************************************************************************** */
 
-a, div, span, input, textarea, li, strong, button{ outline:none; text-decoration:none;}
+a, div, span, input, textarea, li, strong, button{ outline:none; text-decoration:none;
+	/* this removes gray outline from ios safari a tags */-webkit-tap-highlight-color: rgba(0,0,0,0);
+	/* this removes action panels from ios safari a tags */-webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-touch-callout: none;}
 img{ border:none; border:0px;}
 
 h1, h2, h3, h4, h5, h6{ margin:0px !important;}
@@ -24,10 +26,11 @@ h1, h2, h3, h4, h5, h6{ margin:0px !important;}
 .show{display:block !important;}
 .hide{display:none !important;}
 
-/* make auto of element width attribute on mobile devices with media queries */
+/* make auto of element width and/or height attribute on mobile devices with media queries */
 .WidAutoOnMobile{}
+.HeiAutoOnMobile{}
 
-/* for responsive mode - if you want any element has a responsive fluid abilities with media queries you must add this class to your element*/
+/* for responsive mode - if you want any ContainerX element has a responsive fluid abilities with media queries you must add this class to your element*/
 .Responsive{}
 .Responsive50{}
 .Responsive100{}
@@ -44,6 +47,9 @@ h1, h2, h3, h4, h5, h6{ margin:0px !important;}
     -ms-user-select: none;
     user-select: none;
 }
+
+/* for on iphone safari inputs shadow problem */
+input[type="text"], input[type="password"], textarea{ -webkit-appearance: none; -moz-appearance: none; appearance: none;}
 
 /* Display */
 .DispBlock{ display:block;}
@@ -179,40 +185,24 @@ h1, h2, h3, h4, h5, h6{ margin:0px !important;}
 .PaddingTopPercent10{ padding-top: 10%;}
 
 /* Containers */
-.Container100{ width:100%; overflow:hidden; float:left;}
-.Container96{ width:96%; overflow:hidden; float:left;}
-.Container90{ width:90%; overflow:hidden; float:left;}
-.Container85{ width:85%; overflow:hidden; float:left;}
-.Container80{ width:80%; overflow:hidden; float:left;}
-.Container75{ width:75%; overflow:hidden; float:left;}
-.Container70{ width:70%; overflow:hidden; float:left;}
-.Container60{ width:60%; overflow:hidden; float:left;}
-.Container50{ width:50%; overflow:hidden; float:left;}
-.Container40{ width:40%; overflow:hidden; float:left;}
-.Container33{ width:33.3%; overflow:hidden; float:left;}
-.Container30{ width:30%; overflow:hidden; float:left;}
-.Container25{ width:25%; overflow:hidden; float:left;}
-.Container20{ width:20%; overflow:hidden; float:left;}
-.Container10{ width:10%; overflow:hidden; float:left;}
-.Container5{ width:5%; overflow:hidden; float:left;}
+.Container100{ width:100%; float:left;}
+.Container96{ width:96%; float:left;}
+.Container90{ width:90%; float:left;}
+.Container85{ width:85%; float:left;}
+.Container80{ width:80%; float:left;}
+.Container75{ width:75%; float:left;}
+.Container70{ width:70%; float:left;}
+.Container60{ width:60%; float:left;}
+.Container50{ width:50%; float:left;}
+.Container40{ width:40%; float:left;}
+.Container33{ width:33.3%; float:left;}
+.Container30{ width:30%; float:left;}
+.Container25{ width:25%; float:left;}
+.Container20{ width:20%; float:left;}
+.Container10{ width:10%; float:left;}
+.Container5{ width:5%; float:left;}
 
-.ContainerIndent{overflow:hidden; display:block; margin:0px auto;}
-.Container100 .ContainerIndent{overflow:hidden; display:block; margin:0px auto; width:98%; padding:0.1% 1%;}
-.Container96 .ContainerIndent{overflow:hidden; display:block; margin:0px auto; width:98%; padding:0.2% 1%;}
-.Container90 .ContainerIndent{overflow:hidden; display:block; margin:0px auto; width:97.6%; padding:0.2% 1.2%;}
-.Container85 .ContainerIndent{overflow:hidden; display:block; margin:0px auto; width:97.4%; padding:0.6% 1.3%;}
-.Container80 .ContainerIndent{overflow:hidden; display:block; margin:0px auto; width:97.2%; padding:0.5% 1.4%;}
-.Container75 .ContainerIndent{overflow:hidden; display:block; margin:0px auto; width:97%; padding:0.7% 1.5%;}
-.Container70 .ContainerIndent{overflow:hidden; display:block; margin:0px auto; width:96.8%; padding:0.8% 1.6%;}
-.Container60 .ContainerIndent{overflow:hidden; display:block; margin:0px auto; width:96.6%; padding:1% 1.7%;}
-.Container50 .ContainerIndent{overflow:hidden; display:block; margin:0px auto; width:96.2%; padding:1% 1.9%;}
-.Container40 .ContainerIndent{overflow:hidden; display:block; margin:0px auto; width:95.6%; padding:1.5% 2.2%;}
-.Container33 .ContainerIndent{overflow:hidden; display:block; margin:0px auto; width:94.4%; padding:1.7% 2.8%;}
-.Container30 .ContainerIndent{overflow:hidden; display:block; margin:0px auto; width:94.2%; padding:1.7% 2.9%;}
-.Container25 .ContainerIndent{overflow:hidden; display:block; margin:0px auto; width:93.2%; padding:2% 3.4%;}
-.Container20 .ContainerIndent{overflow:hidden; display:block; margin:0px auto; width:92%; padding:2% 4%;}
-.Container10 .ContainerIndent{overflow:hidden; display:block; margin:0px auto; width:82%; padding:2% 9%;}
-.Container5 .ContainerIndent{overflow:hidden; display:block; margin:0px auto; width:64%; padding:3% 18%;}
+.ContainerIndent{display:block; margin:0px auto; padding:10px;}
 
 /* Text Aligns */
 .TexAlCenter{ text-align:center;}
@@ -284,11 +274,12 @@ h1, h2, h3, h4, h5, h6{ margin:0px !important;}
 @media (min-width: 960px) and (max-width:1200px){
 	/* responsive support */
 	.Responsive{width:33.3%; float:left; margin-left:0px !important; margin-right:0px !important;}
-		.Responsive .ContainerIndent{width:92% !important; padding:18px 4% !important;}
-	.Responsive50{}
-		.Responsive50 .ContainerIndent{width:96% !important; padding:18px 2% !important;}
+	.Responsive50{width:50%; float:left; margin-left:0px !important; margin-right:0px !important;}
 	.Responsive100{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}
-		.Responsive100 .ContainerIndent{width:98% !important; padding:18px 1% !important;}
+    
+    /* make auto of element width attribute on mobile devices with media queries */
+    .WidAutoOnMobile{width:auto !important;}
+    .HeiAutoOnMobile{height:auto !important; min-height:50px !important;}
 } 
  
 /* Portrait tablet to landscape and desktop */
@@ -300,14 +291,14 @@ h1, h2, h3, h4, h5, h6{ margin:0px !important;}
 	
 	/* responsive support */
 	.Responsive{width:50%; float:left; margin-left:0px !important; margin-right:0px !important;}
-		.Responsive .ContainerIndent{width:94% !important; padding:15px 3% !important;}
 	.Responsive50{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}
-		.Responsive50 .ContainerIndent{width:98% !important; padding:15px 1% !important;}
 	.Responsive100{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}
-		.Responsive100 .ContainerIndent{width:98% !important; padding:15px 1% !important;}
+	
+	.ContainerIndent{padding:5px;}
     
     /* make auto of element width attribute on mobile devices with media queries */
-    .WidAutoOnMobile{width:auto;}
+    .WidAutoOnMobile{width:auto !important;}
+    .HeiAutoOnMobile{height:auto !important; min-height:50px !important;}
 	
 	/* font size resetting for responsive modes */ 
 	.Fs14{font-size:13px !important;} 
@@ -332,10 +323,6 @@ h1, h2, h3, h4, h5, h6{ margin:0px !important;}
 	.Fs60{font-size:40px !important;}
 	.Fs100{font-size:60px !important;}
 	.Fs130{font-size:70px !important;}
-	
-	#layout-topbar{min-height:66px; margin-bottom:8px;}
-		#logo{height:40px; margin-top:16px;}
-		#mobile-menu-button, #mobile-menu-button-gray{padding: 8px 12px; font-size:14px; margin-top:17px;}
 }
  
  
@@ -348,14 +335,14 @@ h1, h2, h3, h4, h5, h6{ margin:0px !important;}
 	
 	/* responsive support */
 	.Responsive{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}
-		.Responsive .ContainerIndent{width:98% !important; padding:12px 1% !important;}
 	.Responsive50{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}
-		.Responsive50 .ContainerIndent{width:98% !important; padding:12px 1% !important;}
-	.Responsive100{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}	
-		.Responsive100 .ContainerIndent{width:98% !important; padding:12px 1% !important;}
+	.Responsive100{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}
+	
+	.ContainerIndent{padding:5px;}
 
     /* make auto of element width attribute on mobile devices with media queries */
-    .WidAutoOnMobile{width:auto;}
+    .WidAutoOnMobile{width:auto !important;}
+    .HeiAutoOnMobile{height:auto !important; min-height:50px !important;}
 	
 	/* font size resetting for responsive modes */
 	.Fs12{font-size:12px !important;} 
@@ -394,14 +381,14 @@ h1, h2, h3, h4, h5, h6{ margin:0px !important;}
 	
 	/* responsive support */
 	.Responsive{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}
-		.Responsive .ContainerIndent{width:98% !important; padding:10px 1% !important;}
 	.Responsive50{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}
-		.Responsive50 .ContainerIndent{width:98% !important; padding:10px 1% !important;}
-	.Responsive100{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}	
-		.Responsive100 .ContainerIndent{width:98% !important; padding:10px 1% !important;}
+	.Responsive100{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}
+	
+	.ContainerIndent{padding:5px;}
 
     /* make auto of element width attribute on mobile devices with media queries */
-    .WidAutoOnMobile{width:auto;}
+    .WidAutoOnMobile{width:auto !important;}
+    .HeiAutoOnMobile{height:auto !important;}
 	
 	/* font size resetting for responsive modes */
 	.Fs12{font-size:12px !important;} 
@@ -428,4 +415,14 @@ h1, h2, h3, h4, h5, h6{ margin:0px !important;}
 	.Fs60{font-size:32px !important;}
 	.Fs100{font-size:35px !important;}
 	.Fs130{font-size:40px !important;}
+}
+/* clearfix for Container */
+.Container:before,.Container:after {
+	content: "";
+	display: table;
+	border-collapse: collapse;
+}
+
+.Container:after {
+    clear: both; 
 }

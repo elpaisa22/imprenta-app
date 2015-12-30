@@ -21,17 +21,15 @@
 	
 		<p:panel id="content_crud" styleClass="data-form">
 
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Nro Compra:  " styleClass="label-form"/>
+			<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+				<p:outputLabel value="Nro Compra:  "/>
 				<h:outputText value="#{nuevaEntidad.id}" />
-				<h:outputText/>
-				<h:outputText/>					 
 			</p:panelGrid>
 			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Fecha:  " styleClass="label-form"/>
+			<p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+				<p:outputLabel value="Fecha:  "/>
 				<p:calendar value="#{nuevaEntidad.fecha}" showOn="button" pattern="dd/MM/yyyy" locale="es" disabled="true"/>
-				<h:outputText value="Condición de Venta:  " styleClass="label-form"/>
+				<p:outputLabel value="Condición de Venta:  "/>
 				<p:selectOneMenu value="#{nuevaEntidad.condicionVenta}"
 				                 required="true" label="Condición de Venta">  
 		            <f:selectItem itemLabel="Seleccione una opción" itemValue="" />  
@@ -40,20 +38,18 @@
 		        </p:selectOneMenu>					 
 			</p:panelGrid>			
 						
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Estado de Pago:  " styleClass="label-form"/>
+			<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+				<p:outputLabel value="Estado de Pago:  "/>
 				<p:selectOneMenu value="#{nuevaEntidad.estadoPago}" disabled="true">  
 		            <f:selectItem itemLabel="Seleccione una opción" itemValue="" />  
 		            <f:selectItem itemLabel="Pendiente" itemValue="PENDIENTE" />  
 		            <f:selectItem itemLabel="Parcial" itemValue="PARCIAL" />
 		            <f:selectItem itemLabel="Pagada" itemValue="PAGADA" />
 		        </p:selectOneMenu>
-   				<h:outputText/>
-   				<h:outputText/>	 
 			</p:panelGrid>
 			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Proveedor:  " styleClass="label-form"/>
+			<p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+				<p:outputLabel value="Proveedor:  "/>
 				<p:autoComplete id="proveedor" value="#{autoCompleteProveedorBean.proveedorSelected}" completeMethod="#{autoCompleteProveedorBean.completeProveedor}"  
 	                        var="c" itemLabel="#{c.razonSocial}" itemValue="#{c}" forceSelection="true" converter="#{autoCompleteProveedorBean}"
 	                        required="true" label="Proveedor">
@@ -77,18 +73,15 @@
 	                </p:column>  
 	            </p:autoComplete>
 				<p:watermark for="proveedor" value="Ingrese el Nombre del Proveedor" />
-				<h:outputText/>					 
 			</p:panelGrid>
 			
 			<p:separator/>
 			
-			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Agregar descripción:" styleClass="label-form"/>
+			<p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-2" layout="grid" styleClass="ui-panelgrid-blank">
+				<p:outputLabel value="Agregar descripción:"/>
 				<p:inputText id="fld_descServicio" value="#{abmCompraBean.descripcionServicio}">
 					<p:ajax event="keyup" delay="10" update="btnAgregarDetalleServicio" global="false"/>
 				</p:inputText>
-	            <p:watermark for="fld_descServicio" value="Ingrese una descripción" />
 				<p:commandButton id="btnAgregarDetalleServicio"
 								 value="Agregar"
 				                 icon="fa fa-plus-circle"
@@ -98,12 +91,11 @@
 				                 update="detalles lblImporteTotal fld_descServicio"
 				                 process="@this fld_descServicio detalles"
 				                 partialSubmit="true"/>
+				 <p:watermark for="fld_descServicio" value="Ingrese una descripción" />
 			</p:panelGrid>
 			
-			<p:panelGrid columns="4" styleClass="tabla-form" rendered="false">
-				<h:outputText value="Agregar artículo  " styleClass="label-form"/>
-				
-
+			<p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-2" layout="grid" styleClass="ui-panelgrid-blank" rendered="false" >
+				<p:outputLabel value="Agregar artículo  "/>
 				<p:autoComplete id="articulo"
 				                value="#{autoCompleteArticuloBean.articuloSelected}"
 				                completeMethod="#{autoCompleteArticuloBean.completeArticulo}"  
@@ -209,7 +201,7 @@
 								<f:convertNumber minFractionDigits="2"/>
 							</h:outputText>
 						</p:column>
-						<p:column style="text-align: center;">
+						<p:column style="text-align: center; width: 70px">
 							<f:facet name="header">
 								<h:outputText value="Eliminar" />
 							</f:facet>
@@ -225,13 +217,11 @@
 			
 			<p:spacer height="20"/>
 
-			<p:panelGrid id="lblImporteTotal" columns="4" styleClass="tabla-form">
-				<h:outputText value="Importe Total:  " styleClass="label-form"/>
+			<p:panelGrid id="lblImporteTotal" columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+				<h:outputText value="Importe Total:  "/>
 				<h:outputText value="#{nuevaEntidad.importeTotal}" style="font-size: 1.5em;">
 					<f:convertNumber minFractionDigits="2"/>
 				</h:outputText>
-				<h:outputText/>
-				<h:outputText/>
 			</p:panelGrid>
 
 			

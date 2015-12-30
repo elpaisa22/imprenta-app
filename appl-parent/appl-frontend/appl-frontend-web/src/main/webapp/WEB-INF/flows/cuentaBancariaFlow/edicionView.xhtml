@@ -20,39 +20,21 @@
 	
 	<ui:define name="content_crud">	
 	
-		<p:panel id="content_crud" styleClass="data-form">
-		
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Nro Cuenta Bancaria:  " styleClass="label-form"/>
-				<h:outputText value="#{selectedDTO.id}" />
-				<h:outputText/>
-				<h:outputText/>					 
-			</p:panelGrid>
-			
-			<p:panelGrid columns="4" styleClass="tabla-form">				
-				<h:outputText value="Banco:  " styleClass="label-form"/>
-				<h:outputText value="#{selectedDTO.descripcionBanco}"/>
-				<h:outputText/>
-				<h:outputText/>					 
-			</p:panelGrid>
-			
-			<p:panelGrid columns="4" styleClass="tabla-form">				
-				<h:outputText value="Sucursal:  " styleClass="label-form"/>
-				<h:outputText value="#{selectedDTO.sucursal}"/>
-				<h:outputText/>
-				<h:outputText/>					 
-			</p:panelGrid>
+		<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+			<p:outputLabel value="Nro Cuenta Bancaria:  "/>
+			<h:outputText value="#{selectedDTO.id}" />
 
-			<p:panelGrid columns="4" styleClass="tabla-form">				
-				<h:outputText value="Saldo:  " styleClass="label-form"/>
-				<h:outputText value="#{selectedDTO.saldo}">
-					<f:convertNumber type="currency"/>
-				</h:outputText>
-				<h:outputText/>
-				<h:outputText/>					 
-			</p:panelGrid>
-			
-		</p:panel>
+			<p:outputLabel value="Banco:  "/>
+			<h:outputText value="#{selectedDTO.descripcionBanco}"/>
+
+			<p:outputLabel value="Sucursal:  "/>
+			<h:outputText value="#{selectedDTO.sucursal}"/>
+
+			<p:outputLabel value="Saldo:  "/>
+			<h:outputText value="#{selectedDTO.saldo}">
+				<f:convertNumber type="currency"/>
+			</h:outputText>
+		</p:panelGrid>
 
 	</ui:define>
 

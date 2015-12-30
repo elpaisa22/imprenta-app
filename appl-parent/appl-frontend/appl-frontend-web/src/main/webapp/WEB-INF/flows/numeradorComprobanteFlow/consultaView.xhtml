@@ -20,30 +20,17 @@
 	
 	<ui:define name="content_crud">	
 
-		<p:panel id="content_crud" styleClass="data-form">
+		<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+			<p:outputLabel value="Comprobante:  "/>
+			<h:outputText value="#{selectedDTO.descripcionComprobante}" />
 
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Comprobante:  " styleClass="label-form"/>
-				<h:outputText value="#{selectedDTO.descripcionComprobante}" />
-				<h:outputText/>
-				<h:outputText/>					 
-			</p:panelGrid>
-			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Prefijo:  " styleClass="label-form"/>
-				<h:outputText value="#{selectedDTO.prefijo}" />
-				<h:outputText/>
-				<h:outputText/>					 
-			</p:panelGrid>
-			
-			<p:panelGrid columns="4" styleClass="tabla-form">				
-				<h:outputText value="Número:  " styleClass="label-form"/>
-				<h:outputText value="#{selectedDTO.numero}" />
-				<h:outputText/>
-				<h:outputText/>	
-			</p:panelGrid>			
+			<p:outputLabel value="Prefijo:  "/>
+			<h:outputText value="#{selectedDTO.prefijo}" />
+
+			<p:outputLabel value="Número:  "/>
+			<h:outputText value="#{selectedDTO.numero}" />
+		</p:panelGrid>			
 		
-		</p:panel>				 
 	</ui:define>
 	
 </ui:composition>

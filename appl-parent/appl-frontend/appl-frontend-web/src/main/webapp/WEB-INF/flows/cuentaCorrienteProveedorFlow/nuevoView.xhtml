@@ -22,15 +22,13 @@
 	
 		<p:panel id="content_crud" styleClass="data-form">
 
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Nro Cuenta Corriente:  " styleClass="label-form"/>
+			<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+				<p:outputLabel value="Nro Cuenta Corriente:  " styleClass="label-form"/>
 				<h:outputText value="#{nuevaEntidad.id}" />
-				<h:outputText/>
-				<h:outputText/>					 
 			</p:panelGrid>
 			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Proveedor:  " styleClass="label-form"/>
+			<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+				<p:outputLabel value="Proveedor:  " styleClass="label-form"/>
 				<p:autoComplete id="proveedor" value="#{autoCompleteProveedorBean.proveedorSelected}" completeMethod="#{autoCompleteProveedorBean.completeProveedor}"  
 	                        var="c" itemLabel="#{c.razonSocial}" itemValue="#{c}" forceSelection="true" converter="#{autoCompleteProveedorBean}"
 	                        required="true" label="Proveedor">	                	  
@@ -57,13 +55,11 @@
 				<h:outputText/>					 
 			</p:panelGrid>
 
-			<p:panelGrid columns="4" styleClass="tabla-form">				
-				<h:outputText value="Saldo:  " styleClass="label-form"/>
+			<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">			
+				<p:outputLabel value="Saldo:  " styleClass="label-form"/>
 				<h:outputText value="#{nuevaEntidad.saldo}">
 					<f:convertNumber type="currency"/>
 				</h:outputText>
-				<h:outputText/>
-				<h:outputText/>					 
 			</p:panelGrid>
 
 		</p:panel>

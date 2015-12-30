@@ -19,22 +19,20 @@
 	
 	<ui:define name="content_crud">	
 	
-		<p:panel id="content_crud" styleClass="data-form">
-
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Nro Factura:  " styleClass="label-form"/>
+			<p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+				<p:outputLabel value="Nro Factura:  " styleClass="label-form"/>
 				<h:outputText value="#{nuevaEntidad.id}" />
-				<h:outputText value="Tipo de Factura: " styleClass="label-form"/>
+				<p:outputLabel value="Tipo de Factura: " styleClass="label-form"/>
 				<p:selectOneMenu id="fld_tipoFactura" value="#{nuevaEntidad.tipoFactura}" label="Tipo de Factura" immediate="true">
 					<f:selectItem itemLabel="Factura A" itemValue="A"/>  
 					<f:selectItem itemLabel="Factura B" itemValue="B"/>    
 				</p:selectOneMenu> 
 			</p:panelGrid>
 			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Fecha de Emisión:  " styleClass="label-form"/>
+			<p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+				<p:outputLabel value="Fecha de Emisión:  " styleClass="label-form"/>
 				<p:calendar value="#{nuevaEntidad.fechaEmision}" showOn="button" pattern="dd/MM/yyyy" locale="es" disabled="true"/>
-				<h:outputText value="Condición de Venta:  " styleClass="label-form"/>
+				<p:outputLabel value="Condición de Venta:  " styleClass="label-form"/>
 				<p:selectOneMenu value="#{nuevaEntidad.condicionVenta}"
 				                 required="true" label="Condición de Venta">  
 		            <f:selectItem itemLabel="Seleccione una opción" itemValue="" />  
@@ -43,10 +41,10 @@
 		        </p:selectOneMenu>					 
 			</p:panelGrid>			
 						
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Nro. de Remito:  " styleClass="label-form"/>
+			<p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+				<p:outputLabel value="Nro. de Remito:  " styleClass="label-form"/>
 				<p:inputText value="#{nuevaEntidad.idRemito}" />
-				<h:outputText value="Estado de Pago:  " styleClass="label-form"/>
+				<p:outputLabel value="Estado de Pago:  " styleClass="label-form"/>
 				<p:selectOneMenu value="#{nuevaEntidad.estadoPago}" disabled="true">  
 		            <f:selectItem itemLabel="Seleccione una opción" itemValue="" />  
 		            <f:selectItem itemLabel="Pendiente" itemValue="PENDIENTE" />  
@@ -55,8 +53,8 @@
 		        </p:selectOneMenu>					 
 			</p:panelGrid>
 			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Cliente:  " styleClass="label-form"/>
+			<p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+				<p:outputLabel value="Cliente:  " styleClass="label-form"/>
 				<p:autoComplete id="cliente" value="#{autoCompleteClienteBean.clienteSelected}" completeMethod="#{autoCompleteClienteBean.completeCliente}"  
 	                        var="c" itemLabel="#{c.razonSocial}" itemValue="#{c}" forceSelection="true" converter="#{autoCompleteClienteBean}"
 	                        required="true" label="Cliente">
@@ -95,8 +93,8 @@
 			
 			<p:separator/>
 			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Agregar descripción" styleClass="label-form"/>
+			<p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+				<p:outputLabel value="Agregar descripción" styleClass="label-form"/>
 				<p:inputText id="fld_descServicio" value="#{abmFacturaBean.descripcionServicio}">
 					<p:ajax event="keyup" delay="10" update="btnAgregarDetalle" global="false"/>
 				</p:inputText>
@@ -169,19 +167,19 @@
 			</p:panel>
 			
 			<p:spacer height="20"/>
-
-			<p:panelGrid id="lblImporteTotal" columns="4" styleClass="tabla-form">
-				<h:outputText value="Sub Total:  " styleClass="label-form" rendered="#{nuevaEntidad.tipoFactura == 'B'}"/>
+			
+			<p:panelGrid id="lblImporteTotal" columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+				<p:outputLabel value="Sub Total:  " styleClass="label-form" rendered="#{nuevaEntidad.tipoFactura == 'B'}"/>
 				<h:outputText value="#{nuevaEntidad.importeSubTotal}" style="font-size: 1.5em;" rendered="#{nuevaEntidad.tipoFactura == 'B'}">
 					<f:convertNumber type="currency"/>
 				</h:outputText>
-				<h:outputText value="Importe IVA:  " styleClass="label-form" rendered="#{nuevaEntidad.tipoFactura == 'B'}"/>
+				<p:outputLabel value="Importe IVA:  " styleClass="label-form" rendered="#{nuevaEntidad.tipoFactura == 'B'}"/>
 				<h:outputText value="#{nuevaEntidad.importeIVA}" style="font-size: 1.5em;" rendered="#{nuevaEntidad.tipoFactura == 'B'}">
 					<f:convertNumber type="currency"/>
 				</h:outputText>
-				<h:outputText value="Items:  " styleClass="label-form"/>
+				<p:outputLabel value="Items:  " styleClass="label-form"/>
 				<h:outputText value="#{nuevaEntidad.coleccionDetalleFacturas.size()}" style="font-size: 1.5em;"/>
-				<h:outputText value="Importe Total:  " styleClass="label-form"/>
+				<p:outputLabel value="Importe Total:  " styleClass="label-form"/>
 				<h:outputText value="#{nuevaEntidad.importeTotal}" style="font-size: 1.5em;">
 					<f:convertNumber minFractionDigits="2"/>
 				</h:outputText>
@@ -200,8 +198,7 @@
 			                 partialSubmit="true"
 			                 actionListener="#{abmFacturaBean.clienteChanged(nuevaEntidad, autoCompleteClienteBean.clienteSelected)}"
 			                 update="fld_tipoFactura lblImporteTotal"/>
-		</p:panel>
-					 
+
 	</ui:define>
 
 </ui:composition>

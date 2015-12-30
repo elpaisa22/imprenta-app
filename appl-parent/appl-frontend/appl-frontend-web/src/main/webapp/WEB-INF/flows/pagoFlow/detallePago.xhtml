@@ -25,14 +25,19 @@
 		    }
 		</style>
 
-		<p:panel id="content_crud" styleClass="data-form">
-			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Importe total:  " styleClass="label-form"/>
+			<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+				<p:outputLabel value="Importe total:  "/>
 				<h:outputText value="#{nuevaEntidad.importeTotal}">
 					<f:convertNumber type="currency"/>
 				</h:outputText>
-				<h:outputText/>
+				
+				<p:outputLabel value="Disponible:  "/>
+				<h:outputText id="fld_saldoImporte" value="#{abmPagoBean.saldoImporte}">
+					<f:convertNumber type="currency"/>
+				</h:outputText>
+			</p:panelGrid>
+			
+			<p:panelGrid columns="1" columnClasses="ui-grid-col-3" layout="grid" styleClass="ui-panelgrid-blank">
 				<p:commandButton id="btnCalculoAutomatico"
 									 value="Cálculo Automático"
 					                 icon="fa fa-cogs"
@@ -42,15 +47,6 @@
 					                 process="@this detalles"
 					                 update="detalles @this fld_saldoImporte"
 					                 partialSubmit="true"/>
-			</p:panelGrid>
-			
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Disponible:  " styleClass="label-form"/>
-				<h:outputText id="fld_saldoImporte" value="#{abmPagoBean.saldoImporte}">
-					<f:convertNumber type="currency"/>
-				</h:outputText>
-				<h:outputText/>
-				<h:outputText/>
 			</p:panelGrid>
 
 			<p:dataTable id="detalles" var="det"
@@ -65,7 +61,7 @@
 				<p:ajax event="rowSelectCheckbox" listener="#{abmPagoBean.onRowSelect}" process="@form" update=":form-main:detalles :form-main:fld_saldoImporte"/>
 		        <p:ajax event="rowUnselectCheckbox" listener="#{abmPagoBean.onRowUnselect}" process="@form" update=":form-main:detalles :form-main:fld_saldoImporte"/>
 
-				<p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+				<p:column selectionMode="multiple" style="width:35px;text-align:center"/>
 				<p:column>
 					<f:facet name="header">
 						<h:outputText value="Compra" />
@@ -114,7 +110,6 @@
 				</p:column>
 			</p:dataTable>
 			
-		</p:panel>				 
 	</ui:define>
 	
 </ui:composition>

@@ -22,27 +22,23 @@
 
 		<p:panel id="content_crud" styleClass="data-form">
 
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Nro Cuenta Corriente:  " styleClass="label-form"/>
+			<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+				<p:outputLabel value="Nro Cuenta Corriente:  " styleClass="label-form"/>
 				<h:outputText value="#{selectedDTO.id}" />
-				<h:outputText/>
-				<h:outputText/>					 
 			</p:panelGrid>
 
-			<p:panelGrid columns="4" styleClass="tabla-form">
-				<h:outputText value="Nro Proveedor:  " styleClass="label-form"/>
+			<p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+				<p:outputLabel value="Nro Proveedor:  " styleClass="label-form"/>
 				<h:outputText value="#{selectedDTO.idProveedor}" />
-				<h:outputText value="Razón Social del Proveedor:  " styleClass="label-form"/>
+				<p:outputLabel value="Razón Social del Proveedor:  " styleClass="label-form"/>
 				<h:outputText value="#{selectedDTO.razonSocialProveedor}" />					 
 			</p:panelGrid>
 
-			<p:panelGrid columns="4" styleClass="tabla-form">				
-				<h:outputText value="Saldo:  " styleClass="label-form"/>
+			<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">				
+				<p:outputLabel value="Saldo:  " styleClass="label-form"/>
 				<h:outputText value="#{selectedDTO.saldo}">
 					<f:convertNumber type="currency"/>
 				</h:outputText>
-				<h:outputText/>
-				<h:outputText/>					 
 			</p:panelGrid>
 			
 			<br/>
