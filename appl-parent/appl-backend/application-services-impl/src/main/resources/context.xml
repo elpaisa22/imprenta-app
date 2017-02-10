@@ -65,6 +65,7 @@
 		<property name="movimientoCuentaCorrienteBO" ref="movimientoCuentaCorrienteBO"/>
 		<property name="cobranzaBO" ref="cobranzaBO"/>
 		<property name="numeradorComprobanteBO" ref="numeradorComprobanteBO"/>
+		<property name="parameter" ref="parameters"/>
 	</bean>
 	<bean id="remitoBO" class="org.ambar.appl.bo.impl.RemitoBOImpl" init-method="init" parent="parentBO">
 		<property name="dao" ref="remitoDAO"/>

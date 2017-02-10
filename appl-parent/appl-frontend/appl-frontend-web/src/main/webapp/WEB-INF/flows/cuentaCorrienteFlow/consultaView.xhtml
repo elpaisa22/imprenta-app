@@ -54,8 +54,11 @@
 				    	Movimientos de Cuenta
 				    </f:facet>
 				    <p:column headerText="Tipo" sortBy="#{mov.descripcion}">
-					        <h:outputText value="#{mov.descripcion}" />
-					    </p:column>
+					    <h:outputText value="#{mov.descripcion}" />
+					</p:column>
+				    <p:column headerText="Factura" sortBy="#{mov.idFactura}">
+				        <h:outputText value="#{mov.idFactura}" converter="idFacturaConverter"/>
+				    </p:column>
 				    <p:column headerText="Fecha" sortBy="#{mov.fecha}">
 				        <h:outputText value="#{mov.fecha}">
 							<f:convertDateTime pattern="dd/MM/yyyy"/> 

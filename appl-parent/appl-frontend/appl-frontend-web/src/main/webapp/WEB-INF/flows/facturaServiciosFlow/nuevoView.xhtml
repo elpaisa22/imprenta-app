@@ -21,7 +21,7 @@
 	
 			<p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
 				<p:outputLabel value="Nro Factura:  " styleClass="label-form"/>
-				<h:outputText value="#{nuevaEntidad.id}" />
+				<p:inputText value="#{nuevaEntidad.id}" required="true" label="Número de Factura" converter="idFacturaConverter" disabled="#{parameters.getBoolean('numeracion_automatica_factura', false)}"/>
 				<p:outputLabel value="Tipo de Factura: " styleClass="label-form"/>
 				<p:selectOneMenu id="fld_tipoFactura" value="#{nuevaEntidad.tipoFactura}" label="Tipo de Factura" immediate="true">
 					<f:selectItem itemLabel="Factura A" itemValue="A"/>  

@@ -26,9 +26,9 @@
 	
 	<ui:define name="content_crud">	
 	
-		<p:panel id="content_crud" styleClass="data-form">
+		<p:panel id="content_crud">
 
-			<p:panelGrid columns="4" styleClass="tabla-form">
+			<p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
 				<h:outputText value="Cliente:  " styleClass="label-form"/>
 				<h:outputText value="#{autoCompleteClienteBean.clienteSelected.razonSocial}"/>
 				<h:outputText value="Saldo adeudado total:" styleClass="label-form"/>
@@ -51,33 +51,21 @@
 			
 			<p:tabView id="detalle_pagos">
 				<p:tab title="Efectivo">
-					<p:panelGrid columns="4" styleClass="tabla-form">				
+					<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">				
 						<h:outputText value="Monto Efectivo: " styleClass="label-form"/>
 						<p:inputText id="fld_MontoEfectivo"
 						             value="#{nuevaEntidad.cobranza.montoEfectivo}" label="Monto Efectivo" onchange="recalcularMontoTotal()">
 							<f:convertNumber minFractionDigits="2"/>
 							<f:ajax render="@this"/>
 						</p:inputText>
-						<h:outputText/>
-						<h:outputText/> 	 
 					</p:panelGrid>
 				</p:tab>
 				<p:tab title="Tarjeta Crédito">
-					<p:panelGrid columns="4" styleClass="tabla-form">				
+					<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">				
 						<h:outputText value="Nro. Tarjeta Crédito:  " styleClass="label-form"/>
 						<p:inputMask value="#{nuevaEntidad.cobranza.numeroTarjetaCredito}" mask="9999-9999-9999-9999"/>
-						<h:outputText/>
-						<h:outputText/> 	 
-					</p:panelGrid>
-					
-					<p:panelGrid columns="4" styleClass="tabla-form">				
 						<h:outputText value="Marca:  " styleClass="label-form"/>
 						<p:inputText value="#{nuevaEntidad.cobranza.marcaTarjetaCredito}"/>
-						<h:outputText/>
-						<h:outputText/> 	 
-					</p:panelGrid>
-					
-					<p:panelGrid columns="4" styleClass="tabla-form">				
 						<h:outputText value="Banco:  " styleClass="label-form"/>
 						<p:selectOneMenu id="bancoTarjetaCredito" value="#{nuevaEntidad.cobranza.idBancoTarjetaCredito}"
 			                             effect="fade" var="t"
@@ -85,38 +73,21 @@
 				            <f:selectItem itemLabel="Seleccione una opción" itemValue="#{null}" />
 				            <f:selectItems value="#{abmCobranzaBean.listaBancos}" var="banco" itemLabel="#{banco.descripcion}" itemValue="#{banco.id}" />
 				        </p:selectOneMenu>
-						<h:outputText/>
-						<h:outputText/> 	 
-					</p:panelGrid>	
-					
-					<p:panelGrid columns="4" styleClass="tabla-form">				
 						<h:outputText value="Monto Tarjeta Crédito: " styleClass="label-form"/>
 						<p:inputText id="fld_MontoTarjetaCredito"
 						             value="#{nuevaEntidad.cobranza.montoTarjetaCredito}" label="Monto Tarjeta Crédito" onchange="recalcularMontoTotal()">
 							<f:convertNumber minFractionDigits="2"/>
 							<f:ajax render="@this"/>
 						</p:inputText>
-						<h:outputText/>
-						<h:outputText/> 	 
 					</p:panelGrid>
 				</p:tab>
 				
 				<p:tab title="Tarjeta Débito">
-					<p:panelGrid columns="4" styleClass="tabla-form">				
+					<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">				
 						<h:outputText value="Nro. Tarjeta Débito:  " styleClass="label-form"/>
 						<p:inputMask value="#{nuevaEntidad.cobranza.numeroTarjetaDebito}" mask="9999-9999-9999-9999"/>
-						<h:outputText/>
-						<h:outputText/> 	 
-					</p:panelGrid>
-					
-					<p:panelGrid columns="4" styleClass="tabla-form">				
 						<h:outputText value="Marca:  " styleClass="label-form"/>
 						<p:inputText value="#{nuevaEntidad.cobranza.marcaTarjetaDebito}"/>
-						<h:outputText/>
-						<h:outputText/> 	 
-					</p:panelGrid>
-					
-					<p:panelGrid columns="4" styleClass="tabla-form">				
 						<h:outputText value="Banco:  " styleClass="label-form"/>
 						<p:selectOneMenu id="bancoTarjetaDebito" value="#{nuevaEntidad.cobranza.idBancoTarjetaDebito}"
 			                             effect="fade" var="t"
@@ -124,19 +95,12 @@
 				            <f:selectItem itemLabel="Seleccione una opción" itemValue="#{null}" />
 				            <f:selectItems value="#{abmCobranzaBean.listaBancos}" var="banco" itemLabel="#{banco.descripcion}" itemValue="#{banco.id}" />
 				        </p:selectOneMenu>
-						<h:outputText/>
-						<h:outputText/> 	 
-					</p:panelGrid>	
-					
-					<p:panelGrid columns="4" styleClass="tabla-form">				
 						<h:outputText value="Monto Tarjeta Débito: " styleClass="label-form"/>
 						<p:inputText id="fld_MontoTarjetaDebito"
 						             value="#{nuevaEntidad.cobranza.montoTarjetaDebito}" label="Monto Tarjeta Débito" onchange="recalcularMontoTotal()">
 							<f:convertNumber minFractionDigits="2"/>
 							<f:ajax render="@this"/>
 						</p:inputText>
-						<h:outputText/>
-						<h:outputText/> 	 
 					</p:panelGrid>
 				</p:tab>
 				

@@ -20,6 +20,7 @@ import org.ambar.appl.commons.enums.TipoComprobanteValues;
 import org.ambar.core.bo.impl.CrudBusinessObjectImpl;
 import org.ambar.core.commons.context.RequestContext;
 import org.ambar.core.exceptions.BusinessException;
+import org.ambar.core.parameters.ParameterHelper;
 import org.ambar.core.validation.configuration.Validation;
 import org.ambar.core.validation.configuration.ValidationStrategy;
 import org.ambar.core.validation.configuration.Validations;
@@ -52,6 +53,7 @@ public class FacturaBOImpl extends CrudBusinessObjectImpl<Long, Factura> impleme
 	private MovimientoCuentaCorrienteBO movimientoCuentaCorrienteBO;
 	private NumeradorComprobanteBO numeradorComprobanteBO;
 	private CobranzaBO cobranzaBO;
+	private ParameterHelper parameter;
 
 	/**
 	 * @param pMovimientoCuentaCorrienteBO Establece el valor del atributo movimientoCuentaCorrienteBO.
@@ -82,6 +84,13 @@ public class FacturaBOImpl extends CrudBusinessObjectImpl<Long, Factura> impleme
 	}
 
 
+	/**
+	 * @param pParameterHelper Establece el valor del atributo parameter.
+	 */
+	public void setParameter(ParameterHelper pParameterHelper) {
+		parameter = pParameterHelper;
+	}
+
 	@Override
 	public void insert(Factura pFactura,
 			           List<String> pWarnings,
@@ -93,10 +102,12 @@ public class FacturaBOImpl extends CrudBusinessObjectImpl<Long, Factura> impleme
 
 		pFactura.setSaldo(pFactura.getImporteTotal());
 
-		//Obtiene el ID
-		TipoComprobanteValues tipo = pFactura.getTipoComprobante();
-		Long id = this.numeradorComprobanteBO.getNextNumber(tipo);
-		pFactura.setId(id);
+		//Obtiene el ID si es necesario
+		if (this.parameter.getBoolean("numeracion_automatica_factura", false)) {
+			TipoComprobanteValues tipo = pFactura.getTipoComprobante();
+			Long id = this.numeradorComprobanteBO.getNextNumber(tipo);
+			pFactura.setId(id);
+		}
 
 		super.insert(pFactura, pWarnings, pRequestContext);
 
