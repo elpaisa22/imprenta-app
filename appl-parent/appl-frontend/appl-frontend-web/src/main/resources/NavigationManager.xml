@@ -88,7 +88,7 @@
 		<module id="ventas" text="Ventas">
 			<item entity="cliente" text="Clientes" />
 			<item entity="cuentaCorriente" text="Cta Cte Cliente" />
-			<item entity="factura" text="Facturas" />
+			<item entity="factura" text="Ventas" />
 			<item entity="cobranza" text="Cobranzas"/>
 		</module>
 

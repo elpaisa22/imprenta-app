@@ -18,7 +18,9 @@
 
   <modules>
 		<module>appl-frontend-web</module>
+		<!--
 		<module>appl-frontend-desktop</module>
 		<module>appl-frontend-javafx</module>
+		-->
   </modules>
 </project>
