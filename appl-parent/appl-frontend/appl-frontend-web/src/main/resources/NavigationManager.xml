@@ -22,9 +22,9 @@
 			<subentity id="movimientoCuentaBancaria" text="Movimientos de Cta Bancaria" filterCondition="idCuentaBancaria = :id" />
 		</entity>
 		<entity id="ordenTrabajo" name="Ordenes de Trabajo" browse-title="Ordenes de Trabajo (:id)" image-big="" image-small="" service="ordenTrabajoServices" crud="ordenTrabajoFlow">
-			<subentity id="factura" text="Facturas" filterCondition="id = :idFactura" />
+			<subentity id="factura" text="Ventas" filterCondition="id = :idFactura" />
 		</entity>
-		<entity id="factura" name="Facturas" browse-title="Facturas (:id)" image-big="" image-small="" service="facturaServiciosServices" crud="facturaServiciosFlow">
+		<entity id="factura" name="Ventas" browse-title="Ventas (:id)" image-big="" image-small="" service="facturaServiciosServices" crud="facturaServiciosFlow">
 			<subentity id="movimientoCuentaCorriente" text="Movimientos de Cuenta" filterCondition="idFactura = :id" />
 		</entity>
 		<entity id="remito" name="Remitos" browse-title="Remitos (:id)" image-big="" image-small="" service="remitoServices" crud="remitoFlow">
