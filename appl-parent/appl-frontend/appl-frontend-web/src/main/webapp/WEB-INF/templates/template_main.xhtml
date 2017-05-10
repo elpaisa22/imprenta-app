@@ -23,63 +23,101 @@
 		</f:facet>
 
 		<f:facet name="last">
-			<h:outputStylesheet library="css" name="style.css" />
+			
 			<h:outputScript library="js" name="jquery.gridselection.js" target="body" />
 			<h:outputScript library="js" name="Primefaces.calendar-fix.js" target="body" />
+			<h:outputScript library="layout" name="rio-layout.js" target="body" />
+            <h:outputScript library="js" name="perfect-scrollbar.js" target="body" />
+            <h:outputScript library="js" name="ripple-effect.js" target="body" />
+
+			<h:outputStylesheet library="css" name="style.css" />
 			<h:outputStylesheet library="layout" name="core-layout.css" />
-            <h:outputStylesheet library="layout" name="spark-layout.css" />
+            <h:outputStylesheet library="layout" name="rio-layout.css" />
+            <h:outputStylesheet library="layout" name="rio-font.css" />
+            <h:outputStylesheet library="css" name="perfect-scrollbar.css" />
+            <h:outputStylesheet library="css" name="ripple-effect.css" />
 		</f:facet>
 	</h:head>
 
 	<h:body>
-
-		<div id="page">			
-
-			<h:form id="form-main">
-			
-					<div id="header">
-						
-						<div id="application-header">
-							<a href="${request.contextPath}/spring/mainFlow" title="InterArte ®">
-								<h:graphicImage id="image" alt="Interarte Servicios Gráficos" url="${request.contextPath}/spring/javax.faces.resource/images/logointer.png"> </h:graphicImage>
-							</a>
-							
-							<div class="top-right-section">
-								<p:commandButton onclick="PF('confirmationClose').show();"
-										  type="button"
-								          icon="fa fa-lg fa-sign-out"
-								          title="Salir y cerrar sesión"
-								          value="Salir">
-							    </p:commandButton>
-							</div>
-						</div>
-						
-						
-						<p:menubar id="main-menu" model="#{menuBean.model}" styleClass="main-menu">  
-					    </p:menubar>
-						
-					</div>
-					
-					<!-- <div id="navigation"> -->
-												
-					<!--  </div> -->
-					
-					<div id="content">
-						<ui:insert name="content" />
-					</div>
-					
-					<div id="footer">
-
-					</div>
-	
-					<p:confirmDialog message="¿Esta seguro que desea cerrar la sesión y salir del sistema?" width="400" showEffect="fade" hideEffect="fade" header="Cerrar Sesión" severity="alert" widgetVar="confirmationClose">
-						<p:button value="Si, estoy seguro" href="${request.contextPath}/spring/logout"/>
-						<p:commandButton value="No" onclick="PF('confirmationClose').hide()" type="button" />
-					</p:confirmDialog>
-
-			</h:form>
 		
-		</div>
+	    <ui:include src="/WEB-INF/templates/menu/topbar.xhtml" />
+	    
+	    <div id="wrapper">
+	    	<div id="wrapperIndent">
+				<div id="layout-menu-cover" class="Animated05 ps-container" >
+
+			        <ui:include src="/WEB-INF/templates/menu/user_panel.xhtml" />
+
+			        <div class="Separator"></div>
+
+			        <ui:include src="/WEB-INF/templates/menu/sidebar.xhtml" />
+
+			    </div>
+			    
+			    <div id="layout-portlets-cover">
+			    	<h:form id="form-main">
+			    		<ui:insert name="content" />
+			    	</h:form>
+			    </div>
+	    	</div>
+	    </div>
+	    
+
+<!-- 		<div id="page">			 -->
+
+<!-- 			<h:form id="form-main"> -->
+			
+<!-- 					<div id="header"> -->
+						
+<!-- 						<div id="application-header"> -->
+<!-- 							<a href="${request.contextPath}/spring/mainFlow" title="InterArte ®"> -->
+<!-- 								<h:graphicImage id="image" alt="Interarte Servicios Gráficos" url="${request.contextPath}/spring/javax.faces.resource/images/logointer.png"> </h:graphicImage> -->
+<!-- 							</a> -->
+							
+<!-- 							<div class="top-right-section"> -->
+<!-- 								<p:commandButton onclick="PF('confirmationClose').show();" -->
+<!-- 										  type="button" -->
+<!-- 								          icon="fa fa-lg fa-sign-out" -->
+<!-- 								          title="Salir y cerrar sesión" -->
+<!-- 								          value="Salir"> -->
+<!-- 							    </p:commandButton> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+						
+						
+<!-- 						<p:menubar id="main-menu" model="#{menuBean.model}" styleClass="main-menu">   -->
+<!-- 					    </p:menubar> -->
+						
+<!-- 					</div> -->
+					
+<!-- 					<div id="navigation"> -->
+												
+<!-- 					 </div> -->
+					
+<!-- 					<div id="content"> -->
+<!-- 						<ui:insert name="content" /> -->
+<!-- 					</div> -->
+					
+<!-- 					<div id="footer"> -->
+
+<!-- 					</div> -->
+	
+<!-- 					<p:confirmDialog message="¿Esta seguro que desea cerrar la sesión y salir del sistema?" width="400" showEffect="fade" hideEffect="fade" header="Cerrar Sesión" severity="alert" widgetVar="confirmationClose"> -->
+<!-- 						<p:button value="Si, estoy seguro" href="${request.contextPath}/spring/logout"/> -->
+<!-- 						<p:commandButton value="No" onclick="PF('confirmationClose').hide()" type="button" /> -->
+<!-- 					</p:confirmDialog> -->
+
+<!-- 			</h:form> -->
+		
+<!-- 		</div> -->
+
+			<h:form>
+				<p:confirmDialog message="¿Esta seguro que desea cerrar la sesión y salir del sistema?" width="400" showEffect="fade" hideEffect="fade" header="Cerrar Sesión" severity="alert" widgetVar="confirmationClose">
+					<p:button value="Si, estoy seguro" href="${request.contextPath}/spring/logout"/>
+					<p:commandButton value="No" onclick="PF('confirmationClose').hide()" type="button" />
+				</p:confirmDialog>
+			</h:form>
 		
 		<p:tooltip />
 	</h:body>

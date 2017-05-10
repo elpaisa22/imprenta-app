@@ -1,3 +1,27 @@
+#logo {
+	background-color: #777777 !important;
+}
+
+#logo img {
+	height: 45px !important;
+	width: 166px !important;
+	max-width: 166px !important;
+	margin-top:10px !important;
+}
+
+.layout-menu>li>a, .active-menu>li>a {
+	line-height: 1.3em;
+}
+
+.layout-menu>li>a>i.fa, .menulink>i.fa {
+	margin-top: 3px;
+}
+
+
+.ui-confirm-dialog-message {
+	display: inline !important;
+}
+
 .ui-messages-error,.ui-messages-info, .ui-messages-warning, .ui-messages-fatal  {
 	padding-bottom: 20px !important;
 	font-size: 14px !important;

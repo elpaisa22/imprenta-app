@@ -1,3 +1,8 @@
+/*
+* RIO LAYOUT & THEME
+* Supported Browsers > Google Chrome 3+ , Mozilla Firefox 3+ , Safari 3+ , Opera 3+ , Yandex Browser , Inernet Explorer 9+
+* Copyright 2014 - PrimeFaces Theme Market - PrimeTek */
+/* FONT-FACE*/
 @font-face {
 	font-family: 'roboto_condensedbold';
 	src: url("#{resource['primefaces-rio:fonts/robotocondensed-bold-webfont.eot']}");
