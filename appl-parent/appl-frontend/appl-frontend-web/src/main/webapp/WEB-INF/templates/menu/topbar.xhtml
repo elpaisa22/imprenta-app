@@ -1,0 +1,44 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:custom="http://ambar.org/facelets">
+	
+	<div id="layout-topbar">
+    	<div id="logo" class="Fleft">
+        	<a href="${request.contextPath}/spring/mainFlow">
+        		<img alt="Interarte Servicios Gráficos" src="${request.contextPath}/spring/javax.faces.resource/images/logointer.png" class="Fleft"/>
+        	</a>
+            <a id="mobile-menu-button" class="Fright ShowOnMobile ripplelink Unselectable ShadowEffect">
+            	<i class="icon-add186"></i>
+            </a>
+        </div>
+        
+        <a class="ripplelink WhiteBlue Fright ShowOnMobile" id="show-top-menu"><i class="icon-show8"></i></a>
+        
+        <ul id="top-menu" class="ShowOnDesktop">
+            <li>
+                <a class="ripplelink"><i class="icon-search100"></i> <span class="Txt">Buscar</span></a>
+                <ul>
+                    <li><input type="text" placeholder="Buscar"/></li>
+                </ul>
+            </li>
+            <li>
+                <a class="ripplelink"><i class="icon-set6"></i> <span class="Txt">Tareas</span></a>
+                <ul>
+                    <li><a href="#">23 Tareas</a></li>
+                </ul>
+            </li>
+            <li>
+                <a class="ripplelink"><i class="icon-notifications1"></i> <span class="Txt">Notificaciones</span></a>
+                <ul>
+                    <li><a href="#">18 Notificaciones</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</ui:composition>

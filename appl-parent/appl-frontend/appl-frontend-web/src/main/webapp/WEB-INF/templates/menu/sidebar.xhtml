@@ -1,0 +1,189 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:custom="http://ambar.org/facelets">
+	
+	<ul	class="layout-menu rio-menu">
+       	<li id="rm_ventas" role="menuitem">
+       		<a class="menulink ripplelink">
+       			<i class="icon-ellipsis1"></i>
+       			<i class="icon-work3"></i>
+       			Ventas
+       		</a>
+       		<ul role="menu">
+        		<li id="rm_empty" role="menuitem">
+        			<a class="menulink ripplelink" href="${request.contextPath}/spring/clienteFlow?entity=cliente&amp;from=M&amp;toState=listaState">
+	        			<i class="icon-ellipsis1"></i>
+	        			Clientes
+	        		</a>
+	        	</li>
+	        	<li id="rm_empty" role="menuitem">
+        			<a class="menulink ripplelink" href="${request.contextPath}/spring/cuentaCorrienteFlow?entity=cuentaCorriente&amp;from=M&amp;toState=listaState">
+	        			<i class="icon-ellipsis1"></i>
+	        			Cuenta Corriente
+	        		</a>
+	        	</li>
+	        	<li id="rm_empty" role="menuitem">
+        			<a class="menulink ripplelink" href="${request.contextPath}/spring/facturaServiciosFlow?entity=factura&amp;from=M&amp;toState=listaState">
+	        			<i class="icon-ellipsis1"></i>
+	        			Ventas
+	        		</a>
+	        	</li>
+	        	<li id="rm_empty" role="menuitem">
+        			<a class="menulink ripplelink" href="${request.contextPath}/spring/cobranzaFlow?entity=cobranza&amp;from=M&amp;toState=listaState">
+	        			<i class="icon-ellipsis1"></i>
+	        			Cobranzas
+	        		</a>
+	        	</li>
+	        </ul>
+       	</li>
+       	
+       	<li id="rm_compras" role="menuitem">
+       		<a class="menulink ripplelink">
+       			<i class="icon-ellipsis1"></i>
+       			<i class="icon-shopping232"></i>
+       			Compras
+       		</a>
+       		<ul role="menu">
+        		<li id="rm_empty" role="menuitem">
+        			<a class="menulink ripplelink" href="${request.contextPath}/spring/proveedorFlow?entity=proveedor&amp;from=M&amp;toState=listaState">
+	        			<i class="icon-ellipsis1"></i>
+	        			Proveedores
+	        		</a>
+	        	</li>
+	        	<li id="rm_empty" role="menuitem">
+        			<a class="menulink ripplelink" href="${request.contextPath}/spring/cuentaCorrienteProveedorFlow?entity=cuentaCorrienteProveedor&amp;from=M&amp;toState=listaState">
+	        			<i class="icon-ellipsis1"></i>
+	        			Cta Cte Proveedor
+	        		</a>
+	        	</li>
+	        	<li id="rm_empty" role="menuitem">
+        			<a class="menulink ripplelink" href="${request.contextPath}/spring/compraFlow?entity=compra&amp;from=M&amp;toState=listaState">
+	        			<i class="icon-ellipsis1"></i>
+	        			Compras
+	        		</a>
+	        	</li>
+	        	<li id="rm_empty" role="menuitem">
+        			<a class="menulink ripplelink" href="${request.contextPath}/spring/pagoFlow?entity=pago&amp;from=M&amp;toState=listaState">
+	        			<i class="icon-ellipsis1"></i>
+	        			Pagos
+	        		</a>
+	        	</li>
+	        </ul>
+       	</li>
+       	
+       	<li id="rm_compras" role="menuitem">
+       		<a class="menulink ripplelink">
+       			<i class="icon-ellipsis1"></i>
+       			<i class="icon fa fa-money"></i>
+       			Cheques
+       		</a>
+       		<ul role="menu">
+        		<li id="rm_empty" role="menuitem">
+        			<a class="menulink ripplelink" href="${request.contextPath}/spring/chequeFlow?entity=cheque&amp;from=M&amp;toState=listaState">
+	        			<i class="icon-ellipsis1"></i>
+	        			Todos
+	        		</a>
+	        	</li>
+	        	<li id="rm_empty" role="menuitem">
+        			<a class="menulink ripplelink" href="${request.contextPath}/spring/chequeRecibidoFlow?entity=chequeRecibido&amp;from=M&amp;toState=listaState">
+	        			<i class="icon-ellipsis1"></i>
+	        			Recibidos
+	        		</a>
+	        	</li>
+	        	<li id="rm_empty" role="menuitem">
+        			<a class="menulink ripplelink" href="${request.contextPath}/spring/chequePropioFlow?entity=chequePropio&amp;from=M&amp;toState=listaState">
+	        			<i class="icon-ellipsis1"></i>
+	        			Propios
+	        		</a>
+	        	</li>
+	        	<li id="rm_empty" role="menuitem">
+        			<a class="menulink ripplelink" href="${request.contextPath}/spring/chequeEntregadoFlow?entity=chequeEntregado&amp;from=M&amp;toState=listaState">
+	        			<i class="icon-ellipsis1"></i>
+	        			Entregados
+	        		</a>
+	        	</li>
+	        </ul>
+       	</li>
+       	
+       	<li id="rm_ventas" role="menuitem">
+       		<a class="menulink ripplelink">
+       			<i class="icon-ellipsis1"></i>
+       			<i class="fa fa-inbox"></i>
+       			Caja
+       		</a>
+       		<ul role="menu">
+        		<li id="rm_empty" role="menuitem">
+        			<a class="menulink ripplelink" href="${request.contextPath}/spring/gastoFlow?entity=gasto&amp;from=M&amp;toState=listaState">
+	        			<i class="icon-ellipsis1"></i>
+	        			Gastos
+	        		</a>
+	        	</li>
+	        	<li id="rm_empty" role="menuitem">
+        			<a class="menulink ripplelink" href="${request.contextPath}/spring/ingresoFlow?entity=ingreso&amp;from=M&amp;toState=listaState">
+	        			<i class="icon-ellipsis1"></i>
+	        			Ingresos
+	        		</a>
+	        	</li>
+	        	<li id="rm_empty" role="menuitem">
+        			<a class="menulink ripplelink" href="${request.contextPath}/spring/cuentaBancariaFlow?entity=cuentaBancaria&amp;from=M&amp;toState=listaState">
+	        			<i class="icon-ellipsis1"></i>
+	        			Cuenta Bancaria
+	        		</a>
+	        	</li>
+	        </ul>
+       	</li>
+       	
+       	<li id="rm_configuracion" role="menuitem">
+       		<a href="#" class="menulink ripplelink">
+       			<i class="icon-ellipsis1"></i>
+       			<i class="icon-settings49"></i>
+       			 Configuración
+       		</a>
+       		
+        	<ul role="menu">
+	        	<li id="rm_login" role="menuitem">
+	        		<a class="menulink ripplelink active-menu active-menu-restore" href="${request.contextPath}/spring/bancoFlow?entity=banco&amp;from=M&amp;toState=listaState">
+	        			<i class="icon-ellipsis1"></i>
+	        			Bancos
+	        		</a>
+	        	</li>
+	        	<li id="rm_error" role="menuitem">
+	        		<a class="menulink ripplelink" href="${request.contextPath}/spring/paisFlow?entity=pais&amp;from=M&amp;toState=listaState">
+	        			<i class="icon-ellipsis1"></i>
+	        			Paises
+	        		</a>
+	        	</li>
+	        	<li id="rm_404" role="menuitem">
+		        	<a class="menulink ripplelink" href="${request.contextPath}/spring/provinciaFlow?entity=provincia&amp;from=M&amp;toState=listaState">
+		        		<i class="icon-ellipsis1"></i>
+		        		Provincias
+		        	</a>
+	        	</li>
+	        	<li id="rm_access" role="menuitem">
+	        		<a class="menulink ripplelink" href="${request.contextPath}/spring/tipoGastoFlow?entity=tipoGasto&amp;from=M&amp;toState=listaState">
+		        		<i class="icon-ellipsis1"></i>
+		        		Tipos de Gastos
+	        		</a>
+	        	</li>
+	        	<li id="rm_404" role="menuitem">
+		        	<a class="menulink ripplelink" href="${request.contextPath}/spring/tipoIngresoFlow?entity=tipoIngreso&amp;from=M&amp;toState=listaState">
+		        		<i class="icon-ellipsis1"></i>
+		        		Tipos de Ingresos
+		        	</a>
+	        	</li>
+	        	<li id="rm_404" role="menuitem">
+		        	<a class="menulink ripplelink" href="${request.contextPath}/spring/numeradorComprobanteFlow?entity=numeradorComprobante&amp;from=M&amp;toState=listaState">
+		        		<i class="icon-ellipsis1"></i>
+		        		Numeradores
+		        	</a>
+	        	</li>
+	        </ul>
+	     </li>
+     </ul>
+</ui:composition>
