@@ -17,10 +17,15 @@
 			<p:commandButton value="Imprimir" type="button" icon="fa fa-print" rendered="false">  
 		        <p:printer target="content_crud" />  
 		    </p:commandButton> 
-			<p:commandButton type="push" value="Nuevo" title="Agregar un nuevo registro" action="nuevo" icon="fa fa-file-text" rendered="#{flowScope.nuevoEnabled}"/>
-			<p:commandButton type="push" value="Editar" title="Editar el registro actual" action="editar" icon="fa fa-pencil"  rendered="#{flowScope.edicionEnabled}"/>
-			<p:commandButton type="button" value="Eliminar" title="Eliminar el registro actual" icon="fa fa-trash-o" onclick="PF('confirmationEliminar').show()" rendered="#{flowScope.eliminarEnabled}"/>
+			
 			<p:commandButton type="push" value="Volver" title="Volver al listado" action="volver" icon="fa fa-arrow-circle-left" />
+
+			<p:splitButton value="Editar" title="Editar el registro seleccionado" action="editar" icon="fa fa-pencil"  rendered="#{flowScope.edicionEnabled}" immediate="true">
+		    	<p:menuitem value="Eliminar" title="Eliminar el registro seleccionado" icon="fa fa-trash-o" onclick="PF('confirmationEliminar').show()" rendered="#{flowScope.eliminarEnabled}"/>    
+		        <p:separator />
+		        <p:menuitem value="Nuevo" title="Agregar un nuevo registro" action="nuevo" icon="icon icon-add fa" rendered="#{flowScope.nuevoEnabled}"/>
+		    </p:splitButton>
+			
 		</f:facet>
 	</p:toolbar>
 	

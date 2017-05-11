@@ -22,6 +22,12 @@
 	display: inline !important;
 }
 
+@media(max-width: 640px) {
+	.ui-grid-responsive .ui-grid-row {
+    	display: inline !important;
+	}
+}
+
 .ui-messages-error,.ui-messages-info, .ui-messages-warning, .ui-messages-fatal  {
 	padding-bottom: 20px !important;
 	font-size: 14px !important;
