@@ -151,7 +151,8 @@
 				
 				<p:watermark for="articulo" value="Ingrese el código del artículo" />
 			</p:panelGrid>
-
+			
+			<p:separator/>
 
 			<p:panel header="Detalle"
 			         toggleable="false"
@@ -208,7 +209,7 @@
 							<f:facet name="header">
 								<h:outputText value="Eliminar" />
 							</f:facet>
-							<p:commandButton icon="ui-icon-trash"
+							<p:commandButton icon="fa fa-trash"
 											 title="Eliminar detalle"
 							                 actionListener="#{abmCompraBean.eliminarDetalle(selectedDTO, det)}"
 				                             update="@form"

@@ -54,7 +54,7 @@
 
 			<p:panel header="Detalle"
 			         toggleable="false"
-			         closable="false">
+			         closable="false" style="border: none;">
 			         
 			         <p:dataTable id="detalles" var="det" value="#{selectedDTO.coleccionDetalleFacturas}" emptyMessage="No existen datos">
 						<p:column>
@@ -96,7 +96,7 @@
 					</p:dataTable>			
 			</p:panel>
 			
-			<p:spacer height="10"/>
+			<p:separator/>
 			
 			<p:panelGrid id="lblImporteTotal" columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
 				<p:outputLabel value="Sub Total:  " styleClass="label-form" rendered="#{selectedDTO.tipoFactura == 'B'}"/>
@@ -114,6 +114,69 @@
 					<f:convertNumber type="currency"/>
 				</h:outputText>
 			</p:panelGrid>
+			
+			<p:separator/>
+			
+			<h:panelGroup layout="block" styleClass="Container100" rendered="#{selectedDTO.saldo != 0}">
+				<div class="Container50 Responsive50">
+					<div class="ContainerIndent">
+						<div class="Card ShadowEffect HeiAutoOnMobile OvHidden" style="padding: 0px">
+			                <div class="Container100" style="margin:0px 10px 10px -10px; padding:0px 10px;">
+			                    <div class="SoftGreenBack DispInlBlock Fleft" style="margin:-10px 10px -10px -10px; padding:20px 10px;">
+			                        <i class="fa fa-dollar White Fs100"></i>
+			                    </div>
+			                    <p></p>
+			                    <span class="Gray FontRobotoLight Fs20">Pagado</span><br/><br/>
+			                    <span class="SoftGreen Fs30 FontRobotoBold">
+			                    	<h:outputText value="#{selectedDTO.importeTotal - selectedDTO.saldo}">
+										<f:convertNumber type="currency"/>
+									</h:outputText>
+								</span>
+			                </div>
+			            </div>
+					</div>
+				</div>
+
+				<div class="Container50 Responsive50">
+					<div class="ContainerIndent">
+						<div class="Card ShadowEffect HeiAutoOnMobile OvHidden" style="padding: 0px">
+			                <div class="Container100" style="margin:0px 10px 10px -10px; padding:0px 10px;">
+			                    <div class="SoftRedBack DispInlBlock Fleft" style="margin:-10px 10px -10px -10px; padding:20px 10px;">
+			                        <i class="fa fa-dollar White Fs100"></i>
+			                    </div>
+			                    <p></p>
+			                    <span class="Gray FontRobotoLight Fs20">Saldo</span><br/><br/>
+			                    <span class="SoftRed Fs30 FontRobotoBold">
+			                    	<h:outputText value="#{selectedDTO.saldo}">
+										<f:convertNumber type="currency"/>
+									</h:outputText>
+								</span>
+			                </div>
+			            </div>
+					</div>
+				</div>
+			</h:panelGroup>
+			
+			<h:panelGroup layout="block" styleClass="Container100" rendered="#{selectedDTO.saldo == 0}">
+				<div class="Container100 Responsive100">
+					<div class="ContainerIndent">
+						<div class="Card ShadowEffect HeiAutoOnMobile OvHidden" style="padding: 0px">
+			                <div class="Container100" style="margin:0px 10px 10px -10px; padding:0px 10px;">
+			                    <div class="SoftBlueBack DispInlBlock Fleft" style="margin:-10px 10px -10px -10px; padding:20px 10px;">
+			                        <i class="icon icon-check52 Blue Fs100"></i>
+			                    </div>
+			                    <p></p>
+			                    <span class="Gray FontRobotoLight Fs20">Cancelado</span><br/><br/>
+			                    <span class="SoftBlue Fs30 FontRobotoBold">
+			                    	<h:outputText value="Pagado"/>
+								</span>
+			                </div>
+			            </div>
+					</div>
+				</div>
+			</h:panelGroup>
+
+			<p:spacer height="10"/>
 			
 	</ui:define>	
 </ui:composition>

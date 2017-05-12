@@ -25,40 +25,36 @@
 			</div>
 		</p:panel>
 		
-		<p:toolbar styleClass="tracking-info-bar">
-			<f:facet name="left">
-				<p:outputLabel>
+		<p:separator/>
+		
+		<p:panel>
+    		<p:panelGrid columns="4" columnClasses="ui-grid-col-3,ui-grid-col-3,ui-grid-col-3,ui-grid-col-3" layout="grid" style="line-height: 2.3em;">
+				<p:outputLabel style="font-size: 0.8em !important;">
 					<h:outputText value="USUARIO:  "/>
 					<h:outputText value="#{selectedDTO.trackInfo.usuario}" />
 				</p:outputLabel>	
-			</f:facet>
-			
-			<f:facet name="left">
-				<p:outputLabel>
+
+				<p:outputLabel style="font-size: 0.8em !important;">
 					<h:outputText value="ALTA:  "/>
 					<h:outputText value="#{selectedDTO.trackInfo.fechaCreacion}" >
 						<f:convertDateTime pattern="dd/MM/yyyy HH:mm"/> 
 					</h:outputText>
 				</p:outputLabel>
-			</f:facet>
-			
-			<f:facet name="left">
-				<p:outputLabel>
-					<h:outputText value="MODIFICACIÓN:  "/>
+
+				<p:outputLabel style="font-size: 0.8em !important;">
+					<h:outputText value="MODIF:  "/>
 					<h:outputText value="#{selectedDTO.trackInfo.fechaModificacion}" >
 						<f:convertDateTime pattern="dd/MM/yyyy HH:mm"/> 
 					</h:outputText>
 				</p:outputLabel>
-			</f:facet>
-			
-			<f:facet name="left">
-				<p:outputLabel>
+
+				<p:outputLabel style="font-size: 0.8em !important;">
 					<h:outputText value="ESTADO:  "/>
 					<h:outputText value="#{selectedDTO.trackInfo.estado}" />
 				</p:outputLabel>
-			</f:facet>
-		</p:toolbar>
-		
+			</p:panelGrid>
+		</p:panel>
+
 		<p:remoteCommand name="redirectToSubRelation" action="redirectRelation"/>
 		<p:remoteCommand name="redirectByBreadcrumb"  action="redirectBreadcrumb"/>
 

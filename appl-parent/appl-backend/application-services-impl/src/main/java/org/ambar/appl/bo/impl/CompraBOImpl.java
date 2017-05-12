@@ -126,10 +126,9 @@ public class CompraBOImpl extends CrudBusinessObjectImpl<Long, Compra> implement
 
 		MovimientoCuentaCorrienteProveedor movCtaCorriente = new MovimientoCuentaCorrienteProveedor();
 		movCtaCorriente.setCompra(pCompra);
-		movCtaCorriente.setDescripcion("VENTA");
+		movCtaCorriente.setDescripcion("COMPRA");
 		movCtaCorriente.setFecha(new Date());
-		movCtaCorriente.setSaldo(pCompra.getProveedor().getCuentaCorriente().getSaldo()
-				                 .add(pCompra.getImporteTotal()));
+		movCtaCorriente.setSaldo(pCompra.getImporteTotal());
 
 		pCompra.getProveedor().getCuentaCorriente().agregarMovimiento(movCtaCorriente);
 	}

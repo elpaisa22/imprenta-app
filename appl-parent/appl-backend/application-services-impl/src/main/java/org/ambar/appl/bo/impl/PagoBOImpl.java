@@ -101,8 +101,7 @@ public class PagoBOImpl extends CrudBusinessObjectImpl<Long, Pago> implements Pa
 		movCtaCorriente.setPago(pPago);
 		movCtaCorriente.setDescripcion("PAGO");
 		movCtaCorriente.setFecha(new Date());
-		movCtaCorriente.setSaldo(pPago.getProveedor().getCuentaCorriente().getSaldo()
-                                 .subtract(pPago.getImporteTotal()));
+		movCtaCorriente.setSaldo(pPago.getImporteTotal().negate());
 
 		pPago.getProveedor().getCuentaCorriente().agregarMovimiento(movCtaCorriente);
 	}
@@ -177,19 +176,18 @@ public class PagoBOImpl extends CrudBusinessObjectImpl<Long, Pago> implements Pa
 			movCtaCorriente.setPago(pPago);
 			movCtaCorriente.setCuentaCorriente(pCompra.getProveedor().getCuentaCorriente());
 			movCtaCorriente.setFecha(new Date());
+			BigDecimal saldo = pCompra.getImporteTotal().subtract(pPago.getImporteTotal());
 			//Si se pago mas del valor de compra
 			if (pPago.getImporteTotal().compareTo(pCompra.getImporteTotal()) > 0) {
 				pCompra.setEstadoPago(EstadoPagoFacturaValues.PAGADA);
 				pCompra.setSaldo(BigDecimal.ZERO);
-                BigDecimal saldoCompra = pPago.getImporteTotal().subtract(pCompra.getImporteTotal()).abs();
-                movCtaCorriente.setSaldo(movCtaCorriente.getCuentaCorriente().getSaldo().subtract(saldoCompra));
+                movCtaCorriente.setSaldo(saldo);
 				movCtaCorriente.setDescripcion("REMANENTE DE PAGO CONTADO");
 			//Si se pago de menos del valor de compra
-			} else if (pPago.getImporteTotal().compareTo(pCompra.getImporteTotal()) < 0) {
+			} else {
 				pCompra.setEstadoPago(EstadoPagoFacturaValues.PARCIAL);
 				pCompra.setSaldo(pCompra.getImporteTotal().subtract(pPago.getImporteTotal()));
-                BigDecimal saldoCompra = pPago.getImporteTotal().subtract(pCompra.getImporteTotal()).abs();
-                movCtaCorriente.setSaldo(movCtaCorriente.getCuentaCorriente().getSaldo().add(saldoCompra));
+                movCtaCorriente.setSaldo(saldo);
 				movCtaCorriente.setDescripcion("PENDIENTE DE PAGO CONTADO");
 			}
 			//Agrega el movimiento

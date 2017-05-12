@@ -20,6 +20,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.validation.Valid;
@@ -118,6 +119,7 @@ public class CuentaCorrienteProveedor implements Persistible<Long>, Trackingable
 	 * @return Retorna el valor del atributo coleccionMovimientos.
 	 */
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "cuentaCorriente", fetch = FetchType.EAGER)
+    @OrderBy("id desc")
 	@Valid
 	public List<MovimientoCuentaCorrienteProveedor> getColeccionMovimientos() {
 		return coleccionMovimientos;
@@ -136,7 +138,8 @@ public class CuentaCorrienteProveedor implements Persistible<Long>, Trackingable
 	 */
 	public void agregarMovimiento(final MovimientoCuentaCorrienteProveedor pElement) {
 		this.coleccionMovimientos.add(pElement);
-		this.saldo = this.saldo.add(pElement.getImporteMovimiento());
+		this.saldo = this.saldo.add(pElement.getSaldo());
+		pElement.setSaldo(this.saldo);
 		pElement.setCuentaCorriente(this);
 	}
 
@@ -146,7 +149,8 @@ public class CuentaCorrienteProveedor implements Persistible<Long>, Trackingable
 	 */
 	public void removerMovimiento(final MovimientoCuentaCorrienteProveedor pElement) {
 		this.coleccionMovimientos.remove(pElement);
-		this.saldo = this.saldo.subtract(pElement.getImporteMovimiento());
+		this.saldo = this.saldo.subtract(pElement.getSaldo());
+		pElement.setSaldo(this.saldo);
 		pElement.setCuentaCorriente(null);
 	}
 

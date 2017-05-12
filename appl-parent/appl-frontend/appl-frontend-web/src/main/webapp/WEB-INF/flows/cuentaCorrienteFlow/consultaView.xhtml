@@ -20,26 +20,60 @@
 	
 	<ui:define name="content_crud">	
 
-			<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
-				<p:outputLabel value="Nro Cuenta Corriente:  " styleClass="label-form"/>
-				<h:outputText value="#{selectedDTO.id}" />
-			</p:panelGrid>
+			<h:panelGroup layout="block" styleClass="Container100">
+				<div class="Container100 Responsive100">
+					<div class="ContainerIndent">
+						<div class="Card ShadowEffect HeiAutoOnMobile OvHidden" style="padding: 0px">
+			                <div class="Container100" style="margin:0px 10px 10px -10px; padding:0px 10px;">
+			                    <div class="SoftGreenBack DispInlBlock Fleft" style="margin:-10px 10px -10px -10px; padding:20px 10px;">
+			                        <i class="fa fa-briefcase White Fs100" style="margin-left: 10px; margin-top: 10px;"></i>
+			                    </div>
+			                    <p></p>
+			                    <span class="Gray FontRobotoLight Fs20">Cuenta ##{selectedDTO.id}</span><br/><br/>
+			                </div>
+			            </div>
+					</div>
+				</div>
+			</h:panelGroup>
 
-			<p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
-				<p:outputLabel value="Nro Cliente:  " styleClass="label-form"/>
-				<h:outputText value="#{selectedDTO.idCliente}" />
-				<p:outputLabel value="Razón Social del Cliente:  " styleClass="label-form"/>
-				<h:outputText value="#{selectedDTO.razonSocialCliente}" />					 
-			</p:panelGrid>
+			<h:panelGroup layout="block" styleClass="Container100">
+				<div class="Container50 Responsive50">
+					<div class="ContainerIndent">
+						<div class="Card ShadowEffect HeiAutoOnMobile OvHidden" style="padding: 0px">
+			                <div class="Container100" style="margin:0px 10px 10px -10px; padding:0px 10px;">
+			                    <div class="SoftBlueBack DispInlBlock Fleft" style="margin:-10px 10px -10px -10px; padding:20px 10px;">
+			                        <i class="fa fa-user White Fs100" style="margin-left: 10px; margin-top: 10px;"></i>
+			                    </div>
+			                    <p></p>
+			                    <span class="Gray FontRobotoLight Fs20">Cliente ##{selectedDTO.idCliente}</span><br/><br/>
+			                    <span class="SoftBlue Fs20 FontRobotoBold">
+			                    	<h:outputText value="#{selectedDTO.razonSocialCliente}"/>
+								</span>
+			                </div>
+			            </div>
+					</div>
+				</div>
+				<div class="Container50 Responsive50">
+					<div class="ContainerIndent">
+						<div class="Card ShadowEffect HeiAutoOnMobile OvHidden" style="padding: 0px">
+			                <div class="Container100" style="margin:0px 10px 10px -10px; padding:0px 10px;">
+			                    <div class="SoftRedBack DispInlBlock Fleft" style="margin:-10px 10px -10px -10px; padding:20px 10px;">
+			                        <i class="fa fa-dollar White Fs100" style="margin-left: 10px; margin-top: 10px;"></i>
+			                    </div>
+			                    <p></p>
+			                    <span class="Gray FontRobotoLight Fs20">Saldo (deuda)</span><br/><br/>
+			                    <span class="SoftRed Fs20 FontRobotoBold">
+			                    	<h:outputText value="#{selectedDTO.saldo}">
+										<f:convertNumber type="currency"/>
+									</h:outputText>
+								</span>
+			                </div>
+			            </div>
+					</div>
+				</div>
+			</h:panelGroup>
 
-			<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">				
-				<p:outputLabel value="Saldo:  " styleClass="label-form"/>
-				<h:outputText value="#{selectedDTO.saldo}">
-					<f:convertNumber type="currency"/>
-				</h:outputText>
-			</p:panelGrid>
-			
-			<br/>
+			<p:spacer/>
 			
 			<p:dataTable value="#{selectedDTO.coleccionMovimientos}"
 						 var="mov" 

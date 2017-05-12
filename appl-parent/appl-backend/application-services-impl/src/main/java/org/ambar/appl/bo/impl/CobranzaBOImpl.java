@@ -97,8 +97,7 @@ public class CobranzaBOImpl extends CrudBusinessObjectImpl<Long, Cobranza> imple
 		movCtaCorriente.setCobranza(pCobranza);
 		movCtaCorriente.setDescripcion("PAGO");
 		movCtaCorriente.setFecha(new Date());
-		movCtaCorriente.setSaldo(pCobranza.getCliente().getCuentaCorriente().getSaldo()
-                                 .subtract(pCobranza.getImporteTotal()));
+		movCtaCorriente.setSaldo(pCobranza.getImporteTotal().negate());
 
 		pCobranza.getCliente().getCuentaCorriente().agregarMovimiento(movCtaCorriente);
 	}
@@ -163,15 +162,16 @@ public class CobranzaBOImpl extends CrudBusinessObjectImpl<Long, Cobranza> imple
 			movCtaCorriente.setCobranza(pCobranza);
 			movCtaCorriente.setCuentaCorriente(pFactura.getCliente().getCuentaCorriente());
 			movCtaCorriente.setFecha(new Date());
+			BigDecimal saldo = pFactura.getImporteTotal().subtract(pCobranza.getImporteTotal());
 			if (pCobranza.getImporteTotal().compareTo(pFactura.getImporteTotal()) > 0) {
 				pFactura.setEstadoPago(EstadoPagoFacturaValues.PAGADA);
-				movCtaCorriente.setSaldo(pCobranza.getImporteTotal()
-	                                              .subtract(pFactura.getImporteTotal()));
+				pFactura.setSaldo(BigDecimal.ZERO);
+				movCtaCorriente.setSaldo(saldo);
 				movCtaCorriente.setDescripcion("REMANENTE DE PAGO CONTADO");
 			} else if (pCobranza.getImporteTotal().compareTo(pFactura.getImporteTotal()) < 0) {
 				pFactura.setEstadoPago(EstadoPagoFacturaValues.PARCIAL);
-				movCtaCorriente.setSaldo(pFactura.getImporteTotal()
-	                                             .subtract(pCobranza.getImporteTotal()));
+				pFactura.setSaldo(saldo);
+				movCtaCorriente.setSaldo(saldo);
 				movCtaCorriente.setDescripcion("PENDIENTE DE PAGO CONTADO");
 			}
 			//Agrega el movimiento

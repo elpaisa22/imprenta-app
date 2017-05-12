@@ -184,7 +184,11 @@ public class MovimientoCuentaCorriente implements Persistible<Long>, Trackingabl
 	@Transient
 	public BigDecimal getImporteMovimiento() {
 		if (this.factura != null) {
-			return this.factura.getImporteTotal();
+			if (cobranza != null) {
+				return this.factura.getImporteTotal().subtract(cobranza.getImporteTotal());
+			} else {
+				return this.factura.getImporteTotal();
+			}
 		} else if (this.cobranza != null) {
 			return this.cobranza.getImporteTotal().negate();
 		} else {

@@ -163,8 +163,7 @@ public class FacturaBOImpl extends CrudBusinessObjectImpl<Long, Factura> impleme
 		movCtaCorriente.setFactura(pFactura);
 		movCtaCorriente.setDescripcion("VENTA");
 		movCtaCorriente.setFecha(new Date());
-		movCtaCorriente.setSaldo(pFactura.getCliente().getCuentaCorriente().getSaldo()
-				                 .add(pFactura.getImporteTotal()));
+		movCtaCorriente.setSaldo(pFactura.getImporteTotal());
 
 		pFactura.getCliente().getCuentaCorriente().agregarMovimiento(movCtaCorriente);
 	}

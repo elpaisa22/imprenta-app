@@ -10,12 +10,12 @@
 	
 	<ul	class="layout-menu rio-menu">
        	<li id="rm_ventas" role="menuitem">
-       		<a class="menulink ripplelink">
+       		<a class="menulink ripplelink #{entitySelected == 'cliente' or entitySelected == 'factura' or entitySelected == 'cuentaCorriente' or entitySelected == 'cobranza'? 'active-menu' : ''}">
        			<i class="icon-ellipsis1"></i>
        			<i class="icon-work3"></i>
        			Ventas
        		</a>
-       		<ul role="menu">
+       		<ul role="menu" class="#{entitySelected == 'cliente' or entitySelected == 'factura' or entitySelected == 'cuentaCorriente' or entitySelected == 'cobranza'? 'active-menu' : ''}">
         		<li id="rm_empty" role="menuitem">
         			<a class="menulink ripplelink" href="${request.contextPath}/spring/clienteFlow?entity=cliente&amp;from=M&amp;toState=listaState">
 	        			<i class="icon-ellipsis1"></i>
@@ -44,12 +44,12 @@
        	</li>
        	
        	<li id="rm_compras" role="menuitem">
-       		<a class="menulink ripplelink">
+       		<a class="menulink ripplelink #{entitySelected == 'proveedor' or entitySelected == 'compra' or entitySelected == 'cuentaCorrienteProveedor' or entitySelected == 'pago'? 'active-menu' : ''}">
        			<i class="icon-ellipsis1"></i>
        			<i class="icon-shopping232"></i>
        			Compras
        		</a>
-       		<ul role="menu">
+       		<ul role="menu" class="#{entitySelected == 'proveedor' or entitySelected == 'compra' or entitySelected == 'cuentaCorrienteProveedor' or entitySelected == 'pago'? 'active-menu' : ''}">
         		<li id="rm_empty" role="menuitem">
         			<a class="menulink ripplelink" href="${request.contextPath}/spring/proveedorFlow?entity=proveedor&amp;from=M&amp;toState=listaState">
 	        			<i class="icon-ellipsis1"></i>
@@ -78,12 +78,12 @@
        	</li>
        	
        	<li id="rm_compras" role="menuitem">
-       		<a class="menulink ripplelink">
+       		<a class="menulink ripplelink #{entitySelected == 'cheque' or entitySelected == 'chequeRecibido' or entitySelected == 'chequePropio' or entitySelected == 'chequeEntregado'? 'active-menu' : ''}">
        			<i class="icon-ellipsis1"></i>
-       			<i class="icon fa fa-money"></i>
+       			<i class="icon icon-screen47"></i>
        			Cheques
        		</a>
-       		<ul role="menu">
+       		<ul role="menu" class="#{entitySelected == 'cheque' or entitySelected == 'chequeRecibido' or entitySelected == 'chequePropio' or entitySelected == 'chequeEntregado'? 'active-menu' : ''}">
         		<li id="rm_empty" role="menuitem">
         			<a class="menulink ripplelink" href="${request.contextPath}/spring/chequeFlow?entity=cheque&amp;from=M&amp;toState=listaState">
 	        			<i class="icon-ellipsis1"></i>
@@ -112,12 +112,12 @@
        	</li>
        	
        	<li id="rm_ventas" role="menuitem">
-       		<a class="menulink ripplelink">
+       		<a class="menulink ripplelink #{entitySelected == 'gasto' or entitySelected == 'ingreso' or entitySelected == 'cuentaBancaria' ? 'active-menu' : ''}">
        			<i class="icon-ellipsis1"></i>
        			<i class="fa fa-inbox"></i>
        			Caja
        		</a>
-       		<ul role="menu">
+       		<ul role="menu" class="#{entitySelected == 'gasto' or entitySelected == 'ingreso' or entitySelected == 'cuentaBancaria' ? 'active-menu' : ''}">
         		<li id="rm_empty" role="menuitem">
         			<a class="menulink ripplelink" href="${request.contextPath}/spring/gastoFlow?entity=gasto&amp;from=M&amp;toState=listaState">
 	        			<i class="icon-ellipsis1"></i>
@@ -140,13 +140,13 @@
        	</li>
        	
        	<li id="rm_configuracion" role="menuitem">
-       		<a href="#" class="menulink ripplelink">
+       		<a href="#" class="menulink ripplelink #{entitySelected == 'banco' or entitySelected == 'pais' or entitySelected == 'provincia' or entitySelected == 'tipoGasto' or entitySelected == 'tipoIngreso' or entitySelected == 'numeradorComprobante' ? 'active-menu' : ''}">
        			<i class="icon-ellipsis1"></i>
        			<i class="icon-settings49"></i>
        			 Configuración
        		</a>
        		
-        	<ul role="menu">
+        	<ul role="menu" class="#{entitySelected == 'banco' or entitySelected == 'pais' or entitySelected == 'provincia' or entitySelected == 'tipoGasto' or entitySelected == 'tipoIngreso' or entitySelected == 'numeradorComprobante' ? 'active-menu' : ''}">
 	        	<li id="rm_login" role="menuitem">
 	        		<a class="menulink ripplelink active-menu active-menu-restore" href="${request.contextPath}/spring/bancoFlow?entity=banco&amp;from=M&amp;toState=listaState">
 	        			<i class="icon-ellipsis1"></i>

@@ -4816,7 +4816,7 @@ hr.ui-widget-header {
 	background-image:
 		url("#{resource['primefaces-rio:images/downarrow.svg']}")
 		!important;
-	margin-top: 14px !important;
+	margin-top: 10px !important;
 	background-size: 130%;
 	background-position: center;
 }

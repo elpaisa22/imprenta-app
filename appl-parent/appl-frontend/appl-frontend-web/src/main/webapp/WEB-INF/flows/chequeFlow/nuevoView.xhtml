@@ -24,7 +24,8 @@
 			<p:outputLabel value="Recibido de:  "/>
 			<p:autoComplete id="cliente" value="#{autoCompleteClienteBean.clienteSelected}" completeMethod="#{autoCompleteClienteBean.completeCliente}"  
 	                       var="c" itemLabel="#{c.razonSocial}" itemValue="#{c}" forceSelection="true" converter="#{autoCompleteClienteBean}"
-	                       required="true" label="Cliente">	                	  
+	                       required="true" label="Cliente"
+	                       placeholder="Ingrese el Nombre del Cliente">	                	  
 	               <p:column> 
 	               	<f:facet name="header">
 							<h:outputText value="Nro Cliente" />
@@ -49,16 +50,16 @@
 					</f:facet>
 	               	<h:outputText value="#{c.numeroDocumento}"/>
 	               </p:column>  
-	           </p:autoComplete>
-	           <p:watermark for="cliente" value="Ingrese el Nombre del Cliente" />
+           </p:autoComplete>
 
 			<p:outputLabel value="Banco:  "/>
 			<p:autoComplete id="banco"
 			                value="#{autoCompleteBancoBean.bancoSelected}"
 			                completeMethod="#{autoCompleteBancoBean.completeBanco}"  
-	                           var="a" itemLabel="#{a.id}" itemValue="#{a}"
-	                           forceSelection="true" required="true" label="Banco"
-	                           converter="#{autoCompleteBancoBean}">
+                            var="a" itemLabel="#{a.id}" itemValue="#{a}"
+                            forceSelection="true" required="true" label="Banco"
+                            converter="#{autoCompleteBancoBean}"
+                            placeholder="Ingrese el Banco">
 	               
 	               <p:column>
 	               	<f:facet name="header">
@@ -72,8 +73,7 @@
 					</f:facet>
 	                      <h:outputText value="#{a.descripcion}"/>
 	               </p:column>
-	           </p:autoComplete>
-			<p:watermark for="banco" value="Ingrese el Banco" />
+           </p:autoComplete>
 
 			<p:outputLabel value="Sucursal:  "/>
 			<p:inputText value="#{nuevaEntidad.sucursal}" />
