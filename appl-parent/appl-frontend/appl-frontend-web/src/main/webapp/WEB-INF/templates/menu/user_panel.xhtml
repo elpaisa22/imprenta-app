@@ -2,6 +2,7 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
@@ -11,12 +12,29 @@
 	<ul class="layout-menu">
 	    <li>
 	        <a class="menulink ripplelink">
-	            <i class="icon-round58 Fs40"></i>
-	            <span class="Fs18">Sebastian Ecclesia<i class="icon-downwards Fright Fs20"></i><br/><span class="Fs12 FontRobotoLight">Administrador</span></span>
+	        	<c:if test="${empty navigationBean.actualUser.imagen}">
+	            	<i class="icon-round58 Fs40"></i>
+	            </c:if>
+	            <c:if test="${not empty navigationBean.actualUser.imagen}">
+<!-- 	            	<h:graphicImage url="#{navigationBean.actualUser.imagen}" width="20" style="border-radius: 50%;"/> -->
+	            	<i class="Fs40">
+	            		
+	            	   <h:graphicImage value="avatar-img/#{navigationBean.actualUser.imagen}" width="40" style="border-radius: 50%;"/>
+	            	</i>
+	            </c:if>
+
+	            <span class="Fs18">
+	            	#{navigationBean.actualUser.nombre}
+            		<i class="icon-downwards Fright Fs20"></i>
+	            	<br/>
+		            <span class="Fs12 FontRobotoLight">
+		            	#{navigationBean.actualUser.perfil == 'ADMIN' ? 'Administrador' : 'Usuario'}
+		            </span>
+	            </span>
 	        </a>
 	        <ul>
-	            <li><a href="#" class="menulink ripplelink"><i class="icon-user158 Fs16"></i> Perfil</a></li>
-	            <li><a href="#" class="menulink ripplelink"><i class="icon-two385 Fs16"></i> Cambiar usuario</a></li>
+	            <li><a href="${request.contextPath}/spring/usuarioFlow?entity=usuario&amp;from=M&amp;toState=perfilView" class="menulink ripplelink"><i class="icon-user158 Fs16"></i> Perfil</a></li>
+				<!--<li><a href="#" class="menulink ripplelink"><i class="icon-two385 Fs16"></i> Cambiar usuario</a></li> -->
 	            <li><a href="#" class="menulink ripplelink"><i class="icon-settings49 Fs16"></i> Configuración de Sistema</a></li>
 	            <li><a href="#" onclick="PF('confirmationClose').show();" class="menulink ripplelink"><i class="icon-thermostat1 Fs16"></i> Salir</a></li>
 	        </ul>

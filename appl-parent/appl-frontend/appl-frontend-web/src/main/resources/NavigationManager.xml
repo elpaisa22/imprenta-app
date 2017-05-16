@@ -82,6 +82,8 @@
 		</entity>
 		<entity id="provincia" name="Provincia" browse-title="Provincia (:idProvincia / :descripcion)" image-big="" image-small="" service="provinciaServices" crud="provinciaFlow">
 		</entity>
+		<entity id="usuario" name="Usuario" browse-title="Usuario (:id)" image-big="" image-small="" service="usuarioServices" crud="usuarioFlow">
+		</entity>
 	</entitiesInformation>
 
 	<navigation>
@@ -124,6 +126,10 @@
 			<item entity="tipoGasto" text="Tipos de Gasto" />
 			<item entity="tipoIngreso" text="Tipos de Ingreso" />
 			<item entity="numeradorComprobante" text="Numeradores" />
+		</module>
+
+		<module id="administracion" text="Usuarios">
+			<item entity="usuario" text="Usuarios" />
 		</module>
 	</navigation>
 </navigationManager>

@@ -10,42 +10,45 @@
 	template="/WEB-INF/templates/template_main.xhtml">
 	
 	<ui:define name="content">
-		
-		<ui:include src="/WEB-INF/templates/viewActions/documentReadyJs.xhtml" />
 	
-		<p:breadCrumb id="breadcrumb-navigation" model="#{breadcrumbBean.breadcrumbModel}" />
+		<h:form id="form-main" prependId="false">
 		
-		<ui:insert name="toolbar_crud"/>
+			<ui:include src="/WEB-INF/templates/viewActions/documentReadyJs.xhtml" />
 		
-		<p:messages id="messagesError" closable="true"/>
+			<p:breadCrumb id="breadcrumb-navigation" model="#{breadcrumbBean.breadcrumbModel}" />
+			
+			<ui:insert name="toolbar_crud"/>
+			
+			<p:messages id="messagesError" closable="true"/>
+	
+			<p:panel>
+				<div class="ui-fluid">
+					<ui:insert name="content_crud"/>
+				</div>
+			</p:panel>
+			
+			<p:toolbar styleClass="tracking-info-bar">
+				<f:facet name="left">
+					<p:outputLabel>
+					</p:outputLabel>	
+				</f:facet>
+			</p:toolbar>
+			
+			<p:remoteCommand name="redirectToSubRelation" action="redirectRelation"/>
+			<p:remoteCommand name="redirectByBreadcrumb"  action="redirectBreadcrumb"/>
+	
+			<p:ajaxStatus style="width:64px;height:64px;position:fixed;bottom:100px;right:100px;">  
+			    <f:facet name="start">  
+			        <h:graphicImage value="${request.contextPath}/spring/javax.faces.resource/images/preloader.gif" />  
+			    </f:facet>  
+			      
+			    <f:facet name="complete">  
+			        <h:outputText value="" />  
+			    </f:facet>  
+			</p:ajaxStatus>
 
-		<p:panel>
-			<div class="ui-fluid">
-				<ui:insert name="content_crud"/>
-			</div>
-		</p:panel>
-		
-		<p:toolbar styleClass="tracking-info-bar">
-			<f:facet name="left">
-				<p:outputLabel>
-				</p:outputLabel>	
-			</f:facet>
-		</p:toolbar>
-		
-		<p:remoteCommand name="redirectToSubRelation" action="redirectRelation"/>
-		<p:remoteCommand name="redirectByBreadcrumb"  action="redirectBreadcrumb"/>
+		</h:form>
 
-		<p:ajaxStatus style="width:64px;height:64px;position:fixed;bottom:100px;right:100px;">  
-		    <f:facet name="start">  
-		        <h:graphicImage value="${request.contextPath}/spring/javax.faces.resource/images/preloader.gif" />  
-		    </f:facet>  
-		      
-		    <f:facet name="complete">  
-		        <h:outputText value="" />  
-		    </f:facet>  
-		</p:ajaxStatus> 
 	</ui:define>
-	
-	
 
 </ui:composition>

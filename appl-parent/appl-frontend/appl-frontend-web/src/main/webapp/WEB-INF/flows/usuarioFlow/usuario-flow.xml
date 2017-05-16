@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+      parent="parent-flow-listado, parent-flow, parent-flow-crud">
+      
+    <!-- FlowScope variables -->
+	<var name="selectedDTO" class="org.ambar.appl.dto.UsuarioDTO" />
+	<var name="nuevaEntidad" class="org.ambar.appl.dto.UsuarioDTO" />
+	<var name="uploadFileHandler" class="org.ambar.appl.frontend.helpers.UploadFileHandler" />
+	<var name="avatarDefaultDir" class="java.lang.String" />
+	
+	<var name="password" class="java.lang.String" />
+	<var name="repetirPassword" class="java.lang.String" />
+
+	<on-start>
+		<evaluate expression="parameters.getDirectory('default_dir_avatars', T(java.lang.System).getProperty('java.io.tmpdir'))" result="avatarDefaultDir"/>
+		<evaluate expression="uploadFileHandler.init(avatarDefaultDir, navigationBean.actualUser.id)"/>
+	</on-start>
+
+    <action-state id="guardarEdicionAction">
+    	<evaluate expression="usuarioServices.update(selectedDTO, userContext)" result="transactionResult"/>
+    	<transition to="transactionHasErrors"/>
+    </action-state>
+
+    <action-state id="guardarNuevoAction">
+    	<evaluate expression="usuarioServices.insert(nuevaEntidad, userContext)" result="transactionResult"/>
+    	<transition to="transactionHasErrors"/>
+    </action-state>
+    
+    <action-state id="nuevoState">    	
+    	<evaluate expression="new org.ambar.appl.dto.UsuarioDTO()" result="nuevaEntidad"/>
+    	<transition to="nuevoView">
+    		<set name="flowScope.estadoEdicion" value="'NUEVO'"/>    		
+    	</transition>
+    </action-state>
+    
+    <action-state id="edicionState"> 
+    	<evaluate expression="usuarioServices.getById(selected.id, userContext).getResult()" result="selectedDTO"/>   	
+    	<transition to="edicionView">    		
+    		<set name="flowScope.estadoEdicion" value="'EDICION'"/>
+    	</transition>
+    </action-state>
+    
+    <action-state id="consultaState">
+    	<evaluate expression="usuarioServices.getById(selected.id, userContext).getResult()" result="selectedDTO"/>   	
+    	<transition to="consultaView">    		
+    		<set name="flowScope.estadoEdicion" value="'CONSULTA'"/>
+    	</transition>
+    </action-state>
+    
+    <action-state id="eliminarAction">
+    	<evaluate expression="usuarioServices.remove(selected, userContext)" result="transactionResult"/>   	
+    	<transition to="transactionHasErrors"/>
+    </action-state>
+    
+    <!-- Recarga de objeto seleccionado para consulta y forward a consulta -->
+    <action-state id="reloadSelectedAndPerformConsultaAction">
+    	<evaluate expression="usuarioServices.getById(selected.id,userContext).getResult()" result="selected" />
+    	<transition to="consultaView" />
+    </action-state>
+    
+    <!-- Actualizacion del perfil -->
+    <view-state id="perfilView">
+    	<transition on="uploadFile" to="cambiarImagenValidate">
+			<evaluate expression="uploadFileHandler.setUploadedFile('file', flowRequestContext)"/>
+		</transition>
+		
+		<transition on="cambiarPassword" to="actionPerfilResult">
+			<evaluate expression="usuarioServices.actualizarPassword(navigationBean.actualUser.id, password, repetirPassword, userContext)" result="transactionResult"/>
+		</transition>
+    </view-state>
+    
+    <decision-state id="cambiarImagenValidate">
+    	<if test="uploadFileHandler.file == null" then="cambiarImagenError" else="cambiarImagenAction"/>
+    </decision-state>
+    
+    <action-state id="cambiarImagenError">
+    	<evaluate expression="messagesHelper.addErrorMessages('Ocurrió un error al leer la imagen. Ingrese un archivo válido')" />
+    	<transition to="perfilView"/>
+    </action-state>
+    
+    <action-state id="cambiarImagenAction">
+    	<evaluate expression="usuarioServices.actualizarImagenDePerfil(navigationBean.actualUser.id, uploadFileHandler.file, userContext)" result="transactionResult"/>
+    	<transition to="actionPerfilResult"/>
+    </action-state>
+    
+    <action-state id="actionPerfilResult">
+    	<evaluate expression="messagesHelper.addErrorMessages(transactionResult.messages)" />
+		<transition to="perfilView" >
+			<evaluate expression="navigationBean.loadUserData()"/>
+		</transition>
+    </action-state>
+</flow>

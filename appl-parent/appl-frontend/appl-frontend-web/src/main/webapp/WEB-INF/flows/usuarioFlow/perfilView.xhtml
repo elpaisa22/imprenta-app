@@ -1,0 +1,116 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:security="http://www.springframework.org/security/tags"
+	xmlns:custom="http://ambar.org/facelets"
+	template="/WEB-INF/templates/template_main.xhtml">
+
+	<ui:define name="content">	
+		<p:panel>
+		
+			<p:messages id="messagesError" closable="true"/>
+
+			<div class="Container100 Responsive100">
+				<div class="Container100 Responsive100">
+	                  <div class="ContainerIndent">
+	                      <div class="Card ShadowEffect HeiAutoOnMobile OvHidden">
+	                          <div class="Container100" style="margin:0px 10px 10px -10px; padding:0px 10px;">
+	                          	<c:if test="${empty navigationBean.actualUser.imagen}">
+	                              <div class="SoftGrayBack DispInlBlock Fleft" style="margin:-10px 10px -10px -10px; padding:20px 10px;">
+	                                  <i class="icon-round58 Black Fs100"></i>
+	                              </div>
+	                            </c:if>
+	                            <c:if test="${not empty navigationBean.actualUser.imagen}">
+	                              <div class="SoftGrayBack DispInlBlock Fleft" style="margin:-10px 10px -10px -10px; padding:20px 10px;">
+										<h:graphicImage value="avatar-img/#{navigationBean.actualUser.imagen}" width="100" style="border-radius: 50%;"/>
+	                              </div>
+	                           	</c:if>
+	                              <p></p>
+	                              <span class="Gray FontRobotoLight Fs20">
+	                              	#{navigationBean.actualUser.perfil == 'ADMIN' ? 'Administrador' : 'Usuario'}
+	                              </span>
+	                              <br/><br/>
+	                              <span class="Black Fs30 FontRobotoBold">
+	                              	${navigationBean.actualUser.nombre}
+	                              </span>
+	                          </div>
+	                          <div class="CardFooter">
+								  <span class="Black Fleft Fs18">
+	                              	${navigationBean.actualUser.email}
+	                              </span>
+	                              <a class="CardFooterBtn Gray BorderLeft Fright Fs18 ripplelink"
+					                 title="Cambiar imagen de perfil"
+					                 onclick="PF('fileSelectDialog').show();">
+								     <i class="icon-create3"></i>
+								  </a>
+								  <a class="CardFooterBtn Gray BorderLeft Fright ripplelink"
+								     title="Cambiar contraseña"
+								     onclick="PF('changePasswordDialog').show();">
+								  	<i class="icon-virtual2"></i>
+								  </a>
+	                          </div>
+	                          
+	                      </div>
+	                  </div>
+	            </div>
+	        </div>
+		
+			<p:spacer/>
+			
+			
+				<h:form enctype="multipart/form-data" prependId="false">
+					<p:dialog header="Elegir imagen" widgetVar="fileSelectDialog" modal="true" height="150" width="500">
+					    <input type="file" name="file" style="width: 100%"/>
+					    <br/><br/>
+					    <f:facet name="footer">
+					    	 <h:commandLink styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only BlueButton RaisedButton"
+					    	                action="uploadFile"
+					    	                title="Carga un archivo a la carpeta de fotos de perfil"
+					    	                style="padding: 10px; color: white;">
+								<span class="fa icon icon-upload119" aria-hidden="true" style="vertical-align: bottom;"></span>
+					          	<span class="ui-button-text ui-c" style="display: inline; padding: 10px !important;">
+					          		Cargar
+					          	</span>
+							</h:commandLink>
+						</f:facet>
+					</p:dialog>
+				</h:form>
+				
+				<h:form prependId="false">
+					<p:dialog header="Cambar contraseña" widgetVar="changePasswordDialog" modal="true" height="150" width="500">
+						<div class="ui-fluid">
+							<p:panelGrid id="passwordFields" columns="2" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+								<p:outputLabel value="Contraseña" style="line-height: 2em;"/>
+								<p:password id="password" value="#{flowScope.password}" required="true" label="Contraseña" placeholder="Ingrese una contraseña de 6 caracteres o más">
+									<f:validateLength minimum="6"/>
+								</p:password>
+				
+								<p:outputLabel value="Repetir contraseña" style="line-height: 2em;"/>
+								<p:password id="repetirPassword" value="#{flowScope.repetirPassword}" required="true" label="Repetir contraseña"
+								            placeholder="Escriba nuevamente su nueva contraseña">
+									<f:validateLength minimum="6"/>
+								</p:password>
+							</p:panelGrid>
+						</div>    
+						<f:facet name="footer">
+							<p:commandButton icon="fa icon icon-save20" value="Guardar" action="cambiarPassword"
+							                 styleClass="RaisedButton"
+							                 update="passwordFields"/>
+							<p:commandButton styleClass="GrayButton RaisedButton" type="button" value="Cancelar"
+							                 title="Cancelar" icon="fa fa-ban" onclick="PF('changePasswordDialog').hide();"/>
+						</f:facet>
+					</p:dialog>
+				</h:form>
+			
+			
+		</p:panel>
+			
+	</ui:define>
+	
+</ui:composition>

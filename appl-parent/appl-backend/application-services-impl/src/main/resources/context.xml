@@ -39,6 +39,7 @@
 	<bean id="bancoDAO" class="org.ambar.appl.dao.impl.BancoDAOImpl" parent="parentDAO"/>
 	<bean id="paisDAO" class="org.ambar.appl.dao.impl.PaisDAOImpl" parent="parentDAO"/>
 	<bean id="provinciaDAO" class="org.ambar.appl.dao.impl.ProvinciaDAOImpl" parent="parentDAO"/>
+	<bean id="usuarioDAO" class="org.ambar.appl.dao.impl.UsuarioDAOImpl" parent="parentDAO"/>
 
 
 	<!-- BOs -->
@@ -140,6 +141,9 @@
 	<bean id="provinciaBO" class="org.ambar.appl.bo.impl.ProvinciaBOImpl" init-method="init" parent="parentBO">
 		<property name="dao" ref="provinciaDAO"/>
 	</bean>
+	<bean id="usuarioBO" class="org.ambar.appl.bo.impl.UsuarioBOImpl" init-method="init" parent="parentBO">
+		<property name="dao" ref="usuarioDAO"/>
+	</bean>
 
 	<!-- Mappers -->
 	<bean id="ordenTrabajoMapper" class="org.ambar.appl.mappers.impl.OrdenTrabajoMapperImpl" parent="parentMapper"/>
@@ -174,6 +178,7 @@
 	<bean id="paisMapper" class="org.ambar.appl.mappers.impl.PaisMapperImpl" parent="parentMapper"/>
 	<bean id="provinciaIDMapper" class="org.ambar.appl.mappers.impl.ProvinciaIDMapperImpl" parent="parentMapper"/>
 	<bean id="provinciaMapper" class="org.ambar.appl.mappers.impl.ProvinciaMapperImpl" parent="parentMapper"/>
+	<bean id="usuarioMapper" class="org.ambar.appl.mappers.impl.UsuarioMapperImpl" parent="parentMapper"/>
 
 	<!-- Services -->
 	<bean id="ordenTrabajoServices" class="org.ambar.appl.services.impl.OrdenTrabajoServicesImpl" parent="parentServices">
@@ -296,6 +301,10 @@
 		<property name="businessObject" ref="provinciaBO"/>
 		<property name="entityMapper" ref="provinciaMapper"/>
 		<property name="provinciaIDMapper" ref="provinciaIDMapper"/>
+	</bean>
+	<bean id="usuarioServices" class="org.ambar.appl.services.impl.UsuarioServicesImpl" parent="parentServices">
+		<property name="businessObject" ref="usuarioBO"/>
+		<property name="entityMapper" ref="usuarioMapper"/>
 	</bean>
 
 	<!-- Validators -->

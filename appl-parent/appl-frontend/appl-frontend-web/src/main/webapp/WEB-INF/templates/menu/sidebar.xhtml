@@ -2,6 +2,7 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
@@ -139,11 +140,11 @@
 	        </ul>
        	</li>
        	
-       	<li id="rm_configuracion" role="menuitem">
+       	<li id="rm_parametros" role="menuitem">
        		<a href="#" class="menulink ripplelink #{entitySelected == 'banco' or entitySelected == 'pais' or entitySelected == 'provincia' or entitySelected == 'tipoGasto' or entitySelected == 'tipoIngreso' or entitySelected == 'numeradorComprobante' ? 'active-menu' : ''}">
        			<i class="icon-ellipsis1"></i>
        			<i class="icon-settings49"></i>
-       			 Configuración
+       			 Parámetros
        		</a>
        		
         	<ul role="menu" class="#{entitySelected == 'banco' or entitySelected == 'pais' or entitySelected == 'provincia' or entitySelected == 'tipoGasto' or entitySelected == 'tipoIngreso' or entitySelected == 'numeradorComprobante' ? 'active-menu' : ''}">
@@ -185,5 +186,24 @@
 	        	</li>
 	        </ul>
 	     </li>
+	     
+	     <c:if test="${navigationBean.actualUser.perfil == 'ADMIN'}">
+		     <li id="rm_administracion" role="menuitem">
+	       		<a href="#" class="menulink ripplelink #{entitySelected == 'usuario' ? 'active-menu' : ''}">
+	       			<i class="icon-ellipsis1"></i>
+	       			<i class="icon icon-https"></i>
+	       			 Administración
+	       		</a>
+	       		<ul role="menu" class="#{entitySelected == 'usuario' ? 'active-menu' : ''}">
+		       		<li id="rm_404" role="menuitem">
+			        	<a class="menulink ripplelink" href="${request.contextPath}/spring/usuarioFlow?entity=usuario&amp;from=M&amp;toState=listaState">
+			        		<i class="icon-ellipsis1"></i>
+			        		Usuarios
+			        	</a>
+		        	</li>
+		        </ul>
+	       	</li>
+          </c:if>
+
      </ul>
 </ui:composition>

@@ -8,7 +8,12 @@
            http://www.springframework.org/schema/context
            http://www.springframework.org/schema/context/spring-context.xsd">
 
-        <!-- Navegacion principal -->  
+        <!-- Navegacion principal -->
+        <bean id="navigationBean" class="org.ambar.appl.frontend.beans.impl.NavigationBeanImpl" scope="session">
+        	<property name="requestContext" ref="userContext"/>
+        	<property name="usuarioServices" ref="usuarioServices"/>
+        </bean>
+
         <bean id="menuBean" class="org.ambar.appl.frontend.beans.impl.MenuBean" scope="session">
         	<property name="dictionaryServices" ref="dictionaryServices"/>
         </bean>

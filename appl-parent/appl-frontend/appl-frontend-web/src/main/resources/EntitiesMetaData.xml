@@ -251,6 +251,13 @@
 		<attribute id="descripcionPais" visibleName="Pais" order="2" fieldType="field" dataType="String" width="150" />
 		<attribute id="descripcion" visibleName="Descripción" order="2" fieldType="field" dataType="String" width="150" />
 	</entity>
+	
+	<entity id="usuario">
+		<attribute id="id" visibleName="ID Usuario" order="1" fieldType="primary-key" width="100" mask="" dataType="String" />
+		<attribute id="nombre" visibleName="Nombre" order="2" fieldType="field" dataType="String" width="150" />
+		<attribute id="email" visibleName="Email" order="2" fieldType="field" dataType="String" width="150" />
+		<attribute id="descripcionPerfil" visibleName="Perfil" order="2" fieldType="field" dataType="String" width="150" />
+	</entity>
 
 
 </entities>

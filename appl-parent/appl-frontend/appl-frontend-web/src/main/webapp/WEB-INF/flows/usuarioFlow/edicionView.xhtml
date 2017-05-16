@@ -1,0 +1,42 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:security="http://www.springframework.org/security/tags"
+	xmlns:custom="http://ambar.org/facelets"
+	template="/WEB-INF/templates/template_crud.xhtml">
+	
+	<ui:define name="title">
+		<h:outputText value="Edición de Usuario" /> 
+	</ui:define>
+	 
+	<ui:define name="toolbar_crud">
+		<ui:include src="/WEB-INF/templates/toolbars/toolbar_edicion.xhtml" />
+	</ui:define>
+	
+	<ui:define name="content_crud">
+		
+		<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+			<p:outputLabel value="ID Usuario"/>
+			<h:outputText value="#{selectedDTO.id}"/>
+
+			<p:outputLabel value="Nombre"/>
+			<p:inputText value="#{selectedDTO.nombre}"/>
+
+			<p:outputLabel value="Email"/>
+			<p:inputText value="#{selectedDTO.email}"/>
+
+			<p:outputLabel value="Perfil"/>
+			<p:selectOneMenu id="fld_perfil" value="#{selectedDTO.perfil}" label="Perfil de Usuario" immediate="true">
+				<f:selectItem itemLabel="Administrador" itemValue="ADMIN"/>  
+				<f:selectItem itemLabel="Usuario" itemValue="USER"/>    
+			</p:selectOneMenu>
+		</p:panelGrid>
+
+	</ui:define>
+
+</ui:composition>

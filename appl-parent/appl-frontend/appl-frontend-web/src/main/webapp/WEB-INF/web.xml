@@ -104,6 +104,17 @@
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	
+	<!-- Multiparts Files -->
+	<filter>
+	    <filter-name>MultipartFilter</filter-name>
+	    <filter-class>org.springframework.web.multipart.support.MultipartFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+	    <filter-name>MultipartFilter</filter-name>
+	    <url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 	<!-- Loads the Spring web application context -->
 	<listener>

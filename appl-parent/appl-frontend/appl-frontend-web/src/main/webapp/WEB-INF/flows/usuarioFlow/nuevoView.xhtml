@@ -1,0 +1,44 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:security="http://www.springframework.org/security/tags"
+	xmlns:custom="http://ambar.org/facelets"
+	template="/WEB-INF/templates/template_crud_new.xhtml">
+	
+	<ui:define name="title">
+		<h:outputText value="Nuevo Usuario" /> 
+	</ui:define>
+	 
+	<ui:define name="toolbar_crud">
+		<ui:include src="/WEB-INF/templates/toolbars/toolbar_edicion.xhtml" />
+	</ui:define>
+	
+	<ui:define name="content_crud">	
+
+		<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+			<p:outputLabel value="ID Usuario"/>
+			<p:inputText value="#{nuevaEntidad.id}"/>
+			
+			<p:outputLabel value="Contraseña"/>
+			<p:password value="#{nuevaEntidad.password}"/>
+
+			<p:outputLabel value="Nombre"/>
+			<p:inputText value="#{nuevaEntidad.nombre}"/>
+
+			<p:outputLabel value="Email"/>
+			<p:inputText value="#{nuevaEntidad.email}"/>
+
+			<p:outputLabel value="Perfil"/>
+			<p:selectOneMenu id="fld_perfil" value="#{nuevaEntidad.perfil}" label="Perfil de Usuario" immediate="true">
+				<f:selectItem itemLabel="Administrador" itemValue="ADMIN"/>  
+				<f:selectItem itemLabel="Usuario" itemValue="USER"/>    
+			</p:selectOneMenu>
+		</p:panelGrid>
+		
+	</ui:define>
+
+</ui:composition>

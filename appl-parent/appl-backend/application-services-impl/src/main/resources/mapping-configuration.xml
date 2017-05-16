@@ -697,5 +697,19 @@
             <ambar:b>descripcionPais</ambar:b>
         </ambar:field>
 	</ambar:mapping>
+	
+	<!-- Usuario -->
+	<ambar:mapping map-null="false" trim-strings="true" wildcard="true" stop-on-errors="true" map-empty-string="false">
+		<ambar:class-a map-null="false">org.ambar.appl.be.Usuario</ambar:class-a>
+		<ambar:class-b map-null="false">org.ambar.appl.dto.UsuarioDTO</ambar:class-b>
+		<ambar:field custom-converter-id="enumDozerConverter">
+			<ambar:a>perfil</ambar:a>
+			<ambar:b>perfil</ambar:b>
+		</ambar:field>
+		<ambar:field custom-converter-id="enumDozerDescConverter" type="one-way">
+			<ambar:a>perfil</ambar:a>
+			<ambar:b>descripcionPerfil</ambar:b>
+		</ambar:field>
+	</ambar:mapping>
 
 </ambar:mappings>

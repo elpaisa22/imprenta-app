@@ -5,12 +5,15 @@ package org.ambar.appl.frontend.beans.impl;
 
 import java.io.Serializable;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-import org.ambar.core.commons.filters.FilteringContext;
-import org.ambar.core.commons.filters.Pager;
+import org.ambar.appl.dto.UsuarioDTO;
+import org.ambar.appl.frontend.beans.api.LoggedUser;
+import org.ambar.appl.services.UsuarioServices;
+import org.ambar.core.commons.context.RequestContext;
+import org.apache.commons.io.FilenameUtils;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  * <p>
@@ -20,34 +23,64 @@ import org.ambar.core.commons.filters.Pager;
  * @author Sebastian
  *
  */
-@ManagedBean (name="navigationBean")
-@ViewScoped
 public class NavigationBeanImpl implements Serializable {
-	
 	private static final long serialVersionUID = -6673029494848115455L;
 
-	private static final String FILTERING_CONTEXT = "filteringContext";
-	private static final String RELOAD = "reload";
-	private static final String ACTUAL_PAGE="actualPage";
-	
-	public String pagerHandler(Integer page, Integer pageSize){
-		
-		Pager pager = new Pager();
-		pager.setPage(page);
-		pager.setPageSize(pageSize);
-		
-		FilteringContext filteringContext = (FilteringContext)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(FILTERING_CONTEXT);
-		
-		if(null == filteringContext){
-			filteringContext = new FilteringContext();
-		}
-		
-		filteringContext.setPager(pager);
-		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(FILTERING_CONTEXT, filteringContext);
-		
-		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(ACTUAL_PAGE, page);
+	private static final String LOGGED_USER = "LOGGEDUSER";
 
-		
-		return RELOAD;
+	private RequestContext requestContext;
+	private UsuarioServices usuarioServices;
+
+	/**
+	 * @param pRequestContext Establece el valor del atributo requestContext.
+	 */
+	public void setRequestContext(RequestContext pRequestContext) {
+		requestContext = pRequestContext;
+	}
+
+	/**
+	 * @param pUsuarioServices Establece el valor del atributo usuarioServices.
+	 */
+	public void setUsuarioServices(UsuarioServices pUsuarioServices) {
+		usuarioServices = pUsuarioServices;
+	}
+
+	/**
+	 * Obtiene el usuario actual logueado.
+	 * */
+	public LoggedUser getActualUser() {
+		if (!FacesContext.getCurrentInstance().getExternalContext().getSessionMap().containsKey(LOGGED_USER)) {
+			this.loadUserData();
+		}
+		LoggedUser usr = (LoggedUser) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(LOGGED_USER);
+
+		return usr;
+	}
+	
+	public void loadUserData() {
+		LoggedUser usr = null;
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = authentication.getName();
+		this.requestContext.setUser(currentPrincipalName);
+
+		UsuarioDTO usuario = this.usuarioServices.getById(currentPrincipalName, this.requestContext).getResult();
+
+		if (usuario != null) {
+			usr = new LoggedUser();
+			usr.setId(usuario.getId());
+			usr.setNombre(usuario.getNombre());
+			usr.setEmail(usuario.getEmail());
+			usr.setImagen(FilenameUtils.getName(usuario.getImagen()));
+			usr.setPerfil(usuario.getPerfil());
+		} else if (currentPrincipalName.compareTo("admin") == 0) {
+			usr = new LoggedUser();
+			usr.setId("ADMIN");
+			usr.setNombre("ADMIN");
+			usr.setEmail("ADMIN");
+			usr.setPerfil("ADMIN");
+		}
+
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(LOGGED_USER, usr);
 	}
 }
