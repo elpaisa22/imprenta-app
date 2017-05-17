@@ -63,8 +63,8 @@
 	    
 		<h:form>
 			<p:confirmDialog message="¿Esta seguro que desea cerrar la sesión y salir del sistema?" width="400" showEffect="fade" hideEffect="fade" header="Cerrar Sesión" severity="alert" widgetVar="confirmationClose">
-				<p:button value="Si, estoy seguro" href="${request.contextPath}/spring/logout"/>
-				<p:commandButton value="No" onclick="PF('confirmationClose').hide()" type="button" />
+				<p:button value="Si, estoy seguro" href="${request.contextPath}/spring/logout" styleClass="RaisedButton"/>
+				<p:commandButton value="No" onclick="PF('confirmationClose').hide()" type="button" styleClass="RaisedButton"/>
 			</p:confirmDialog>
 		</h:form>
 		

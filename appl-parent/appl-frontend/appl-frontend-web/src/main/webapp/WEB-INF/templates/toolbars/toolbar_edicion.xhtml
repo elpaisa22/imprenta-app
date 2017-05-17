@@ -24,18 +24,18 @@
 	<p:hotkey bind="esc"    handler="PF('confirmationEditar').hide();PF('confirmationCancelar').hide();"/>
 	
 	<p:confirmDialog message="¿Está seguro que desea guardar los cambios?" width="400" showEffect="fade" hideEffect="fade" header="Grabar" severity="alert" widgetVar="confirmationEditar">
-		<p:commandButton value="Si, estoy seguro" action="grabar" process="@form" update="@form" oncomplete="PF('confirmationEditar').hide()"/>
-		<p:commandButton value="No" onclick="PF('confirmationEditar').hide()" type="button" />
+		<p:commandButton value="Si, estoy seguro" action="grabar" process="@form" update="@form" oncomplete="PF('confirmationEditar').hide()" styleClass="RaisedButton"/>
+		<p:commandButton value="No" onclick="PF('confirmationEditar').hide()" type="button" styleClass="RaisedButton"/>
 	</p:confirmDialog>
 
 	<p:confirmDialog message="¿Está seguro que desea perder los cambios?" width="400" showEffect="fade" hideEffect="fade" header="Cancelar" severity="alert" widgetVar="confirmationCancelar">
-		<p:commandButton value="Si, estoy seguro" action="cancelar" immediate="true" oncomplete="PF('confirmationCancelar').hide()"/>
-		<p:commandButton value="No" onclick="PF('confirmationCancelar').hide()" type="button" />
+		<p:commandButton value="Si, estoy seguro" action="cancelar" immediate="true" oncomplete="PF('confirmationCancelar').hide()" styleClass="RaisedButton"/>
+		<p:commandButton value="No" onclick="PF('confirmationCancelar').hide()" type="button" styleClass="RaisedButton"/>
 	</p:confirmDialog>
 	
 	<p:confirmDialog message="¿Está seguro que desea eliminar el registro?" width="400" showEffect="fade" hideEffect="fade" header="Eliminar" severity="alert" widgetVar="confirmationEliminar">
-		<p:commandButton value="Si, estoy seguro" action="eliminar" immediate="true" oncomplete="PF('confirmationEliminar').hide()"/>
-		<p:commandButton value="No" onclick="PF('confirmationEliminar').hide()" type="button" />
+		<p:commandButton value="Si, estoy seguro" action="eliminar" immediate="true" oncomplete="PF('confirmationEliminar').hide()" styleClass="RaisedButton"/>
+		<p:commandButton value="No" onclick="PF('confirmationEliminar').hide()" type="button" styleClass="RaisedButton"/>
 	</p:confirmDialog>
 
 </ui:composition>
