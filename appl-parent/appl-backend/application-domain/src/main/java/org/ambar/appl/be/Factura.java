@@ -146,7 +146,7 @@ public class Factura implements Persistible<Long>, Trackingable, Versionable {
 	/**
 	 * @return Retorna el valor del atributo coleccionDetalleFacturas.
 	 */
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "factura", fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "factura")
 	@Valid
 	public List<DetalleFactura> getColeccionDetalleFacturas() {
 		return coleccionDetalleFacturas;

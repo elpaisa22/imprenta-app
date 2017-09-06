@@ -7,7 +7,8 @@
 	<persistence-unit name="AMBAR-PU" transaction-type="RESOURCE_LOCAL">
 		<properties>
 			<property name="hibernate.default_schema" value="ambardb"/>
-			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+<!-- 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/> -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
 			<property name="hibernate.format_sql" value="true"/>
 			<property name="hibernate.show_sql" value="true"/>
 			<property name="hibernate.cache.provider_class" value="org.hibernate.cache.HashtableCacheProvider"/>

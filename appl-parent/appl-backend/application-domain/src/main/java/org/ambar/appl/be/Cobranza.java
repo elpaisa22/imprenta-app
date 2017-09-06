@@ -316,7 +316,7 @@ public class Cobranza implements Persistible<Long>, Trackingable, Versionable {
 	/**
 	 * @return Retorna el valor del atributo coleccionDetalleCobranza.
 	 */
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "cobranza", fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "cobranza")
 	@Valid
 	public List<DetalleCobranza> getColeccionDetalleCobranza() {
 		return coleccionDetalleCobranza;

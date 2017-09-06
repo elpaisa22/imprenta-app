@@ -91,7 +91,7 @@ public class Remito implements Persistible<Long>, Trackingable, Versionable {
 	/**
 	 * @return Retorna el valor del atributo coleccionOrdenesTrabajo.
 	 */
-	@OneToMany(mappedBy = "remito", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "remito")
 	@Valid
 	public List<OrdenTrabajo> getColeccionOrdenesTrabajo() {
 		return coleccionOrdenesTrabajo;

@@ -128,7 +128,7 @@ public class CuentaBancaria implements Persistible<Long>, Trackingable, Versiona
 	/**
 	 * @return Retorna el valor del atributo coleccionMovimientos.
 	 */
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "cuentaBancaria", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "cuentaBancaria")
 	@Valid
 	public List<MovimientoCuentaBancaria> getColeccionMovimientos() {
 		return coleccionMovimientos;

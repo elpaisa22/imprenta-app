@@ -53,7 +53,7 @@
 
 	<bean id="jpaAdapter"
 		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"
-		p:database="MYSQL" p:showSql="true" p:generateDdl="true">
+		p:database="POSTGRESQL" p:showSql="true" p:generateDdl="true">
 	</bean>
 
 	<bean
@@ -61,12 +61,19 @@
 	<bean
 		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
 
-
+    <!-- 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close" p:driverClassName="com.mysql.jdbc.Driver"
 		p:url="jdbc:mysql://localhost:3306/ambardb?autoReconnect=true">
 		<property name="username" value="root" />
 		<property name="password" value="root" />
+	</bean>
+	 -->
+	 <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close" p:driverClassName="org.postgresql.Driver"
+		p:url="jdbc:postgresql://localhost:5432/ambardb?autoReconnect=true">
+		<property name="username" value="postgres" />
+		<property name="password" value="postgres" />
 	</bean>
 	
 	

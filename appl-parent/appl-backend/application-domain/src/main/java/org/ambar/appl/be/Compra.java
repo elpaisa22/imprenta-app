@@ -110,7 +110,7 @@ public class Compra implements Persistible<Long>, Trackingable, Versionable {
 	/**
 	 * @return Retorna el valor del atributo coleccionDetalleCompra.
 	 */
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "compra", fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "compra")
 	@Valid
 	public List<DetalleCompra> getColeccionDetalleCompra() {
 		return coleccionDetalleCompra;

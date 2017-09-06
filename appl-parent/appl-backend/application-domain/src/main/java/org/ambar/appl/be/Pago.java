@@ -283,7 +283,7 @@ public class Pago implements Persistible<Long>, Trackingable, Versionable {
 	/**
 	 * @return Retorna el valor del atributo coleccionCheques.
 	 */
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "pago", fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "pago")
 	@Valid
 	public List<Cheque> getColeccionCheques() {
 		return coleccionCheques;
@@ -317,7 +317,7 @@ public class Pago implements Persistible<Long>, Trackingable, Versionable {
 	/**
 	 * @return Retorna el valor del atributo coleccionDetallePago.
 	 */
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "pago", fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "pago")
 	@Valid
 	public List<DetallePago> getColeccionDetallePago() {
 		return coleccionDetallePago;

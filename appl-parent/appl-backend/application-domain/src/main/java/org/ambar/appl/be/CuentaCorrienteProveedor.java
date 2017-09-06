@@ -118,7 +118,7 @@ public class CuentaCorrienteProveedor implements Persistible<Long>, Trackingable
 	/**
 	 * @return Retorna el valor del atributo coleccionMovimientos.
 	 */
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "cuentaCorriente", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "cuentaCorriente")
     @OrderBy("id desc")
 	@Valid
 	public List<MovimientoCuentaCorrienteProveedor> getColeccionMovimientos() {
