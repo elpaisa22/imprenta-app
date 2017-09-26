@@ -4,8 +4,6 @@
 package org.ambar.appl.dao.impl;
 
 import org.ambar.appl.be.Factura;
-import org.ambar.appl.bo.NumeradorComprobanteBO;
-import org.ambar.appl.commons.enums.TipoComprobanteValues;
 import org.ambar.appl.dao.FacturaDAO;
 import org.ambar.core.dao.impl.CrudDAOImpl;
 
