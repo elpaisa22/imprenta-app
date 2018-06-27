@@ -17,12 +17,12 @@
 	</application>
 	
 	
-	<render-kit>
-		<renderer>
-			<component-family>org.primefaces.component</component-family>
-			<renderer-type>org.primefaces.component.DataTableRenderer</renderer-type>
-			<renderer-class>org.ambar.core.faces.renderers.AmbarDataTableRenderer</renderer-class>
-		</renderer>
-	</render-kit>
+<!-- 	<render-kit> -->
+<!-- 		<renderer> -->
+<!-- 			<component-family>org.primefaces.component</component-family> -->
+<!-- 			<renderer-type>org.primefaces.component.DataTableRenderer</renderer-type> -->
+<!-- 			<renderer-class>org.ambar.core.faces.renderers.AmbarDataTableRenderer</renderer-class> -->
+<!-- 		</renderer> -->
+<!-- 	</render-kit> -->
 	
 </faces-config>

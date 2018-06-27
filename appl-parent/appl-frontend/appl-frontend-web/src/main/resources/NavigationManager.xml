@@ -6,7 +6,7 @@
 		<entity id="articulo" name="Artículo" browse-title="Articulo (:id / :descripcion)" image-big="" image-small="" service="articuloServices" crud="articuloFlow">
 		</entity>
 		<entity id="cliente" name="Clientes" browse-title="Clientes (:id, :razonSocial)" image-big="" image-small="" service="clienteServices" crud="clienteFlow">
-			<subentity id="factura" text="Facturas" filterCondition="idCliente = :id" />
+			<subentity id="factura" text="Ventas" filterCondition="idCliente = :id" />
 			<subentity id="cuentaCorriente" text="Cta Cte Cliente" filterCondition="idCliente = :id" />
 		</entity>
 		<entity id="proveedor" name="Proveedores" browse-title="Proveedor (:id / :razonSocial)" image-big="" image-small="" service="proveedorServices" crud="proveedorFlow">
@@ -28,10 +28,10 @@
 			<subentity id="movimientoCuentaCorriente" text="Movimientos de Cuenta" filterCondition="idFactura = :id" />
 		</entity>
 		<entity id="remito" name="Remitos" browse-title="Remitos (:id)" image-big="" image-small="" service="remitoServices" crud="remitoFlow">
-			<subentity id="factura" text="Facturas" filterCondition="idRemito = :id" />
+			<subentity id="factura" text="Ventas" filterCondition="idRemito = :id" />
 		</entity>
 		<entity id="movimientoCuentaCorriente" name="Movimientos de Cta Cte Cliente" browse-title="Mvto de Cta Cte Cliente (:id)" image-big="" image-small="" service="movimientoCuentaCorrienteServices" crud="movimientoCuentaCorrienteFlow">
-			<subentity id="factura" text="Facturas" filterCondition="id = :idFactura" />
+			<subentity id="factura" text="Ventas" filterCondition="id = :idFactura" />
 			<subentity id="cobranza" text="Cobranzas" filterCondition="id = :idCobranza" />
 		</entity>
 		<entity id="movimientoCuentaCorrienteProveedor" name="Mvto de Cta Cte Cliente Proveedor" browse-title="Mvto de Cta Cte Proveedor(:id)" image-big="" image-small="" service="movimientoCuentaCorrienteProveedorServices" crud="movimientoCuentaCorrienteProveedorFlow">

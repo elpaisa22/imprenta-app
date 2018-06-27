@@ -177,9 +177,9 @@ public class GenericLazyDataModel extends LazyDataModel<DTO<Object>> {
     }
 
     @Override
-    public Object getWrappedData() {
+    public List<DTO<Object>> getWrappedData() {
     	if (this.datasource == null) {
-    		return new ArrayList<Object>();
+    		return new ArrayList<DTO<Object>>();
     	}
        	return this.datasource;
     }
