@@ -161,16 +161,18 @@
 					
 					<p:separator/>
 					
-					<p:commandButton id="btnAgregarCheque"
-									 value="Agregar cheque"
-					                 icon="ui-icon-circle-plus"
-					                 title="Agrega un cheque a la cobranza"
-					                 actionListener="#{abmCobranzaBean.crearCheque()}"
-					                 oncomplete="PF('window_cheque').show();"
-					                 async="false"
-					                 process="@this"
-					                 update=":form-main:detalle_cheque"
-					                 partialSubmit="true"/>
+					<p:panelGrid columns="1" columnClasses="ui-grid-col-2" layout="grid" styleClass="ui-panelgrid-blank">
+						<p:commandButton id="btnAgregarCheque"
+										 value="Agregar cheque"
+						                 icon="fa fa-plus-circle"
+						                 title="Agrega un cheque a la cobranza"
+						                 actionListener="#{abmCobranzaBean.crearCheque()}"
+						                 oncomplete="PF('window_cheque').show();"
+						                 async="false"
+						                 process="@this"
+						                 update=":form-main:detalle_cheque"
+						                 partialSubmit="true"/>
+					</p:panelGrid>
 				</p:tab>
 			
 			</p:tabView>
@@ -187,33 +189,33 @@
 		
 		
 		<p:dialog widgetVar="window_cheque" modal="true" resizable="false" width="600" header="Cheque" hideEffect="fade" dynamic="true">
-			<p:outputPanel id="detalle_cheque">
+			<p:outputPanel id="detalle_cheque" styleClass="ui-fluid">
 
 				<p:messages id="clientvalidations"/>
 	
-				<p:panelGrid columns="2" styleClass="tabla-form" columnClasses="label-popup, field-popup">
-					<h:outputText value="Banco:  " styleClass="label-form"/>
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-3,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+					<p:outputLabel value="Banco:  "/>
 		            <p:selectOneMenu id="banco" value="#{abmCobranzaBean.cheque.idBanco}"
 			                         effect="fade" var="t"
 			                         required="true" label="Banco">
 			            <f:selectItem itemLabel="Seleccione una opción" itemValue="#{null}" />
 			            <f:selectItems value="#{abmCobranzaBean.listaBancos}" var="banco" itemLabel="#{banco.descripcion}" itemValue="#{banco.id}" />
 			        </p:selectOneMenu>
-					<h:outputText value="Sucursal:  " styleClass="label-form"/>
+					<p:outputLabel value="Sucursal:  "/>
 					<p:inputText value="#{abmCobranzaBean.cheque.sucursal}" />
-					<h:outputText value="Cuenta:  " styleClass="label-form"/>
+					<p:outputLabel value="Cuenta:  "/>
 					<p:inputText value="#{abmCobranzaBean.cheque.cuenta}" />
-					<h:outputText value="Fecha:  " styleClass="label-form"/>
+					<p:outputLabel value="Fecha:  " />
 					<p:calendar label="Fecha" value="#{abmCobranzaBean.cheque.fecha}" showOn="button" pattern="dd/MM/yyyy" locale="es" required="true"/>
-					<h:outputText value="Vencimiento:  " styleClass="label-form"/>
+					<p:outputLabel value="Vencimiento:  "/>
 					<p:calendar label="Vencimiento" value="#{abmCobranzaBean.cheque.fechaVencimiento}" showOn="button" pattern="dd/MM/yyyy" locale="es" required="true"/>
-					<h:outputText value="Nro del Cheque:  " styleClass="label-form"/>
+					<p:outputLabel value="Nro del Cheque:  "/>
 					<p:inputText label="Nro del Cheque" value="#{abmCobranzaBean.cheque.id}" required="true" />
-					<h:outputText value="Emisor:  " styleClass="label-form"/>
+					<p:outputLabel value="Emisor:  "/>
 					<p:inputText value="#{abmCobranzaBean.cheque.emisor}" />
-					<h:outputText value="CUIT:  " styleClass="label-form"/>
+					<p:outputLabel value="CUIT:  "/>
 					<p:inputMask value="#{abmCobranzaBean.cheque.cuit}" mask="99-99999999-9" label="CUIT"/>
-					<h:outputText value="Monto:  " styleClass="label-form"/>
+					<p:outputLabel value="Monto:  "/>
 					<p:inputText id="fldCosto"
 					             value="#{abmCobranzaBean.cheque.monto}"
 					             required="true" label="Monto">
@@ -226,15 +228,17 @@
 			</p:outputPanel>
 			
 			<f:facet name="footer">
-				<p:commandButton value="Guardar" icon="fa fa-save"
-								 actionListener="#{nuevaEntidad.cobranza.agregarCheque(abmCobranzaBean.cheque)}"
-				                 process="@this detalle_cheque detalle_pagos"
-				                 update="clientvalidations form-main:detalle_pagos:table_cheques detalle_cheque"
-				                 oncomplete="if (args &amp;&amp; !args.validationFailed) {PF('window_cheque').hide(); recalcularMontoTotal();}"
-				                 partialSubmit="true"
-				                 validateClient="true"
-				                 async="false"/>
-				<p:commandButton type="button" ajax="false" value="Cancelar" onclick="PF('window_cheque').hide()" icon="fa fa-ban"/>
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-3,ui-grid-col-3" layout="grid" styleClass="ui-panelgrid-blank">
+					<p:commandButton value="Guardar" icon="fa fa-save"
+									 actionListener="#{nuevaEntidad.cobranza.agregarCheque(abmCobranzaBean.cheque)}"
+					                 process="@this detalle_cheque detalle_pagos"
+					                 update="clientvalidations form-main:detalle_pagos:table_cheques detalle_cheque"
+					                 oncomplete="if (args &amp;&amp; !args.validationFailed) {PF('window_cheque').hide(); recalcularMontoTotal();}"
+					                 partialSubmit="true"
+					                 validateClient="true"
+					                 async="false"/>
+					<p:commandButton type="button" ajax="false" value="Cancelar" onclick="PF('window_cheque').hide()" icon="fa fa-ban"/>
+				</p:panelGrid>
 			</f:facet>
 
 		</p:dialog>
